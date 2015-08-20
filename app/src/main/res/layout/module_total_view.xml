@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Headline -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/module_totalView_textViewHeadline"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:id="@+id/module_totalView_linearLayout_modules">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:background="@color/gray">
+
+                    <!-- Semester -->
+                    <TextView
+                        style="@style/textViewModuleTotalView"
+                        android:text="@string/semester"/>
+                    <View
+                        style="@style/view_verticalWhiteLine">
+                    </View>
+
+                    <!-- Moduletitle -->
+                    <TextView
+                        style="@style/textViewModuleTotalView"
+                        android:layout_width="@dimen/dimen_50"
+                        android:text="@string/moduleTitle"/>
+                    <View
+                        style="@style/view_verticalWhiteLine">
+                    </View>
+
+                    <!-- ECTS -->
+                    <TextView
+                        style="@style/textViewModuleTotalView"
+                        android:text="@string/ects"/>
+                    <View
+                        style="@style/view_verticalWhiteLine">
+                    </View>
+
+                    <!-- Duration -->
+                    <TextView
+                        style="@style/textViewModuleTotalView"
+                        android:text="@string/duration"/>
+                    <View
+                        style="@style/view_verticalWhiteLine">
+                    </View>
+
+                    <!-- teachForm -->
+                    <TextView
+                        style="@style/textViewModuleTotalView"
+                        android:text="@string/teachForm"/>
+                    <View
+                        style="@style/view_verticalWhiteLine">
+                    </View>
+
+                    <!-- examForm -->
+                    <TextView
+                        style="@style/textViewModuleTotalView"
+                        android:text="@string/examForm"/>
+                    <View
+                        style="@style/view_verticalWhiteLine">
+                    </View>
+
+                    <!-- language -->
+                    <TextView
+                        style="@style/textViewModuleTotalView"
+                        android:text="@string/language"/>
+                    <View
+                        style="@style/view_verticalWhiteLine">
+                    </View>
+
+                    <!-- language -->
+                    <TextView
+                        style="@style/textViewModuleTotalView"
+                        android:text="@string/sws"/>
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>
+

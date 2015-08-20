@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/module_singleView_wrapLinearLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/module_singleView_moduleTitle"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- Status -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_3"
+                android:layout_marginLeft="@dimen/dimen_1"
+                android:text="@string/status"
+                android:textSize="@dimen/dimen_4"/>
+
+            <View
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:background="@color/yellow"
+                android:id="@+id/module_singleView_viewStatus"
+                android:clickable="true">
+            </View>
+        </LinearLayout>
+        <!-- Status -->
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="match_parent">
+        </View>
+
+        <!-- Note, CP-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Note"
+                android:layout_marginTop="@dimen/dimen_3"/>
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:background="@color/green"
+                android:id="@+id/module_singleView_textView_note"
+                android:clickable="true">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CP"
+                android:layout_marginTop="@dimen/dimen_3"/>
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:id="@+id/module_singleView_textView_creditPoints"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/module_single_view_textView_content"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/dimen_3"
+        android:id="@+id/module_single_view_textView_assumption"/>
+
+
+
+
+
+
+</LinearLayout>

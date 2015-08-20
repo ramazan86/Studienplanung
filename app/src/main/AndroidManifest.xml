@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cinardere_ramazan_ba_2015.studienplanung" >
+
+    <!-- A C T I V I T I E S  -->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        >
+
+
+        <!-- MainActivity -->
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- SemesterView -->
+        <activity
+            android:name="view.SemesterTotalView"
+            android:label="@string/semesterOverview">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity">
+            </meta-data>
+        </activity>
+
+        <!-- SemesterView.SemesterSingleView -->
+        <activity
+            android:name="view.SemesterTotalView$SemesterSingleView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="view.SemesterTotalView">
+            </meta-data>
+        </activity>
+
+        <!-- ModuleSingleView -->
+        <activity
+            android:name="view.ModuleSingleView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="view.SemesterTotalView$SemesterSingleView">
+            </meta-data>
+        </activity>
+
+        <!-- ModuleTotalView -->
+        <activity
+            android:name="view.ModuleTotalView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="view.SemesterTotalView">
+            </meta-data>
+        </activity>
+    </application>
+
+
+    <!-- P E R M I S S I O N S -->
+
+    <!-- STORAGE -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE">
+    </uses-permission>
+
+
+
+
+
+</manifest>
