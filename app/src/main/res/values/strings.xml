@@ -24,4 +24,5 @@
     <string name="teachForm">Lehrformen</string>
     <string name="language">Sprache</string>
     <string name="sws">SWS</string>
+    <string name="notANumber">NaN</string>
 </resources>

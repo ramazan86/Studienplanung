@@ -1,5 +1,7 @@
 package data;
 
+import com.cinardere_ramazan_ba_2015.studienplanung.R;
+
 import java.io.Serializable;
 
 
@@ -13,7 +15,8 @@ public class Module implements Serializable{
 	 */
 	
 	private static final long serialVersionUID = 1L;
-	
+	public static final int NUMBER_OF_MODULE_VIEW_COLUMNS = 8;
+
 	private String title,
 				   number,
 				   studyPath,
@@ -51,7 +54,23 @@ public class Module implements Serializable{
 	 #    Methods    #
 	 # ############# #
 	 */
-	
+
+
+	public String toString(int i ) {
+
+		switch (i) {
+			case 0: return getSemester();
+			case 1: return getTitle();
+			case 2: return getCreditPoints();
+			case 3: return getDuration();
+			case 4: return getTeachForm();
+			case 5: return getModuleExamination();
+			case 6: return getLanguage();
+			case 7: return getSemesterWeekHours();
+			default: return "NaN";
+		}
+	}
+
 	public String info() {
 	
 		
