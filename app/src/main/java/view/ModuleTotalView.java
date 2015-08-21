@@ -1,6 +1,5 @@
 package view;
 
-import android.app.Notification;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -11,10 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
-
-import org.w3c.dom.Text;
-
-import java.util.regex.Pattern;
 
 import data.Module;
 import data.ModuleManual;
@@ -78,20 +73,18 @@ public class ModuleTotalView extends ActionBarActivity {
         //Each linearLayout_row shows one module
         createLinearLayoutForEachModule();
 
-        createTextView(module.toString(6));
+        for(int i = 0; i<Module.NUMBER_OF_MODULE_VIEW_COLUMNS; i++) {
+            TextView tv = createTextView(module.toString(i), i);
+            addViewIntoLinearLayoutRow(tv);
 
-        createVerticalLine();
+            if(i != (Module.NUMBER_OF_MODULE_VIEW_COLUMNS -1)) {
+                View view = createVerticalLine();
+                addViewIntoLinearLayoutRow(view);
+            }
+        }
 
-        createTextView(module.toString(1));
-
-            //add view into linearlayout_row
-            addViewIntoLinearLayoutRow(textView_value);
-            addViewIntoLinearLayoutRow(view_verticalLine);
-
-
-            //add view into linearlayout_wrap
-            linearLayout_modules.addView(linearLayout_row);
-
+        //add view into linearlayout_wrap
+        linearLayout_modules.addView(linearLayout_row);
     }
 
     private void addViewIntoLinearLayoutRow(View view) {
@@ -129,49 +122,57 @@ public class ModuleTotalView extends ActionBarActivity {
         params = (LinearLayout.LayoutParams) linearLayout_row.getLayoutParams();
         params.setMargins(0, 10, 0, 0);
         linearLayout_row.setLayoutParams(params);
-
-
-
     }
 
-    private void createVerticalLine() {
+    private View createVerticalLine( ) {
 
-        if(view_verticalLine != null) {
-            view_verticalLine = null;
-        }
-
-        view_verticalLine = new View(this);
-        view_verticalLine.setLayoutParams(new LinearLayout.LayoutParams(3, ViewGroup.LayoutParams.MATCH_PARENT));
+        View v = new View(this);
+        v.setLayoutParams(new LinearLayout.LayoutParams(5, ViewGroup.LayoutParams.MATCH_PARENT));
 
         checkIfParamsIsInitialized();
-        params = (LinearLayout.LayoutParams) view_verticalLine.getLayoutParams();
-        params.setMargins(0, 0, 4, 0);
+        params = (LinearLayout.LayoutParams) v.getLayoutParams();
+        params.setMargins(0, 4, 4, 4);
 
-        view_verticalLine.setLayoutParams(params);
-        view_verticalLine.setBackgroundColor(getResources().getColor(R.color.white));
+        v.setLayoutParams(params);
+        v.setBackgroundColor(getResources().getColor(R.color.white));
+
+        return v;
     }
 
-    private void createTextView(String content) {
+    private TextView createTextView(String content, int i ) {
 
-        if(textView_value != null) {
-            textView_value = null;
+        int width = 0;
+
+        switch (i) {
+            case 0: width = 132; break;
+            case 1: width = 500; break;
+            case 2: width = 70;  break;
+            case 3: width = 150; break;
+            case 4: width = 200; break;
+            case 5: width = 250; break;
+            case 6: width = 250; break;
+            case 7: width = 100; break;
         }
 
-        textView_value = new TextView(this);
-        textView_value.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        textView_value.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+
+
+        TextView textView= new TextView(this);
+            textView.setLayoutParams(new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT));
+            textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
         checkIfParamsIsInitialized();
 
-        params = (LinearLayout.LayoutParams) textView_value.getLayoutParams();
+        params = (LinearLayout.LayoutParams) textView.getLayoutParams();
         int marginRight = Math.round(getResources().getDimension(R.dimen.dimen_1));
         int textSize = Math.round(getResources().getDimension(R.dimen.dimen_5));
-        params.setMargins(0,0,marginRight,0);
+            params.setMargins(0, 0, marginRight, 0);
 
-        textView_value.setText(content);
-        textView_value.setTextSize(30);
-        textView_value.setLayoutParams(params);
-        textView_value.setTextColor(getResources().getColor(R.color.black));
+            textView.setText(content);
+            textView.setTextSize(25);
+            textView.setLayoutParams(params);
+            textView.setTextColor(getResources().getColor(R.color.black));
+
+        return textView;
 
     }
 

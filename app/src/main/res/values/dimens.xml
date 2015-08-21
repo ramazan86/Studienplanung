@@ -22,7 +22,17 @@
     <dimen name="dimen_11">44dp</dimen>
 
     <dimen name="dimen_12.5">50dp</dimen>
+    <dimen name="dimen_15">60dp</dimen>
+    <dimen name="dimen_20">80dp</dimen>
+    <dimen name="dimen_22.5">90dp</dimen>
+    <dimen name="dimen_25">100dp</dimen>
     <dimen name="dimen_50">200dp</dimen>
+    <dimen name="dimen_60">240dp</dimen>
+    <dimen name="dimen_70">280dp</dimen>
+    <dimen name="dimen_80">320dp</dimen>
+    <dimen name="dimen_90">360dp</dimen>
+    <dimen name="dimen_100">4000dp</dimen>
+    <dimen name="dimen_125">500dp</dimen>
 
 
 </resources>

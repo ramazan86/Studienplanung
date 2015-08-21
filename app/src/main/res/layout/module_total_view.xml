@@ -43,7 +43,8 @@
                     <TextView
                         style="@style/textViewModuleTotalView"
                         android:layout_width="@dimen/dimen_50"
-                        android:text="@string/moduleTitle"/>
+                        android:text="@string/moduleTitle"
+                        android:id="@+id/module_totalView_textView_title"/>
                     <View
                         style="@style/view_verticalWhiteLine">
                     </View>
@@ -83,12 +84,13 @@
                     <!-- language -->
                     <TextView
                         style="@style/textViewModuleTotalView"
+                        android:layout_width="@dimen/dimen_50"
                         android:text="@string/language"/>
                     <View
                         style="@style/view_verticalWhiteLine">
                     </View>
 
-                    <!-- language -->
+                    <!-- SWS -->
                     <TextView
                         style="@style/textViewModuleTotalView"
                         android:text="@string/sws"/>
