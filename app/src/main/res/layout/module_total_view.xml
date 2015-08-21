@@ -68,6 +68,7 @@
                     <!-- teachForm -->
                     <TextView
                         style="@style/textViewModuleTotalView"
+                        android:layout_width="@dimen/dimen_40"
                         android:text="@string/teachForm"/>
                     <View
                         style="@style/view_verticalWhiteLine">
@@ -76,6 +77,7 @@
                     <!-- examForm -->
                     <TextView
                         style="@style/textViewModuleTotalView"
+                        android:layout_width="@dimen/dimen_40"
                         android:text="@string/examForm"/>
                     <View
                         style="@style/view_verticalWhiteLine">
@@ -84,7 +86,7 @@
                     <!-- language -->
                     <TextView
                         style="@style/textViewModuleTotalView"
-                        android:layout_width="@dimen/dimen_50"
+                        android:layout_width="@dimen/dimen_30"
                         android:text="@string/language"/>
                     <View
                         style="@style/view_verticalWhiteLine">

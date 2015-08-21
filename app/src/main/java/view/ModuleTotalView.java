@@ -131,7 +131,7 @@ public class ModuleTotalView extends ActionBarActivity {
 
         checkIfParamsIsInitialized();
         params = (LinearLayout.LayoutParams) v.getLayoutParams();
-        params.setMargins(0, 4, 4, 4);
+        params.setMargins(0, 8, 4, 8);
 
         v.setLayoutParams(params);
         v.setBackgroundColor(getResources().getColor(R.color.white));
@@ -144,13 +144,13 @@ public class ModuleTotalView extends ActionBarActivity {
         int width = 0;
 
         switch (i) {
-            case 0: width = 132; break;
-            case 1: width = 500; break;
-            case 2: width = 70;  break;
-            case 3: width = 150; break;
-            case 4: width = 200; break;
-            case 5: width = 250; break;
-            case 6: width = 250; break;
+            case 0: width = 140; break;
+            case 1: width = 612; break;
+            case 2: width = 160;  break;
+            case 3: width = 345; break;
+            case 4: width = 490; break;
+            case 5: width = 493; break;
+            case 6: width = 372; break;
             case 7: width = 100; break;
         }
 
