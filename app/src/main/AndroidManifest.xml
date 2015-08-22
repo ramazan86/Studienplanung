@@ -59,16 +59,23 @@
             </meta-data>
         </activity>
 
-
+        <!-- ModuleContentView-->
         <activity
             android:name="view.ModuleContentView">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="view.ModuleSingleView">
-
             </meta-data>
         </activity>
 
+        <!-- ModuleAssumptionView-->
+        <activity
+            android:name="view.ModuleAssumptionView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="view.ModuleSingleView">
+            </meta-data>
+        </activity>
 
 
 

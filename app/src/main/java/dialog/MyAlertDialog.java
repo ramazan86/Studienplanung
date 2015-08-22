@@ -93,8 +93,7 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
     @Override
     public void onClick(DialogInterface dialog, int which) {
 
-        Log.e(""," " +dialog);
-
+    /*
         if(checkVal.equals(MyHelper.CHECK_VAL_VERSION)) {
 
         }
@@ -125,7 +124,7 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
                 mainActivity.openMarket();
             }
 
-        }
+        }*/
 
     }
 }

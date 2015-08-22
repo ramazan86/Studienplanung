@@ -88,6 +88,7 @@ public class ModuleContentView extends ActionBarActivity implements View.OnClick
         textView_editContent.setOnClickListener(this);
 
         editText_editContent = (EditText) findViewById(R.id.moduleContentView_editText_content);
+        editText_editContent.setOnEditorActionListener(this);
     }
 
     @Override
@@ -150,24 +151,24 @@ public class ModuleContentView extends ActionBarActivity implements View.OnClick
         //If user hit "OK" or "Enter" button on his device keyboard
         if(actionId == EditorInfo.IME_ACTION_DONE) {
 
-
+            //update content of respective module if and only if the content is changed of the current module
             for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
                 if(moduleManual.getModuleList().get(i).getTitle().equals(module.getTitle())) {
-                    moduleManual.getModuleList().get(i).setContent(v.getText().toString());
+
+                    if(!moduleManual.getModuleList().get(i).getContent().equals(v.getText())) {
+                        moduleManual.getModuleList().get(i).setContent(v.getText().toString());
+
+                        //create new serialized file
+                        MyFile myFile = new MyFile(this);
+                        myFile.createFileAndWriteObject(getResources().getString(R.string.moduleManualSer), moduleManual);
+
+                        moduleManual = (ModuleManual) myFile.getObjectFromFile(getResources().getString(R.string.moduleManualSer));
+                    }
                 }
             }
 
-            MyFile myFile = new MyFile(this);
-                myFile.createFileAndWriteObject(getResources().getString(R.string.moduleManualSer), moduleManual);
-
-                moduleManual = (ModuleManual) myFile.getObjectFromFile(getResources().getString(R.string.moduleManualSer));
-                Log.e("moduleManuallllllllll "," " +moduleManual.getModuleList().size());
-
             changeEditTextUseAbility(false);
         }
-
-
-
         return false;
     }
 }

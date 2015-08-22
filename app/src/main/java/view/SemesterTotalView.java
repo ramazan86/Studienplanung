@@ -124,10 +124,10 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
         //String itemValue    = (String) listView.getItemAtPosition(position);
         String semester = semesters.get(position);
         // Show Alert
-        Toast.makeText(getApplicationContext(),
+        /*Toast.makeText(getApplicationContext(),
                 "Position :" + position + "  ListItem : " + semester, Toast.LENGTH_LONG)
                 .show();
-
+        */
         if(!semester.equals(getResources().getString(R.string.totalView))) {
             Intent singleView = new Intent(this, SemesterSingleView.class);
                 singleView.putExtra("semester",semester);
@@ -243,7 +243,7 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
 
             startActivityForResult(moduleSingleView, REQUEST_CODE);
 
-            Toast.makeText(getApplicationContext(), objectList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), objectList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
         }//onItemClick
 
         @Override

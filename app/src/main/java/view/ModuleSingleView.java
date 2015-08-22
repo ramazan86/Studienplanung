@@ -194,8 +194,6 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
             case android.R.id.home: finish(); return true;
             default: return super.onOptionsItemSelected(item);
         }
-
-
     }
 
     @Override
@@ -217,7 +215,14 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
                     content.putExtra("module", module);
                 startActivityForResult(content, REQUEST_CODE);
                 break;
-            case R.id.module_single_view_textView_assumption: break;
+
+            case R.id.module_single_view_textView_assumption:
+                Intent assumption = new Intent(this, ModuleAssumptionView.class);
+                    assumption.putExtra("semester", semester);
+                    assumption.putExtra("moduleManual", moduleManual);
+                    assumption.putExtra("module", module);
+                startActivityForResult(assumption, REQUEST_CODE);
+                break;
 
         }
 
@@ -225,7 +230,6 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
 
         switch (resultCode) {
 

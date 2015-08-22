@@ -17,7 +17,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!-- view: verticalLine-->
+    <!-- view: verticalLine -->
 
     <style name="view_verticalWhiteLine">
         <item name="android:layout_width">3dp</item>
@@ -26,10 +26,36 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <!-- linearLayout: module_assumption_view: assumption -->
+    <style name="linearLayout_assumption">
+        <item name="android:layout_height">@dimen/dimen_20</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/dimen_10</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_4</item>
+        <item name="android:layout_marginRight">@dimen/dimen_4</item>
+        <item name="android:background">@color/gray</item>
+    </style>
 
+    <!-- ImageButton: module_assumption_view: -->
+    <style name="imageButton_iconPencil">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:src">@drawable/pencil_icon_32x32</item>
+        <item name="android:background">@null</item>
+    </style>
 
-
-
-
+    <!-- TextView: HeadLine -->
+    <style name="textView_headline">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/dimen_4</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_4</item>
+        <item name="android:layout_marginRight">@dimen/dimen_4</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/dimen_7</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
 </resources>
