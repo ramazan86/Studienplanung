@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
+import java.io.LineNumberReader;
+
 import data.Module;
 import data.ModuleManual;
 
@@ -48,7 +50,7 @@ public class ModuleTotalView extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setTitle(getResources().getString(R.string.totalView));
         setContentView(R.layout.module_total_view);
-
+        //setContentView(R.layout.test);
         initComponents();
 
         moduleManual = (ModuleManual) getIntent().getExtras().getSerializable("moduleManual");
@@ -73,18 +75,29 @@ public class ModuleTotalView extends ActionBarActivity {
         //Each linearLayout_row shows one module
         createLinearLayoutForEachModule();
 
-        for(int i = 0; i<Module.NUMBER_OF_MODULE_VIEW_COLUMNS; i++) {
-            TextView tv = createTextView(module.toString(i), i);
-            addViewIntoLinearLayoutRow(tv);
 
-            if(i != (Module.NUMBER_OF_MODULE_VIEW_COLUMNS -1)) {
-                View view = createVerticalLine();
-                addViewIntoLinearLayoutRow(view);
-            }
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
+
+            LinearLayout linearRow = createLinearLayoutForEachModule();
+
+            for(int k = 0; k<Module.NUMBER_OF_MODULE_VIEW_COLUMNS; k++) {
+
+                TextView textView_module = createTextView(moduleManual.getModuleList().get(i).toString(k), k);
+                linearRow.addView(textView_module);
+
+                if(k != (Module.NUMBER_OF_MODULE_VIEW_COLUMNS - 1)) {
+                    View view = createVerticalLine();
+                    linearRow.addView(view);
+                }
+            }//for(int k
+            linearLayout_modules.addView(linearRow);
         }
 
+
+
         //add view into linearlayout_wrap
-        linearLayout_modules.addView(linearLayout_row);
+        //linearLayout_modules.addView(linearLayout_row);
+        //linearLayout_modules.addView(linear);
     }
 
     private void addViewIntoLinearLayoutRow(View view) {
@@ -107,21 +120,17 @@ public class ModuleTotalView extends ActionBarActivity {
         }
     }
 
-    private void createLinearLayoutForEachModule() {
+    private LinearLayout createLinearLayoutForEachModule() {
 
-        if(linearLayout_row != null) {
-            linearLayout_row = null;
-        }
-
-        linearLayout_row = new LinearLayout(this);
-        //LayoutParams : 1st Param: width, 2nd Param: height
-        linearLayout_row.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LINEAR_LAYOUT_HEIGHT));
-        linearLayout_row.setBackgroundColor(getResources().getColor(R.color.red));
-
-        //linearlayout margin
-        params = (LinearLayout.LayoutParams) linearLayout_row.getLayoutParams();
-        params.setMargins(0, 10, 0, 0);
-        linearLayout_row.setLayoutParams(params);
+        LinearLayout row = new LinearLayout(this);
+            //LayoutParams : 1st Param: width, 2nd Param: height
+            row.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            row.setBackgroundColor(getResources().getColor(R.color.red));
+                //linearlayout margin
+                params = (LinearLayout.LayoutParams) row.getLayoutParams();
+                params.setMargins(0, 20, 0, 20);
+            row.setLayoutParams(params);
+        return row;
     }
 
     private View createVerticalLine( ) {
@@ -155,10 +164,8 @@ public class ModuleTotalView extends ActionBarActivity {
         }
 
 
-
         TextView textView= new TextView(this);
             textView.setLayoutParams(new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
         checkIfParamsIsInitialized();
 
@@ -170,6 +177,7 @@ public class ModuleTotalView extends ActionBarActivity {
             textView.setText(content);
             textView.setTextSize(25);
             textView.setLayoutParams(params);
+            textView.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
             textView.setTextColor(getResources().getColor(R.color.black));
 
         return textView;
