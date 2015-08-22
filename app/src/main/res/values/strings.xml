@@ -25,4 +25,6 @@
     <string name="language">Sprache</string>
     <string name="sws">SWS</string>
     <string name="notANumber">NaN</string>
+    <string name="editContent">Bearbeiten</string>
+    <string name="changesSuccess">Änderungen wurden erfolgreich übernommen.</string>
 </resources>

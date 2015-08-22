@@ -58,6 +58,20 @@
                 android:value="view.SemesterTotalView">
             </meta-data>
         </activity>
+
+
+        <activity
+            android:name="view.ModuleContentView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="view.ModuleSingleView">
+
+            </meta-data>
+        </activity>
+
+
+
+
     </application>
 
 

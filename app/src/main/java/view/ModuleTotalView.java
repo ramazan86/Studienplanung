@@ -175,7 +175,7 @@ public class ModuleTotalView extends ActionBarActivity {
             params.setMargins(0, 0, marginRight, 0);
 
             textView.setText(content);
-            textView.setTextSize(25);
+            textView.setTextSize(20);
             textView.setLayoutParams(params);
             textView.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
             textView.setTextColor(getResources().getColor(R.color.black));

@@ -73,6 +73,8 @@
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="100dp"
+                android:textColor="@color/black"
+                android:textStyle="bold|italic"
                 android:id="@+id/module_singleView_textView_creditPoints"/>
         </LinearLayout>
     </LinearLayout>
@@ -80,18 +82,20 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/dimen_10"
+        android:clickable="true"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/dimen_20"
         android:id="@+id/module_single_view_textView_content"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="@dimen/dimen_3"
+        android:layout_height="@dimen/dimen_10"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:textColor="@color/black"
         android:id="@+id/module_single_view_textView_assumption"/>
-
-
-
-
-
 
 </LinearLayout>

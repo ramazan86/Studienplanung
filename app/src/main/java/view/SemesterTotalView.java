@@ -78,6 +78,7 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
 
         myFile = new MyFile(getApplicationContext());
         moduleManual = (ModuleManual) myFile.getObjectFromFile(getResources().getString(R.string.moduleManualSer));
+
         ArrayList<String> tmpList = new ArrayList<>();
 
         if(moduleManual != null) {

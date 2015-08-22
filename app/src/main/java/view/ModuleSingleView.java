@@ -47,6 +47,7 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
     private Module module = null;
     private LinearLayout.LayoutParams params = null;
 
+    private final int REQUEST_CODE = 101;
     //
 
 
@@ -208,24 +209,33 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
 
         switch (v.getId()) {
 
-            case R.id.module_single_view_textView_content: showContent(module); break;
+            case R.id.module_single_view_textView_content:
+                Intent content = new Intent(this, ModuleContentView.class);
+                    content.putExtra("semester", semester);
+                    content.putExtra("moduleManual", moduleManual);
+                    content.putExtra("module", module);
+                startActivityForResult(content, REQUEST_CODE);
+                break;
+            case R.id.module_single_view_textView_assumption: break;
 
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        switch (resultCode) {
+
+            case Activity.RESULT_OK:
+                semester = data.getExtras().getString("semester");
+                moduleManual = (ModuleManual) data.getExtras().getSerializable("moduleManual");
+                module = (Module) data.getExtras().getSerializable("module");
+                break;
         }
 
 
 
-
-
-
-
     }
-
-    private void showContent(Module module) {
-
-
-
-
-    }
-
-
 }

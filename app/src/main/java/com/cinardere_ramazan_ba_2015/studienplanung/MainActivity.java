@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import java.io.File;
 import java.util.ArrayList;
 
+import data.ModuleManual;
 import file.MyFile;
 import reader.ReadDataFromPdf;
 import view.SemesterTotalView;
@@ -40,6 +41,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private MyFile myFile = null;
 
+
     /////////////////////////////
     //          Methods        //
     /////////////////////////////
@@ -49,17 +51,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.e("" + TAG, " successfully created!!!");
         initComponents();
 
        // myFile = new MyFile(this.getApplicationContext());
        // myFile.createFolders();
-
-
-        //myFile = new MyFile(this.getApplicationContext());
-        //myFile.getObjectFromFile("ModuleManual.ser");
-
-
 
 
 
@@ -88,7 +83,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         if(v.getId() == R.id.activityMain_imgBtn_moduleOverView) {
             //initPath();
-
             startActivity(new Intent(this, SemesterTotalView.class));
 
             /*MyFile myFile = new MyFile(this.getApplicationContext());
@@ -124,8 +118,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    for(File file: downloadFolder.listFiles()) {
-                        if(file.getName().equals(moduleManualList.get(which))) {
+                    for (File file : downloadFolder.listFiles()) {
+                        if (file.getName().equals(moduleManualList.get(which))) {
                             pathOfModuleManual = file.getAbsolutePath();
                             moduleManual = file;
                         }
@@ -138,7 +132,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 }//onClick
 
 
-
             });
 
         }
@@ -146,7 +139,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
 
         alertBuilder.create().show();
-
-
     }
+
+
 }

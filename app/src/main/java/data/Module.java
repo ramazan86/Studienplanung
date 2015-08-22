@@ -23,6 +23,7 @@ public class Module implements Serializable{
 				   moduleCode,
 				   units,
 				   level,
+				   content,
 				   contentualPrerequisite,
 				   participatePrerequisite,
 				   examinationPrerequisite,
@@ -305,5 +306,13 @@ public class Module implements Serializable{
 
 	public void setMark(String mark) {
 		this.mark = mark;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 }
