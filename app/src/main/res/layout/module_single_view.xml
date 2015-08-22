@@ -86,7 +86,6 @@
         android:clickable="true"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:layout_marginTop="@dimen/dimen_20"
         android:id="@+id/module_single_view_textView_content"/>
 
     <TextView
@@ -94,7 +93,6 @@
         android:layout_height="@dimen/dimen_10"
         android:textStyle="bold"
         android:clickable="true"
-        android:layout_marginTop="@dimen/dimen_5"
         android:textColor="@color/black"
         android:id="@+id/module_single_view_textView_assumption"/>
 

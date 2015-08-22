@@ -103,13 +103,14 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
 
             if(params != null) params = null;
             params = (LinearLayout.LayoutParams) textView_moduleTitle.getLayoutParams();
-            params.setMargins(100,30,0,0);
+            params.setMargins(100,45,0,0);
             textView_moduleTitle.setLayoutParams(params);
 
         //moduletitle
 
             String[] m = moduleTitle.split(" ");
             textView_moduleTitle.setText(" " +module.getTitle());
+            textView_moduleTitle.setTextColor(getResources().getColor(R.color.black));
             textView_moduleTitle.setBackgroundColor(getResources().getColor(R.color.gray));
 
             if(m.length >3) {
@@ -123,7 +124,7 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
         //creditpoints
         textView_creditPoints.setBackgroundColor(getResources().getColor(R.color.gray));
         textView_creditPoints.setText(module.getCreditPoints());
-        textView_creditPoints.setTextSize(textSize + 20f);
+        textView_creditPoints.setTextSize((textSize+40));
         textView_creditPoints.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
         //contents
@@ -133,7 +134,7 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
 
         if(params != null) params = null;
         params = (LinearLayout.LayoutParams) textView_content.getLayoutParams();
-        params.setMargins(60, 160, 60, 0);
+        params.setMargins(60, 200, 60, 0);
 
         textView_content.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         textView_content.setLayoutParams(params);
