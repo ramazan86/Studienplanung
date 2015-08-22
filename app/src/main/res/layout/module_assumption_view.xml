@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        style="@style/textView_headline"
+        android:id="@+id/moduleAssumptionView_textView_headLine"/>
+
+    <!-- contentual -->
+    <LinearLayout
+        style="@style/linearLayout_assumption">
+
+
+        <ScrollView
+            android:layout_width="@dimen/dimen_70"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dimen_3">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:editable="false"
+                android:id="@+id/moduleAssumptionView_editText_contentualAssumption"/>
+        </ScrollView>
+
+        <ImageButton
+            style="@style/imageButton_iconPencil"
+            android:id="@+id/moduleAssumptionView_imageButton_contentualAssumption"/>
+    </LinearLayout>
+
+    <!-- participate -->
+    <LinearLayout
+        style="@style/linearLayout_assumption">
+
+        <ScrollView
+            android:layout_width="@dimen/dimen_70"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dimen_3">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:editable="false"
+                android:id="@+id/moduleAssumptionView_editText_participateAssumption"/>
+        </ScrollView>
+
+        <ImageButton
+            style="@style/imageButton_iconPencil"
+            android:id="@+id/moduleAssumptionView_imageButton_participate"/>
+    </LinearLayout>
+
+    <!-- exam -->
+    <LinearLayout
+        style="@style/linearLayout_assumption">
+
+        <ScrollView
+            android:layout_width="@dimen/dimen_70"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dimen_3">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:editable="false"
+                android:id="@+id/moduleAssumptionView_editText_examAssumption"/>
+        </ScrollView>
+
+
+        <ImageButton
+            style="@style/imageButton_iconPencil"
+            android:id="@+id/moduleAssumptionView_imageButton_exam"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
