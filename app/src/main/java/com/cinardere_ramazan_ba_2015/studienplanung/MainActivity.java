@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Environment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,16 +25,19 @@ import view.SemesterTotalView;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     /////////////////////////////
-    //       Attributes        //
+    //        ATTRIBUTES       //
     /////////////////////////////
 
     private final String TAG = getClass().getPackage().getName() + " " +getClass().getName();
 
     private MenuInflater menuInflater = null;
-    private ImageButton imageButton_moduleOverView = null;
+
+    private ImageButton imageButton_moduleOverView = null,
+                        imageButton_examination    = null;
 
     private File downloadFolder = null,
                  moduleManual   = null;
+
     private String pathOfModuleManual = null;
 
     private AlertDialog.Builder alertBuilder   = null;
@@ -41,10 +46,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private MyFile myFile = null;
 
+    /////////////////////////////
+    //         METHODS         //
+    /////////////////////////////
 
-    /////////////////////////////
-    //          Methods        //
-    /////////////////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +60,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
        // myFile = new MyFile(this.getApplicationContext());
        // myFile.createFolders();
-
-
-
-
     }
 
     @Override
@@ -69,14 +70,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         return super.onCreateOptionsMenu(menu);
     }
 
-
     public void initComponents() {
 
         imageButton_moduleOverView = (ImageButton) findViewById(R.id.activityMain_imgBtn_moduleOverView);
         imageButton_moduleOverView.setOnClickListener(this);
 
-    }
+        imageButton_examination = (ImageButton) findViewById(R.id.activityMain_imgBtn_examination);
+        imageButton_examination.setOnClickListener(this);
 
+    }
 
     @Override
     public void onClick(View v) {
@@ -88,7 +90,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             /*MyFile myFile = new MyFile(this.getApplicationContext());
                 myFile.getObjectFromFile(getResources().getString(R.string.moduleMaualSer));
             */
+        }
 
+        if(v.getId() == R.id.activityMain_imgBtn_examination) {
+            Toast.makeText(getApplicationContext(), "HALLOOOO", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, MyFragmentActivity.class));
         }
 
 

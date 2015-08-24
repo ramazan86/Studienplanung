@@ -31,5 +31,19 @@
         android:id="@+id/txtView_counter"/>
 
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/examination"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:layout_alignLeft="@+id/activityMain_imgBtn_moduleOverView"
+        android:layout_alignStart="@+id/activityMain_imgBtn_moduleOverView"
+        android:layout_marginBottom="62dp"
+        android:background="@null"
+
+        android:id="@+id/activityMain_imgBtn_examination"/>
+
+
 
 </RelativeLayout>

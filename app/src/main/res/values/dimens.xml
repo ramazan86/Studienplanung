@@ -29,6 +29,7 @@
     <dimen name="dimen_25">100dp</dimen>
     <dimen name="dimen_27.5">110dp</dimen>
     <dimen name="dimen_30">120dp</dimen>
+    <dimen name="dimen_32.5">125dp</dimen>
     <dimen name="dimen_40">160dp</dimen>
     <dimen name="dimen_50">200dp</dimen>
     <dimen name="dimen_60">240dp</dimen>

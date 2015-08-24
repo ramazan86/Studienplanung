@@ -1,131 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.v4.view.ViewPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Headline -->
-    <TextView
+    <android.support.v4.view.PagerTitleStrip
+        android:id="@+id/pager_title_strip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/module_totalView_textViewHeadline"/>
+        android:layout_gravity="top"
+        android:background="#33b5e5"
+        android:textColor="#fff"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="@color/gray">
-
-        <!-- Semester -->
-        <TextView
-            style="@style/textViewModuleTotalView"
-            android:text="@string/semester"/>
-        <View
-            style="@style/view_verticalWhiteLine">
-        </View>
-
-        <!-- Moduletitle -->
-        <TextView
-            style="@style/textViewModuleTotalView"
-            android:layout_width="@dimen/dimen_30"
-            android:text="@string/moduleTitle"
-            android:id="@+id/module_totalView_textView_title"/>
-        <View
-            style="@style/view_verticalWhiteLine">
-        </View>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent">
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:orientation="horizontal"
-                        android:background="@color/gray">
-
-
-                        <!-- ECTS -->
-                        <TextView
-                            style="@style/textViewModuleTotalView"
-                            android:text="@string/ects"/>
-                        <View
-                            style="@style/view_verticalWhiteLine">
-                        </View>
-
-                        <!-- Duration -->
-                        <TextView
-                            style="@style/textViewModuleTotalView"
-                            android:text="@string/duration"/>
-                        <View
-                            style="@style/view_verticalWhiteLine">
-                        </View>
-
-                        <!-- teachForm -->
-                        <TextView
-                            style="@style/textViewModuleTotalView"
-                            android:layout_width="@dimen/dimen_40"
-                            android:text="@string/teachForm"/>
-                        <View
-                            style="@style/view_verticalWhiteLine">
-                        </View>
-
-                        <!-- examForm -->
-                        <TextView
-                            style="@style/textViewModuleTotalView"
-                            android:layout_width="@dimen/dimen_40"
-                            android:text="@string/examForm"/>
-                        <View
-                            style="@style/view_verticalWhiteLine">
-                        </View>
-
-                        <!-- language -->
-                        <TextView
-                            style="@style/textViewModuleTotalView"
-                            android:layout_width="@dimen/dimen_30"
-                            android:text="@string/language"/>
-                        <View
-                            style="@style/view_verticalWhiteLine">
-                        </View>
-
-                        <!-- SWS -->
-                        <TextView
-                            style="@style/textViewModuleTotalView"
-                            android:text="@string/sws"/>
-                    </LinearLayout>
-
-
-            </HorizontalScrollView>
-
-
-        </ScrollView>
-
-    </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</LinearLayout>
-
-
-		
-		
+</android.support.v4.view.ViewPager>
