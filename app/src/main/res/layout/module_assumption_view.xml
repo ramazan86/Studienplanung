@@ -9,13 +9,46 @@
         style="@style/textView_headline"
         android:id="@+id/moduleAssumptionView_textView_headLine"/>
 
+
+    <LinearLayout
+        style="@style/linearLayout_assumption"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bitte auswählen"
+            android:textSize="15dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/white">
+        </View>
+
+        <Spinner
+            android:padding="2dp"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/dimen_12.5"
+            android:id="@+id/moduleAssumption_spinner_assumption">
+        </Spinner>
+
+    </LinearLayout>
+
+
     <!-- contentual -->
     <LinearLayout
-        style="@style/linearLayout_assumption">
+        style="@style/linearLayout_assumption"
+        android:layout_marginBottom="10dp"
+        android:layout_height="match_parent"
+        android:id="@+id/moduleAssumptionView_linearLayout_wrapScroll"
+        android:visibility="invisible">
 
 
         <ScrollView
-            android:layout_width="@dimen/dimen_70"
+            android:layout_width="@dimen/dimen_75"
             android:layout_height="match_parent"
             android:padding="@dimen/dimen_3">
 
@@ -24,58 +57,15 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:editable="false"
-                android:id="@+id/moduleAssumptionView_editText_contentualAssumption"/>
+                android:id="@+id/moduleAssumptionView_editText_Assumption"/>
         </ScrollView>
 
         <ImageButton
             style="@style/imageButton_iconPencil"
-            android:id="@+id/moduleAssumptionView_imageButton_contentualAssumption"/>
+            android:id="@+id/moduleAssumptionView_imageButton_pencil"
+            android:layout_gravity="bottom" />
     </LinearLayout>
 
-    <!-- participate -->
-    <LinearLayout
-        style="@style/linearLayout_assumption">
-
-        <ScrollView
-            android:layout_width="@dimen/dimen_70"
-            android:layout_height="match_parent"
-            android:padding="@dimen/dimen_3">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:editable="false"
-                android:id="@+id/moduleAssumptionView_editText_participateAssumption"/>
-        </ScrollView>
-
-        <ImageButton
-            style="@style/imageButton_iconPencil"
-            android:id="@+id/moduleAssumptionView_imageButton_participate"/>
-    </LinearLayout>
-
-    <!-- exam -->
-    <LinearLayout
-        style="@style/linearLayout_assumption">
-
-        <ScrollView
-            android:layout_width="@dimen/dimen_70"
-            android:layout_height="match_parent"
-            android:padding="@dimen/dimen_3">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:editable="false"
-                android:id="@+id/moduleAssumptionView_editText_examAssumption"/>
-        </ScrollView>
-
-
-        <ImageButton
-            style="@style/imageButton_iconPencil"
-            android:id="@+id/moduleAssumptionView_imageButton_exam"/>
-    </LinearLayout>
 
 
 

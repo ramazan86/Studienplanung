@@ -115,7 +115,6 @@ public class MyFile {
                 objectOutputStream.writeObject(tmp);
             }
 
-            Toast.makeText(context, context.getResources().getString(R.string.changesSuccess), Toast.LENGTH_SHORT).show();
         }catch (Exception e) {
             Log.e("Exception in createFileAndWriteObject", e.getCause() + " " +e.getMessage());
             e.printStackTrace();

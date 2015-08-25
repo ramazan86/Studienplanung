@@ -24,6 +24,7 @@ public class Module implements Serializable{
 				   units,
 				   level,
 				   content,
+                   additionalPrerequisite,
 				   contentualPrerequisite,
 				   participatePrerequisite,
 				   examinationPrerequisite,
@@ -71,6 +72,29 @@ public class Module implements Serializable{
 			default: return "NaN";
 		}
 	}
+
+    public String getPrerequisiteAtPositon(int pos) {
+
+        switch (pos) {
+            case 1: return getContentualPrerequisite();
+            case 2: return getParticipatePrerequisite();
+            case 3: return getExaminationPrerequisite();
+            case 4: return getAdditionalPrerequisite();
+            default: return "NaN";
+        }
+    }
+
+    public void updatePrerequisite(int checkValue, String content) {
+
+        switch (checkValue) {
+            case 1: setContentPrerequisite(content); break;
+            case 2: setParticipatePrerequisite(content); break;
+            case 3: setExaminationPrerequisite(content); break;
+            case 4: setAdditionalPrerequisite(content);
+        }
+    }
+
+
 
 	public String info() {
 	
@@ -315,4 +339,13 @@ public class Module implements Serializable{
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+
+    public String getAdditionalPrerequisite() {
+        return additionalPrerequisite;
+    }
+
+    public void setAdditionalPrerequisite(String additionalPrerequisite) {
+        this.additionalPrerequisite = additionalPrerequisite;
+    }
 }

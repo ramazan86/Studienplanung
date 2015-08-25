@@ -93,7 +93,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
 
         if(v.getId() == R.id.activityMain_imgBtn_examination) {
-            Toast.makeText(getApplicationContext(), "HALLOOOO", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, MyFragmentActivity.class));
         }
 
