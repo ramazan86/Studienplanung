@@ -41,8 +41,13 @@ public class Module implements Serializable{
 	               mark,
 				   semester,
 				   semesterWeekHours;		//SWS example 10-12 Uhr => 2 SWS
-	
-	
+
+    private boolean enrolled    = false,
+                    passed      = false;
+
+    private int numberOfTrials;             //Anzahl versuche
+
+
 	/** # ############# #
 	 #  Constructor  #
 	 # ############# #
@@ -73,7 +78,7 @@ public class Module implements Serializable{
 		}
 	}
 
-    public String getPrerequisiteAtPositon(int pos) {
+    public String getPrerequisiteAtPosition(int pos) {
 
         switch (pos) {
             case 1: return getContentualPrerequisite();
@@ -347,5 +352,29 @@ public class Module implements Serializable{
 
     public void setAdditionalPrerequisite(String additionalPrerequisite) {
         this.additionalPrerequisite = additionalPrerequisite;
+    }
+
+    public boolean isEnrolled() {
+        return enrolled;
+    }
+
+    public void setEnrolled(boolean enrolled) {
+        this.enrolled = enrolled;
+    }
+
+    public boolean isPassed() {
+        return passed;
+    }
+
+    public void setPassed(boolean passed) {
+        this.passed = passed;
+    }
+
+    public int getNumberOfTrials() {
+        return numberOfTrials;
+    }
+
+    public void setNumberOfTrials(int numberOfTrials) {
+        this.numberOfTrials = numberOfTrials;
     }
 }

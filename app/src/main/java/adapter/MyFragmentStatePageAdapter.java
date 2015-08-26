@@ -16,6 +16,7 @@ public class MyFragmentStatePageAdapter extends FragmentStatePagerAdapter {
     //       Attributes       //
     ////////////////////////////
 
+    private int count;
 
     ////////////////////////////
     //       Constructor      //
@@ -34,6 +35,20 @@ public class MyFragmentStatePageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+        switch (position) {
+
+            case 0: showEnrolledExams(); break;
+
+
+
+        }
+
+
+
+
+
+
+
         Fragment fragment = new MyFragment();
         Bundle args = new Bundle();
             args.putInt("key", position + 1);
@@ -41,13 +56,21 @@ public class MyFragmentStatePageAdapter extends FragmentStatePagerAdapter {
         return fragment;
     }
 
+    private void showEnrolledExams() {
+
+    }
+
     @Override
     public int getCount() {
-        return 3;
+        return count;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         return "Object " +(position+1);
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

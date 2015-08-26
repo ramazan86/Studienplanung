@@ -31,7 +31,7 @@
     <string name="add">Hinzufügen</string>
 
 
-    <!-- array -->
+    <!-- array: assumption -->
     <string-array name="array_assumptions">
         <item>... </item>
         <item>Inhaltliche Voraussetzungen</item>
@@ -39,6 +39,16 @@
         <item>Teilnahme an der Modulprüfung</item>
         <item>Zusätzliche </item>
     </string-array>
+
+    <!-- array: tab_names -->
+    <string-array name="tab_names">
+        <item>Angemeldet</item>
+        <item>Abgemeldet</item>
+        <item>Fertiggestellt</item>
+        <item>Übersicht</item>
+        <item>Projekte</item>
+    </string-array>
+
 
 
 

@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -61,6 +62,8 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
         createMyTabs();
 
         myFragmentStatePageAdapter = new MyFragmentStatePageAdapter(getSupportFragmentManager());
+        myFragmentStatePageAdapter.setCount(getResources().getStringArray(R.array.tab_names).length);
+
         viewPager = (ViewPager) findViewById(R.id.myViewPager_pager);
 
         viewPager.setAdapter(myFragmentStatePageAdapter);
@@ -72,14 +75,22 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
 
          actionBar = getSupportActionBar();
          actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
+         actionBar.setDisplayShowTitleEnabled(false);
+         actionBar.setDisplayHomeAsUpEnabled(false);
 
-         android.support.v7.app.ActionBar.Tab[] tabs = new android.support.v7.app.ActionBar.Tab[3];
+         LayoutInflater myInlater = LayoutInflater.from(this);
+         View customView = myInlater.inflate(R.layout.my_actionbar,null);
 
-         for(int i = 0; i<tabs.length; i++) {
+         actionBar.setCustomView(customView);
+         actionBar.setDisplayShowCustomEnabled(true);
+
+
+         android.support.v7.app.ActionBar.Tab[] tabs = new android.support.v7.app.ActionBar.Tab[getResources().getStringArray(R.array.tab_names).length];
+
+         for(int i = 0; i<getResources().getStringArray(R.array.tab_names).length; i++) {
              tabs[i] = actionBar.newTab();
-             tabs[i].setText("Tab " +i);
+             tabs[i].setText(getResources().getStringArray(R.array.tab_names)[i]);
              tabs[i].setTabListener(this);
-
              actionBar.addTab(tabs[i]);
          }
 
