@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
 import file.MyFile;
 
@@ -31,8 +34,15 @@ public class MyFragment extends Fragment {
     /////////////////////////////
 
 
+    //Das ist die View f?r jedes einzelne Tab bzw. Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+
+        View rootView = inflater.inflate(R.layout.my_fragment, container, false);
+
+        Bundle args = getArguments();
+
+        ((TextView) rootView.findViewById(R.id.myFragment_textView)).setText(Integer.toString(args.getInt("key")));
+        return rootView;
     }
 }
