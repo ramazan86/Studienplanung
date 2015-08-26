@@ -29,6 +29,12 @@
     <string name="changesSuccess">Änderungen wurden erfolgreich übernommen.</string>
     <string name="chooseValidAssumption">Gültige Auswahl treffen</string>
     <string name="add">Hinzufügen</string>
+    <string name="layoutId">layoutId</string>
+    <string name="chooseSemester">Semester auswählen</string>
+    <string name="addNotice">Notiz hinzufügen</string>
+    <string name="save">Speichern</string>
+    <string name="chooseModule">Modul auswählen ...</string>
+    <string name="warningEnrollExam">Semester und Modul müssen gesetzt sein, um eine Prüfung anmelden zu können.</string>
 
 
     <!-- array: assumption -->
@@ -47,6 +53,16 @@
         <item>Fertiggestellt</item>
         <item>Übersicht</item>
         <item>Projekte</item>
+    </string-array>
+
+    <!-- exam_types -->
+    <string-array name="exam_types">
+        <item>Art auswählen ...</item>
+        <item>Schriftl. Klausur</item>
+        <item>Mündl. Klausur</item>
+        <item>Projekt</item>
+        <item>Wissenschaftliche Arbeit</item>
+        <item>Präsentation</item>
     </string-array>
 
 

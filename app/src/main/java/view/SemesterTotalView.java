@@ -57,7 +57,8 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
         listView = (ListView) findViewById(R.id.semesterView_listViewSemester);
 
         //get semesters from ser_file
-        semesters = getSemestersFromFile();
+        semesters = ModuleManual.getSemesters(getApplicationContext());
+        semesters.add(getResources().getString(R.string.totalView));
 
         // Define a new Adapter
         // First parameter - Context
@@ -72,42 +73,6 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
 
         // ListView Item Click Listener
         listView.setOnItemClickListener(this);
-    }
-
-    private ArrayList<String> getSemestersFromFile() {
-
-        myFile = new MyFile(getApplicationContext());
-        moduleManual = (ModuleManual) myFile.getObjectFromFile(getResources().getString(R.string.moduleManualSer));
-
-        ArrayList<String> tmpList = new ArrayList<>();
-
-        if(moduleManual != null) {
-
-            for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
-
-                String current = moduleManual.getModuleList().get(i).getSemester();
-                String indexPlusOne = "";
-                String indexPlusTwo = "";
-
-                if(i< moduleManual.getModuleList().size()-1)  {
-                    indexPlusOne = moduleManual.getModuleList().get(i+1).getSemester();
-                }
-                if(i<moduleManual.getModuleList().size()-2) {
-                    indexPlusTwo = moduleManual.getModuleList().get(i+2).getSemester();
-                }
-
-                //Log.e("current: " +current," indexPlusOne: " +indexPlusOne);
-                if(!current.equals(indexPlusOne) && !current.equals(indexPlusTwo)) {
-                    tmpList.add(moduleManual.getModuleList().get(i).getSemester() + getResources().getString(R.string.dotPlusSemester));
-                }
-
-            }//for
-
-            tmpList.add(getResources().getString(R.string.totalView));
-        }
-
-        return tmpList;
-
     }
 
     @Override

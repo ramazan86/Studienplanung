@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import adapter.MyFragmentStatePageAdapter;
+import data.ModuleOrganizer;
 
 /**
  * Created by Ramazan Cinardere on 25.08.15.
@@ -30,7 +32,7 @@ import adapter.MyFragmentStatePageAdapter;
  * Work with Fragment to show tabs
  * */
 
-public class MyTabActivity extends ActionBarActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener{
+public class MyTabActivity extends ActionBarActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener, View.OnClickListener {
 
     ////////////////////////////
     //       Attributes       //
@@ -40,6 +42,8 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
     private ViewPager viewPager = null;
 
     private MyFragmentStatePageAdapter myFragmentStatePageAdapter = null;
+
+    private TextView textView_add = null;
 
 
 
@@ -68,7 +72,6 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
 
         viewPager.setAdapter(myFragmentStatePageAdapter);
         viewPager.setOnPageChangeListener(this);
-
     }
 
      private void createMyTabs() {
@@ -77,6 +80,7 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
          actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
          actionBar.setDisplayShowTitleEnabled(false);
          actionBar.setDisplayHomeAsUpEnabled(false);
+         //actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.radial_background));
 
          LayoutInflater myInlater = LayoutInflater.from(this);
          View customView = myInlater.inflate(R.layout.my_actionbar,null);
@@ -84,6 +88,8 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
          actionBar.setCustomView(customView);
          actionBar.setDisplayShowCustomEnabled(true);
 
+         textView_add = (TextView) customView.findViewById(R.id.myActionbar_textView_add);
+         textView_add.setOnClickListener(this);
 
          android.support.v7.app.ActionBar.Tab[] tabs = new android.support.v7.app.ActionBar.Tab[getResources().getStringArray(R.array.tab_names).length];
 
@@ -143,6 +149,18 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
      public void onPageScrollStateChanged(int state) {
 
      }
+
+
+    @Override
+    public void onClick(View v) {
+
+
+        if(v.getId() == R.id.myActionbar_textView_add) {
+            startActivity(new Intent(this, ModuleOrganizer.class).putExtra(getResources().getString(R.string.layoutId), R.layout.add_exam));
+        }
+
+
+    }
 
 
 }

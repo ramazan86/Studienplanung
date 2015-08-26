@@ -88,12 +88,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             startActivity(new Intent(this, SemesterTotalView.class));
 
             /*MyFile myFile = new MyFile(this.getApplicationContext());
-                myFile.getObjectFromFile(getResources().getString(R.string.moduleManualSer));
+                myFile.getObjectFromFile(getResources().getString(R.string.moduleMaualSer));
             */
         }
 
         if(v.getId() == R.id.activityMain_imgBtn_examination) {
-            //startActivity(new Intent(this, ExamAndNote.class));
             startActivity(new Intent(this, MyTabActivity.class));
         }
 

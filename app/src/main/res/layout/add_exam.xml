@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/dimen_7"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_10"
+        android:orientation="horizontal"
+        android:background="@color/light_gray">
+
+       <Spinner
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/addExam_spinner_semester">
+       </Spinner>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:orientation="vertical"
+        android:background="@color/light_gray">
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_10"
+            android:padding="@dimen/dimen_2"
+            android:layout_marginTop="@dimen/dimen_3"
+            android:id="@+id/addExam_spinner_module">
+        </Spinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_gray"
+        android:layout_marginTop="@dimen/dimen_5">
+
+        <Spinner
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_3"
+            android:id="@+id/addExam_spinner_type">
+        </Spinner>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_10"
+
+        android:layout_marginTop="@dimen/dimen_5"
+
+        android:background="@color/light_gray"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:layout_width="@dimen/dimen_48"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/addExam_spinner_date">
+        </Spinner>
+
+        <View
+            android:layout_width="@dimen/dimen_1"
+            android:layout_height="match_parent"
+            android:background="@color/gray">
+        </View>
+
+        <Spinner
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="wrap_content"
+            android:id="@+id/addExam_spinner_time">
+        </Spinner>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8"
+        android:textAllCaps="false"
+
+        android:background="@color/orange"
+        android:text="@string/addNotice"
+
+        android:id="@+id/addExam_button_addNotice"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dimen_4"
+        android:hint="@string/addNotice"
+        android:visibility="invisible"
+        android:id="@+id/addExam_editText_notice"/>
+</LinearLayout>

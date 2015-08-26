@@ -24,14 +24,29 @@
 
     <dimen name="dimen_12.5">50dp</dimen>
     <dimen name="dimen_15">60dp</dimen>
+    <!-- >= 20 && < 30-->
     <dimen name="dimen_20">80dp</dimen>
     <dimen name="dimen_22.5">90dp</dimen>
     <dimen name="dimen_25">100dp</dimen>
     <dimen name="dimen_27.5">110dp</dimen>
     <dimen name="dimen_30">120dp</dimen>
+
+    <!-- >= 30 && < 40-->
     <dimen name="dimen_32.5">125dp</dimen>
+
+    <!-- >= 40 && < 50 -->
     <dimen name="dimen_40">160dp</dimen>
+    <dimen name="dimen_45">180dp</dimen>
+    <dimen name="dimen_46">184dp</dimen>
+    <dimen name="dimen_47">188dp</dimen>
+    <dimen name="dimen_48">192dp</dimen>
+    <dimen name="dimen_49">196dp</dimen>
+
+    <!-- >= 50 && < 60 -->
     <dimen name="dimen_50">200dp</dimen>
+    <dimen name="dimen_54">216dp</dimen>
+    <dimen name="dimen_55">220dp</dimen>
+
     <dimen name="dimen_60">240dp</dimen>
     <dimen name="dimen_70">280dp</dimen>
     <dimen name="dimen_75">300dp</dimen>

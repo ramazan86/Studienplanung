@@ -1,7 +1,14 @@
 package data;
 
+import android.content.Context;
+
+import com.cinardere_ramazan_ba_2015.studienplanung.R;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import file.MyFile;
 
 public class ModuleManual implements Serializable{
 
@@ -23,6 +30,8 @@ public class ModuleManual implements Serializable{
 	private long id;
 	private static long id_counter = 0;
 	private ArrayList<Module> moduleList = null;
+
+
 			   
 
 	/** # ############# #
@@ -54,8 +63,76 @@ public class ModuleManual implements Serializable{
 		module = new Module();
 		return module;
 	}
-	
-	
+
+	public static ArrayList<String> getSemesters(Context context) {
+
+		MyFile myFile = new MyFile(context);
+		ModuleManual moduleManual = (ModuleManual) myFile.getObjectFromFile(context.getResources().getString(R.string.moduleManualSer));
+
+		ArrayList<String> tmpList = new ArrayList<>();
+
+		if (moduleManual != null) {
+
+			for (int i = 0; i < moduleManual.getModuleList().size(); i++) {
+
+				String current = moduleManual.getModuleList().get(i).getSemester();
+				String indexPlusOne = "";
+				String indexPlusTwo = "";
+
+				if (i < moduleManual.getModuleList().size() - 1) {
+					indexPlusOne = moduleManual.getModuleList().get(i + 1).getSemester();
+				}
+				if (i < moduleManual.getModuleList().size() - 2) {
+					indexPlusTwo = moduleManual.getModuleList().get(i + 2).getSemester();
+				}
+
+				//Log.e("current: " +current," indexPlusOne: " +indexPlusOne);
+				if (!current.equals(indexPlusOne) && !current.equals(indexPlusTwo)) {
+					tmpList.add(moduleManual.getModuleList().get(i).getSemester() + context.getResources().getString(R.string.dotPlusSemester));
+				}
+			}//for
+		}
+
+		return tmpList;
+	}
+
+	/**
+	 * get modules of respective semester
+	 * */
+	public ArrayList<String> getModules(String semester) {
+
+		ArrayList<String> tmpList = new ArrayList<>();
+
+		for(int i = 0; i<getModuleList().size(); i++) {
+
+			String sem = getModuleList().get(i).getSemester();
+
+                /*
+                 * Note that this takes a regular expression, so remember to escape special characters if necessary,
+                 * e.g. if you want to split on period . which means "any character" in regex, use either split("\\.")
+                 * or split(Pattern.quote("."))
+                 */
+			String semSplited = semester.split(Pattern.quote("."))[0];
+
+			if(semSplited.equals(sem)) {
+				tmpList.add(getModuleList().get(i).getTitle());
+			}
+		}
+		return tmpList;
+	}
+
+	public Module searchModule(String title) {
+
+		Module tmpModul = null;
+
+		for(int i = 0; i<moduleList.size(); i++) {
+			if(moduleList.get(i).getTitle().equals(title)) {
+				tmpModul = moduleList.get(i);
+			}
+		}
+		return tmpModul;
+	}
+
 	public void info() {
 		System.out.println("Subject: " +this.subject + " graduation: " +this.graduation + " faculty: " +this.faculty + " university: " + this.university);
 	}

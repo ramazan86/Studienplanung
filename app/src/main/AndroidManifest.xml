@@ -76,14 +76,15 @@
             </meta-data>
         </activity>
 
+        <!-- MyTabActivity -->
         <activity
             android:name=".MyTabActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         </activity>
 
-        <activity android:name=".TestActivity"></activity>
-
+        <!-- ModuleOrganizer -->
+        <activity android:name="data.ModuleOrganizer"></activity>
 
     </application>
 
