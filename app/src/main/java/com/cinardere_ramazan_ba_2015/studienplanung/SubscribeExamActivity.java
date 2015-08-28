@@ -1,12 +1,9 @@
 package com.cinardere_ramazan_ba_2015.studienplanung;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -22,16 +19,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.cinardere_ramazan_ba_2015.studienplanung.R;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import data.Module;
-import data.ModuleAdministrator;
 import data.ModuleManual;
 import dialog.MyAlertDialog;
 import file.MyFile;
@@ -258,8 +250,6 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
                 if(!examType.equals(getResources().getStringArray(R.array.exam_types)[0])) {
                     tmp.setExamType(examType);
                 }
-
-
 
 
                 Bundle data = new Bundle();

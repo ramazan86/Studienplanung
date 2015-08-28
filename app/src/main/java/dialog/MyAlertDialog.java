@@ -3,6 +3,7 @@ package dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import com.cinardere_ramazan_ba_2015.studienplanung.SubscribeExamActivity;
 import data.Module;
 import data.ModuleManual;
 import data.ModuleOrganizer;
+import file.MyFile;
 import helper.MyHelper;
 
 /**
@@ -41,7 +43,6 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
     private Context context = null;
     private Bundle arguments = null;
 
-
     /////////////////////////////
     //       Constructors      //
     /////////////////////////////
@@ -67,7 +68,11 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
 
     public MyAlertDialog(Context context) {
         super(context);
-        this.subscribeExamActivity = (SubscribeExamActivity) context;
+
+        if(context instanceof SubscribeExamActivity) {
+            this.subscribeExamActivity = (SubscribeExamActivity) context;
+        }
+
         this.context = context;
     }
 
@@ -123,43 +128,33 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
                     break;
             }
 
-        }
+        }else if(checkVal.equals(MyHelper.CHECK_VALUE_MODULE_UNSUBSCRIBE)) {
+
+            switch (which) {
+
+                case AlertDialog.BUTTON_POSITIVE:
+
+                    if(moduleManual == null) {
+                        moduleManual = (ModuleManual) new MyFile(context).getObjectFromFile(context.getResources().getString(R.string.moduleManualSer));
+                    }
+
+                    String moduleTitle = arguments.getString(context.getResources().getString(R.string.moduleTitle));
+                    Module tmpModule   = moduleManual.searchModule(moduleTitle);
+
+                    new ModuleOrganizer(context).unSubscribeModule(tmpModule);
+
+                    break;
+                case AlertDialog.BUTTON_NEGATIVE:
+                        dialog.dismiss();
+                    break;
 
 
-
-
-    /*
-        if(checkVal.equals(MyHelper.CHECK_VAL_VERSION)) {
-
-        }
-
-
-        if(checkVal.equals(MyHelper.CHECK_VAL_PDF)) {
-
-        }
-
-        if(checkVal.equals(MyHelper.CHECK_VAL_TRASH)) {
-
-            if(which == AlertDialog.BUTTON_NEGATIVE) {
-            }
-            if(which == AlertDialog.BUTTON_POSITIVE) {
-                mainActivity.getPdfReader().deleteEvent(mainActivity);
-                MainActivity.CHECK_FLAG = true;
-                mainActivity.getRotaList().clear();
-                mainActivity.deleteEntryFromDatabase(mainActivity.getTmpIdList());
-                mainActivity.setPath(null);
-                mainActivity.closeDataBase();
-             }
-        }//checkVal.TRASH
-
-
-        if(checkVal.equals(MyHelper.CHECK_VAL_RATING)) {
-
-            if(which == AlertDialog.BUTTON_POSITIVE || which == AlertDialog.BUTTON_NEUTRAL) {
-                mainActivity.openMarket();
             }
 
-        }*/
+        }
+
+
+
 
     }
 

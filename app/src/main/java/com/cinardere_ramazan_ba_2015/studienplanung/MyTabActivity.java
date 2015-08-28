@@ -18,6 +18,8 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import org.w3c.dom.Text;
+
 import adapter.MyFragmentStatePageAdapter;
 import data.ModuleOrganizer;
 
@@ -69,13 +71,14 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
         createTabs();
 
         myFragmentStatePageAdapter = new MyFragmentStatePageAdapter(getSupportFragmentManager(), getApplicationContext());
-        myFragmentStatePageAdapter.setCount(getResources().getStringArray(R.array.tab_names).length);
+        //myFragmentStatePageAdapter.setCount(getResources().getStringArray(R.array.tab_names).length);
         myFragmentStatePageAdapter.setNameOfCurrentTab(nameOfCurrentPage);
 
         viewPager = (ViewPager) findViewById(R.id.myViewPager_pager);
 
         viewPager.setAdapter(myFragmentStatePageAdapter);
         viewPager.setOnPageChangeListener(this);
+
     }
 
      private void createTabs() {
@@ -123,7 +126,6 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
 
          }
 
-
          if(viewPager != null) {
              viewPager.setCurrentItem(tab.getPosition());
          }
@@ -151,6 +153,21 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
      @Override
      public void onPageSelected(int position) {
          getSupportActionBar().setSelectedNavigationItem(position);
+
+
+         Log.e("onPageSelected() "," position: " +position);
+
+         TextView textView = (TextView) findViewById(R.id.myActionbar_textView_add);
+
+         if(position != 0) {
+             textView.setVisibility(View.INVISIBLE);
+             myFragmentStatePageAdapter.notifyDataSetChanged();
+
+         }else {
+             textView.setVisibility(View.VISIBLE);
+         }
+
+
      }
 
      @Override
@@ -169,86 +186,4 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
 
 
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- *
- * @since Class to show Tabs with Activity
- *
- * public class MyTabActivity extends TabActivity {
-
-////////////////////////////
-//       Attributes       //
-////////////////////////////
-
-
-////////////////////////////
-//       Constructor      //
-////////////////////////////
-
-
-////////////////////////////
-//         Methods        //
-////////////////////////////
-
- @Override
- protected void onCreate(Bundle savedInstanceState) {
- requestWindowFeature(Window.FEATURE_ACTION_BAR);
-
- super.onCreate(savedInstanceState);
-
- setContentView(R.layout.my_tabhost);
-
- // create the TabHost that will contain the Tabs
- TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
-
-
- TabSpec tab1 = tabHost.newTabSpec("First Tab");
- TabSpec tab2 = tabHost.newTabSpec("Second Tab");
- TabSpec tab3 = tabHost.newTabSpec("Third tab");
-
- // Set the Tab name and Activity
- // that will be opened when particular Tab will be selected
- tab1.setIndicator("Tab1");
- tab1.setContent(new Intent(this,TestActivity.class).putExtra("check", "Tab1"));
-
- tab2.setIndicator("Tab2");
- tab2.setContent(new Intent(this,TestActivity.class).putExtra("check", "Tab2"));
-
- tab3.setIndicator("Tab3");
- tab3.setContent(new Intent(this,TestActivity.class).putExtra("check", "Tab3"));
-
- //Add the tabs  to the TabHost to display.
-
- tabHost.addTab(tab1);
- tabHost.addTab(tab2);
- tabHost.addTab(tab3);
- }
- }
-  *
-  *
-  * */
-

@@ -1,43 +1,25 @@
 package data;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import dialog.MyAlertDialog;
 import file.MyFile;
-import helper.MyHelper;
+import interfaces.ModuleAdministrator;
 
 /**
  * Created by Ramazan Cinardere on 26.08.15.
  */
-public class ModuleOrganizer implements ModuleAdministrator{
+public class ModuleOrganizer implements ModuleAdministrator {
 
 
     ////////////////////////////
@@ -114,7 +96,8 @@ public class ModuleOrganizer implements ModuleAdministrator{
 
         this.context = context;
         //ModuleManual
-        moduleManual = (ModuleManual) new MyFile(context).getObjectFromFile(context.getResources().getString(R.string.moduleManualSer));
+        myFile = new MyFile(context);
+        moduleManual = (ModuleManual) myFile.getObjectFromFile(context.getResources().getString(R.string.moduleManualSer));
 
     }
 
@@ -123,6 +106,7 @@ public class ModuleOrganizer implements ModuleAdministrator{
 
         Log.e("enrolForModule"," " +module.getTitle());
 
+        module.setUnsubscribed(false);
         module.setEnrolled(true);
 
         moduleManual = moduleManual.replaceModuleInList(module);
@@ -134,7 +118,16 @@ public class ModuleOrganizer implements ModuleAdministrator{
     }
 
     @Override
-    public boolean unSubscribeFromModule(Module module) {
+    public boolean unSubscribeModule(Module module) {
+
+        module.setUnsubscribed(true);
+        module.setEnrolled(false);
+
+        moduleManual = moduleManual.replaceModuleInList(module);
+
+        if(myFile == null) myFile = new MyFile(context);
+            myFile.createFileAndWriteObject(context.getResources().getString(R.string.moduleManualSer), moduleManual);
+
         return false;
     }
 

@@ -12,7 +12,10 @@ import com.cinardere_ramazan_ba_2015.studienplanung.R;
 import data.Module;
 import data.ModuleManual;
 import file.MyFile;
+import fragment.Android;
+import fragment.IOS;
 import fragment.MyFragment;
+import fragment.Windows;
 
 /**
  * Created by Ramazan Cinardere on 25.08.15.
@@ -52,7 +55,7 @@ public class MyFragmentStatePageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        switch (position) {
+        /*switch (position) {
 
             case 0: showEnrolledExams();     break;
             case 1: showUnSubscribedExams(); break;
@@ -65,10 +68,36 @@ public class MyFragmentStatePageAdapter extends FragmentStatePagerAdapter {
 
             args.putSerializable(context.getResources().getString(R.string.moduleManual), moduleManual);
             args.putString(context.getResources().getString(R.string.page), nameOfCurrentTabPage);
+            args.putInt("pos", position);
 
         fragment.setArguments(args);
-        return fragment;
+        return fragment;*/
+
+
+        switch (position) {
+
+            case 0: return new Android();
+            case 1: return new IOS();
+            case 2: return new Windows();
+        }
+        return null;
     }
+
+/*
+    @Override
+    public int getItemPosition(Object object) {
+
+        MyFragment myFragment = (MyFragment) object;
+        int pos = myFragment.getPosition();
+
+
+        if(pos >= 0) {
+            return pos;
+        }else {
+            return POSITION_NONE;
+        }
+
+    }*/
 
     private void showFinishedExams() {
 
@@ -86,7 +115,8 @@ public class MyFragmentStatePageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return count;
+        //return count;
+        return 3;
     }
 
     @Override
