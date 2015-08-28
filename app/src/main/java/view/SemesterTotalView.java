@@ -56,6 +56,9 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.semesterView_listViewSemester);
 
+        //moduleManual
+        moduleManual = (ModuleManual) new MyFile(this).getObjectFromFile(getResources().getString(R.string.moduleManualSer));
+
         //get semesters from ser_file
         semesters = ModuleManual.getSemesters(getApplicationContext());
         semesters.add(getResources().getString(R.string.totalView));

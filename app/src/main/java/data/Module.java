@@ -24,6 +24,7 @@ public class Module implements Serializable{
 				   units,
 				   level,
 				   content,
+                   examType,
                    additionalPrerequisite,
 				   contentualPrerequisite,
 				   participatePrerequisite,
@@ -33,6 +34,8 @@ public class Module implements Serializable{
 				   teachForm,
 				   language,
 				   frequency,
+                   dateOfExam,
+                   timeOfExam,
 				   moduleCoordination,
 				   furtherInformation,
 				   totalWorkload,
@@ -42,8 +45,9 @@ public class Module implements Serializable{
 				   semester,
 				   semesterWeekHours;		//SWS example 10-12 Uhr => 2 SWS
 
-    private boolean enrolled    = false,
-                    passed      = false;
+    private boolean enrolled      = false,
+                    unsubscribed  = false,
+                    passed        = false;
 
     private int numberOfTrials;             //Anzahl versuche
 
@@ -54,8 +58,6 @@ public class Module implements Serializable{
 	 */
 	
 	public Module() {}
-	
-	
 	
 	/** # ############# #
 	 #    Methods    #
@@ -315,18 +317,13 @@ public class Module implements Serializable{
 		this.teachForm = teachForm;
 	}
 
-
-
 	public String getPageOfModuleDescription() {
 		return pageOfModuleDescription;
 	}
 
-
-
 	public void setPageOfModuleDescription(String pageOfModuleDescription) {
 		this.pageOfModuleDescription = pageOfModuleDescription;
 	}
-
 
 	public String getMark() {
 		return mark;
@@ -375,5 +372,42 @@ public class Module implements Serializable{
 
     public void setNumberOfTrials(int numberOfTrials) {
         this.numberOfTrials = numberOfTrials;
+    }
+
+    public boolean isUnsubscribed() {
+        return unsubscribed;
+    }
+
+    public void setUnsubscribed(boolean unsubscribed) {
+        this.unsubscribed = unsubscribed;
+    }
+
+    public String getDateOfExam() {
+        return dateOfExam;
+    }
+
+    public void setDateOfExam(String dateOfExam) {
+        this.dateOfExam = dateOfExam;
+    }
+
+    public String getTimeOfExam() {
+        return timeOfExam;
+    }
+
+    public void setTimeOfExam(String timeOfExam) {
+        this.timeOfExam = timeOfExam;
+    }
+
+    public String getExamType() {
+        return examType;
+    }
+
+    public void setExamType(String examType) {
+
+        if(examType.equals("") || examType == null || examType.equals("Art ausw?hlen ...")) {
+            examType = "NaN";
+        }
+
+        this.examType = examType;
     }
 }

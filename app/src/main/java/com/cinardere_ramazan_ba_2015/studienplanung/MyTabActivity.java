@@ -45,6 +45,9 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
 
     private TextView textView_add = null;
 
+    private String nameOfCurrentPage = "";
+
+    private android.support.v7.app.ActionBar.Tab[] tabs = null;
 
 
     ////////////////////////////
@@ -63,10 +66,11 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_view_pager);
 
-        createMyTabs();
+        createTabs();
 
-        myFragmentStatePageAdapter = new MyFragmentStatePageAdapter(getSupportFragmentManager());
+        myFragmentStatePageAdapter = new MyFragmentStatePageAdapter(getSupportFragmentManager(), getApplicationContext());
         myFragmentStatePageAdapter.setCount(getResources().getStringArray(R.array.tab_names).length);
+        myFragmentStatePageAdapter.setNameOfCurrentTab(nameOfCurrentPage);
 
         viewPager = (ViewPager) findViewById(R.id.myViewPager_pager);
 
@@ -74,7 +78,7 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
         viewPager.setOnPageChangeListener(this);
     }
 
-     private void createMyTabs() {
+     private void createTabs() {
 
          actionBar = getSupportActionBar();
          actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
@@ -91,7 +95,7 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
          textView_add = (TextView) customView.findViewById(R.id.myActionbar_textView_add);
          textView_add.setOnClickListener(this);
 
-         android.support.v7.app.ActionBar.Tab[] tabs = new android.support.v7.app.ActionBar.Tab[getResources().getStringArray(R.array.tab_names).length];
+         tabs = new android.support.v7.app.ActionBar.Tab[getResources().getStringArray(R.array.tab_names).length];
 
          for(int i = 0; i<getResources().getStringArray(R.array.tab_names).length; i++) {
              tabs[i] = actionBar.newTab();
@@ -105,16 +109,20 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
 
      @Override
      public void setActionBar(Toolbar toolbar) {
-
-
          Log.e("setActionBar()" ," " +toolbar.getChildAt(0).getClass().getName());
-
      }
 
 
      @Override
      public void onTabSelected(android.support.v7.app.ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
          Log.e("onTabSelected() at position: " +tab.getPosition()," name: " +tab.getText());
+         nameOfCurrentPage = tab.getText().toString();
+
+         if(myFragmentStatePageAdapter != null) {
+             myFragmentStatePageAdapter.setNameOfCurrentTab(nameOfCurrentPage);
+
+         }
+
 
          if(viewPager != null) {
              viewPager.setCurrentItem(tab.getPosition());
@@ -156,7 +164,7 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
 
 
         if(v.getId() == R.id.myActionbar_textView_add) {
-            startActivity(new Intent(this, ModuleOrganizer.class).putExtra(getResources().getString(R.string.layoutId), R.layout.add_exam));
+            startActivity(new Intent(this, SubscribeExamActivity.class).putExtra(getResources().getString(R.string.layoutId), R.layout.add_exam));
         }
 
 

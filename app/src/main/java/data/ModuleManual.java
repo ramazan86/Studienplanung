@@ -1,6 +1,7 @@
 package data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
@@ -128,13 +129,28 @@ public class ModuleManual implements Serializable{
 		for(int i = 0; i<moduleList.size(); i++) {
 			if(moduleList.get(i).getTitle().equals(title)) {
 				tmpModul = moduleList.get(i);
-			}
+                break;
+            }
 		}
 		return tmpModul;
 	}
 
+    public ModuleManual replaceModuleInList(Module module) {
+
+        for(int i = 0; i<moduleList.size(); i++) {
+            if(moduleList.get(i).getTitle().equals(module.getTitle())) {
+                moduleList.remove(i);
+                moduleList.add(i, module);
+                break;
+            }
+        }
+        return this;
+    }
+
+
+
 	public void info() {
-		System.out.println("Subject: " +this.subject + " graduation: " +this.graduation + " faculty: " +this.faculty + " university: " + this.university);
+		//System.out.println("Subject: " +this.subject + " graduation: " +this.graduation + " faculty: " +this.faculty + " university: " + this.university);
 	}
 	
 	

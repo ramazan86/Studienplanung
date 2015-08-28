@@ -3,10 +3,16 @@ package dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.MainActivity;
+import com.cinardere_ramazan_ba_2015.studienplanung.R;
+import com.cinardere_ramazan_ba_2015.studienplanung.SubscribeExamActivity;
 
+import data.Module;
+import data.ModuleManual;
+import data.ModuleOrganizer;
 import helper.MyHelper;
 
 /**
@@ -21,9 +27,20 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
 
     private String title   = null,
                    message = null;
+
     private int icon = 0;
+
     private String checkVal = null;
-    private MainActivity mainActivity = null;
+
+    private ModuleOrganizer moduleOrganizer = null;
+    private ModuleManual moduleManual       = null;
+    private Module module                   = null;
+
+    private SubscribeExamActivity subscribeExamActivity = null;
+
+    private Context context = null;
+    private Bundle arguments = null;
+
 
     /////////////////////////////
     //       Constructors      //
@@ -50,7 +67,8 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
 
     public MyAlertDialog(Context context) {
         super(context);
-        this.mainActivity = (MainActivity) context;
+        this.subscribeExamActivity = (SubscribeExamActivity) context;
+        this.context = context;
     }
 
     /////////////////////////////
@@ -74,7 +92,7 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
 
     }
 
-    public void buildDialogWithNegativButton(String id) {
+    public void buildDialogWithNegativeButton(String id) {
 
 
     }
@@ -92,6 +110,23 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
+
+
+        if(checkVal.equals(MyHelper.CHECK_VALUE_ENROLL_EXAM)) {
+
+            switch (which) {
+
+                case AlertDialog.BUTTON_POSITIVE:
+
+                    Module m = (Module) arguments.getSerializable(context.getResources().getString(R.string.module));
+                    new ModuleOrganizer(context).subScribeModule(m);
+                    break;
+            }
+
+        }
+
+
+
 
     /*
         if(checkVal.equals(MyHelper.CHECK_VAL_VERSION)) {
@@ -127,4 +162,11 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
         }*/
 
     }
+
+    public void setBundle(Bundle arguments) {
+        this.arguments = arguments;
+    }
+
+
+
 }

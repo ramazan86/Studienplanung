@@ -1,9 +1,11 @@
 package data;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -28,12 +30,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import dialog.MyAlertDialog;
 import file.MyFile;
+import helper.MyHelper;
 
 /**
  * Created by Ramazan Cinardere on 26.08.15.
  */
-public class ModuleOrganizer extends ActionBarActivity implements ModuleAdministrator, AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener, View.OnTouchListener, TimePickerDialog.OnTimeSetListener {
+public class ModuleOrganizer implements ModuleAdministrator{
 
 
     ////////////////////////////
@@ -43,7 +47,6 @@ public class ModuleOrganizer extends ActionBarActivity implements ModuleAdminist
     private ModuleManual moduleManual = null;
     private Module module             = null;
 
-    private Context context = null;
     private int layoutId;
 
 
@@ -61,11 +64,7 @@ public class ModuleOrganizer extends ActionBarActivity implements ModuleAdminist
 
     private Calendar calendar = null;
 
-    private int currentYear, newYear,
-                currentMonth, newMonth,
-                currentDay, newDay,
-                currentHours, newHours,
-                currentMinutes, newMinutes;
+
 
     private MyFile myFile = null;
 
@@ -86,219 +85,90 @@ public class ModuleOrganizer extends ActionBarActivity implements ModuleAdminist
     private final int DATE_PICKER_ID = 1111,
                       TIME_PICKER_ID = 2222;
 
+    private String[] currentDate = null;
+    private String[] currentTime = null;
+
+    private MyAlertDialog myAlertDialog = null;
+
+    private Context context = null;
+
     ////////////////////////////
     //       Constructor      //
     ////////////////////////////
 
+    public ModuleOrganizer() {
+
+    }
+
+    public ModuleOrganizer(Context context) {
+        this();
+        initAttributes(context);
+    }
 
     ////////////////////////////
     //         Methods        //
     ////////////////////////////
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        layoutId = getIntent().getExtras().getInt(getResources().getString(R.string.layoutId));
+    private void initAttributes(Context context) {
 
-        setContentView(layoutId);
-        createCustomActionBar();
-        initComponents();
-    }
-
-    private void createCustomActionBar() {
-
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        //actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.radial_background));
-
-        LayoutInflater myInlater = LayoutInflater.from(this);
-        View customView = myInlater.inflate(R.layout.my_actionbar,null);
-
-        textView_save = (TextView) customView.findViewById(R.id.myActionbar_textView_add);
-        textView_save.setText(getResources().getString(R.string.save));
-        textView_save.setAllCaps(false);
-        textView_save.setOnClickListener(this);
-
-        actionBar.setCustomView(customView);
-        actionBar.setDisplayShowCustomEnabled(true);
-    }
-
-    private void initComponents() {
-
+        this.context = context;
         //ModuleManual
-        moduleManual = (ModuleManual) new MyFile(getApplicationContext()).getObjectFromFile(getResources().getString(R.string.moduleManualSer));
+        moduleManual = (ModuleManual) new MyFile(context).getObjectFromFile(context.getResources().getString(R.string.moduleManualSer));
 
-       //Calendar
-        calendar = Calendar.getInstance();
-        currentYear     = calendar.get(Calendar.YEAR);
-        currentMonth    = calendar.get(Calendar.MONTH) + 1;
-        currentDay      = calendar.get(Calendar.DAY_OF_MONTH);
-        currentHours    = calendar.get(Calendar.HOUR_OF_DAY);
-        currentMinutes  = calendar.get(Calendar.MINUTE);
-
-       //Spinner
-        spinner_date     = (Spinner) findViewById(R.id.addExam_spinner_date);
-        spinner_module   = (Spinner) findViewById(R.id.addExam_spinner_module);
-        spinner_time     = (Spinner) findViewById(R.id.addExam_spinner_time);
-        spinner_type     = (Spinner) findViewById(R.id.addExam_spinner_type);
-        spinner_semester = (Spinner) findViewById(R.id.addExam_spinner_semester);
-
-       //create array/list for adapter
-        String[] currentDate = new String[]{String.valueOf(new StringBuilder().append(currentDay).append("/").append(currentMonth).append("/").append(currentYear))};
-        String[] currentTime = new String[]{String.format("%tR", new Date())};
-
-        //ArrayAdapter
-        arrayAdapter_date     = new ArrayAdapter<String>(this, R.layout.spinner_item,currentDate);
-        arrayAdapter_type     = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.exam_types));
-        arrayAdapter_time     = new ArrayAdapter<String>(this, R.layout.spinner_item, currentTime);
-
-        ArrayList<String> semesters = new ArrayList<>();
-            semesters.add(getResources().getString(R.string.chooseSemester));
-            semesters.addAll(ModuleManual.getSemesters(getApplicationContext()));
-        arrayAdapter_semester = new ArrayAdapter<String>(this, R.layout.spinner_item, semesters);
-
-       //add adapter
-        spinner_date.setAdapter(arrayAdapter_date);
-        spinner_time.setAdapter(arrayAdapter_time);
-        spinner_type.setAdapter(arrayAdapter_type);
-        spinner_semester.setAdapter(arrayAdapter_semester);
-
-
-        //listener
-        spinner_semester.setOnItemSelectedListener(this);
-        spinner_date.setOnTouchListener(this);
-
-        spinner_time.setOnItemSelectedListener(this);
-        spinner_time.setOnTouchListener(this);
-
-        spinner_type.setOnItemSelectedListener(this);
     }
 
+    @Override
+    public boolean subScribeModule(Module module) {
+
+        Log.e("enrolForModule"," " +module.getTitle());
+
+        module.setEnrolled(true);
+
+        moduleManual = moduleManual.replaceModuleInList(module);
+
+        if(myFile == null) myFile = new MyFile(context);
+            myFile.createFileAndWriteObject(context.getResources().getString(R.string.moduleManualSer), moduleManual);
+
+        return true;
+    }
 
     @Override
-    public boolean enrolForModule(Module module) {
+    public boolean unSubscribeFromModule(Module module) {
         return false;
     }
 
     @Override
-    public boolean signUpFromModule(Module module) {
-        return false;
-    }
+    public ArrayList<Module> getEnrolledModules() {
 
+        ArrayList<Module> tmpList = new ArrayList<>();
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(myFile == null) myFile = new MyFile(context);
+        if(moduleManual == null) moduleManual = (ModuleManual) myFile.getObjectFromFile(context.getResources().getString(R.string.moduleManualSer));
 
-        if(position != 0) {
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++)
 
-            switch (parent.getId()) {
-
-                case R.id.addExam_spinner_semester:
-
-                    modules_list = new ArrayList<>();
-                    modules_list.add(getResources().getString(R.string.chooseModule));
-                    modules_list.addAll(moduleManual.getModules(parent.getItemAtPosition(position).toString()));
-                    arrayAdapter_module = new ArrayAdapter<String>(this, R.layout.spinner_item, modules_list);
-                    spinner_module.setAdapter(arrayAdapter_module);
-
-                    semester = parent.getItemAtPosition(position).toString();
-
-                    break;
-
-                case R.id.addExam_spinner_module:
-                    moduleTitle = parent.getItemAtPosition(position).toString();
-                    break;
-
-                case R.id.addExam_spinner_type:
-                    examType = parent.getItemAtPosition(position).toString();
-                    break;
-            }
-        }
-
-        numberOfItemSelected++;
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-
-        switch (id) {
-            case DATE_PICKER_ID:
-                return new DatePickerDialog(this, this, currentYear, currentMonth, currentDay);
-
-            case TIME_PICKER_ID:
-                return new TimePickerDialog(this, this, currentHours, currentMinutes, false);
-        }
-
-        return null;
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        if(v.getId() == R.id.myActionbar_textView_add) {
-
-
-            if(semester.equals("") && moduleTitle.equals("")) {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.warningEnrollExam), Toast.LENGTH_LONG).show();
-            }else {
-                String message = "semester: " +semester + " title: " + moduleTitle + " type: " +examType;
-
-                Module tmpObj = moduleManual.searchModule(moduleTitle);
-
-                if(tmpObj != null) {
-                    Toast.makeText(getApplicationContext(), tmpObj.getTitle(), Toast.LENGTH_LONG).show();
-
-                }
-
+            if(moduleManual.getModuleList().get(i).isEnrolled()) {
+                tmpList.add(moduleManual.getModuleList().get(i));
             }
 
-
-
-
-
-
-        }
-    }
-
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-        this.newYear  = year;
-        this.newMonth = monthOfYear;
-        this.newDay   = dayOfMonth;
-
-        StringBuilder date = new StringBuilder().append(newDay).append("/").append(newMonth).append("/").append(newYear);
-
-        Toast.makeText(getApplicationContext(), date, Toast.LENGTH_SHORT).show();
-
-
+        return tmpList;
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public ArrayList<Module> getUnSubscribedModules() {
+        ArrayList<Module> tmpList = new ArrayList<>();
 
-        if(v.getId() == R.id.addExam_spinner_date) {
-            showDialog(DATE_PICKER_ID);
-        }else if(v.getId() == R.id.addExam_spinner_time) {
-            showDialog(TIME_PICKER_ID);
-        }
+        if(myFile == null) myFile = new MyFile(context);
+        if(moduleManual == null) moduleManual = (ModuleManual) myFile.getObjectFromFile(context.getResources().getString(R.string.moduleManualSer));
 
-        return false;
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++)
+
+            if(moduleManual.getModuleList().get(i).isUnsubscribed()) {
+                tmpList.add(moduleManual.getModuleList().get(i));
+            }
+
+        return tmpList;
     }
 
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-        Toast.makeText(getApplicationContext(), "" +hourOfDay + ":"+minute, Toast.LENGTH_SHORT).show();
-
-
-    }
 }

@@ -36,6 +36,8 @@ public abstract class MyHelper {
 	
 	public static final String MODULE_EXAM_GERMAN = "Modulprüfung";
 	public static final String MODULE_EXAM_ENGLISH = "Module examination";
+
+    public static final String CHECK_VALUE_ENROLL_EXAM = "checkEnroll_001";
 	
 	
 	/** # ############# #

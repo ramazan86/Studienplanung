@@ -83,9 +83,9 @@
             android:theme="@style/AppTheme">
         </activity>
 
-        <!-- ModuleOrganizer -->
-        <activity android:name="data.ModuleOrganizer"></activity>
 
+        <!-- SubscribeExam -->
+        <activity android:name=".SubscribeExamActivity"></activity>
     </application>
 
 
