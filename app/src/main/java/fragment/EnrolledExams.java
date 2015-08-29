@@ -2,6 +2,7 @@ package fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ public class EnrolledExams extends ListFragment {
         for(int i = 0; i<modules.size(); i++){
             values[i] = modules.get(i).getTitle();
         }
+
 
 
 

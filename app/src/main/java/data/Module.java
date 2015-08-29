@@ -48,7 +48,8 @@ public class Module implements Serializable{
 
     private boolean enrolled      = false,
                     unsubscribed  = false,
-                    passed        = false;
+                    passed        = false,
+                    notPassed     = false;
 
     private int numberOfTrials;             //Anzahl versuche
 
@@ -418,5 +419,13 @@ public class Module implements Serializable{
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public boolean isNotPassed() {
+        return notPassed;
+    }
+
+    public void setNotPassed(boolean notPassed) {
+        this.notPassed = notPassed;
     }
 }

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.cinardere_ramazan_ba_2015.studienplanung.R;
+
 import java.util.ArrayList;
 
 import adapter.MySimpleArrayAdapter;

@@ -1,11 +1,7 @@
 package data;
 
 import android.content.Context;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
@@ -14,9 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import dialog.MyAlertDialog;
 import file.MyFile;
-import helper.MyHelper;
 import interfaces.ModuleAdministrator;
 
 /**
@@ -30,50 +24,10 @@ public class ModuleOrganizer implements ModuleAdministrator {
     ////////////////////////////
 
     private ModuleManual moduleManual = null;
-    private Module module             = null;
-
-    private int layoutId;
-
-
-    private Spinner spinner_module   = null,
-                    spinner_type     = null,
-                    spinner_date     = null,
-                    spinner_time     = null,
-                    spinner_semester = null;
-
-    private ArrayAdapter<String> arrayAdapter_module   = null,
-                                 arrayAdapter_type     = null,
-                                 arrayAdapter_date     = null,
-                                 arrayAdapter_time     = null,
-                                 arrayAdapter_semester = null;
 
     private Calendar calendar = null;
 
-
-
     private MyFile myFile = null;
-
-    private ArrayList<String> semesters_list = null,
-                              modules_list   = null;
-
-    private static int numberOfItemSelected = 0;
-    private ActionBar actionBar    = null;
-    private TextView textView_save = null;
-
-    private String semester     = "",
-                   moduleTitle  = "",
-                   examType     = "",
-                   notice       = "",
-                   date         = "",
-                   time         = "";
-
-    private final int DATE_PICKER_ID = 1111,
-                      TIME_PICKER_ID = 2222;
-
-    private String[] currentDate = null;
-    private String[] currentTime = null;
-
-    private MyAlertDialog myAlertDialog = null;
 
     private Context context = null;
 
@@ -173,8 +127,7 @@ public class ModuleOrganizer implements ModuleAdministrator {
     public ArrayList<Module> getUnSubscribedModules() {
         ArrayList<Module> tmpList = new ArrayList<>();
 
-        if(myFile == null) myFile = new MyFile(context);
-        if(moduleManual == null) moduleManual = (ModuleManual) myFile.getObjectFromFile(context.getResources().getString(R.string.moduleManualSer));
+        if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
 
         for(int i = 0; i<moduleManual.getModuleList().size(); i++)
 
@@ -226,5 +179,99 @@ public class ModuleOrganizer implements ModuleAdministrator {
 
         return modules;
     }
+
+    @Override
+    public ArrayList<Module> getPassedExams() {
+
+        ArrayList<Module> modules = new ArrayList<>();
+
+        if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
+
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
+
+            if(moduleManual.getModuleList().get(i).isPassed()) {
+                modules.add(moduleManual.getModuleList().get(i));
+            }
+        }
+        return modules;
+    }
+
+    @Override
+    public ArrayList<Module> getNotPassedExams() {
+        ArrayList<Module> modules = new ArrayList<>();
+
+        if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
+
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
+
+            if(moduleManual.getModuleList().get(i).isNotPassed()) {
+                modules.add(moduleManual.getModuleList().get(i));
+            }
+        }
+        return modules;
+    }
+
+    @Override
+    public ArrayList<Module> getProjects() {
+
+        ArrayList<Module> modules = new ArrayList<>();
+
+        if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
+
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
+
+            try {
+                moduleManual.getModuleList().get(i).getExamType().equals(context.getResources().getStringArray(R.array.exam_types)[3]);
+                modules.add(moduleManual.getModuleList().get(i));
+            }catch (Exception e) {
+                Log.e("getProjects." +getClass().getName()," " +e.getMessage() + " // " +e.getCause());
+                e.printStackTrace();
+            }
+        }
+
+
+        return modules;
+    }
+
+    @Override
+    public float getAverageNotes() {
+
+        if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
+        float grades = 0.0f;
+
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
+
+            Module tmp = moduleManual.getModuleList().get(i);
+
+            try {
+                grades += Float.parseFloat(tmp.getCreditPoints()) * Float.parseFloat(tmp.getGrade());
+            }catch (Exception e) {
+                Log.e("getAverageNotes()", e.getCause() + " // " +e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        return (grades/moduleManual.getTotalCreditPoints());
+    }
+
+    @Override
+    public int getCreditPoints() {
+
+        if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
+        int creditPoints = 0;
+
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
+
+            Module tmp = moduleManual.getModuleList().get(i);
+
+            if(tmp.isPassed()) {
+                creditPoints += Integer.parseInt(tmp.getCreditPoints());
+            }
+        }
+
+        return creditPoints;
+    }
+
+
 
 }

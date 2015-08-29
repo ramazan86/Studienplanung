@@ -33,8 +33,6 @@ public class ModuleManual implements Serializable{
 	private ArrayList<Module> moduleList = null;
 
 
-			   
-
 	/** # ############# #
 	 #  Constructor  #
 	 # ############# #
@@ -60,10 +58,11 @@ public class ModuleManual implements Serializable{
 	 # ############# #
 	 */
 	
-	public Module createInstance() {
-		module = new Module();
-		return module;
-	}
+
+    public static ModuleManual getInstance(Context context) {
+        return (ModuleManual) new MyFile(context).getObjectFromFile(context.getString(R.string.moduleManualSer));
+    }
+
 
 	public static ArrayList<String> getSemesters(Context context) {
 
@@ -147,6 +146,16 @@ public class ModuleManual implements Serializable{
         return this;
     }
 
+    public int getTotalCreditPoints() {
+
+        int creditPoints = 0;
+
+        for(int i = 0; i<moduleList.size(); i++) {
+            creditPoints += Integer.parseInt(moduleList.get(i).getCreditPoints());
+        }
+
+        return creditPoints;
+    }
 
 
 	public void info() {

@@ -22,4 +22,13 @@ public interface ModuleAdministrator {
     public ArrayList<Module> getUnSubscribedModules();
 
     public ArrayList<Module> getCompletedExams();
+
+    public ArrayList<Module> getPassedExams();
+    public ArrayList<Module> getNotPassedExams();
+
+    public ArrayList<Module> getProjects();
+
+    public float getAverageNotes();
+    public int getCreditPoints();
+
 }

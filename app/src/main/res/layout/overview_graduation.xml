@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/dimen_4"
         android:orientation="horizontal">
@@ -15,6 +14,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:textSize="@dimen/dimen_7"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:text="@string/exams"
 
             android:id="@+id/overviewGraduation_textView_exams"/>
@@ -28,53 +31,47 @@
         android:padding="@dimen/dimen_4"
         android:orientation="vertical"
 
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+
+        android:id="@+id/overViewGraduation_linearLayout">
 
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textView_overView"
             android:text="@string/passed"
 
             android:id="@+id/overviewGraduation_textView_passed"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textView_overView"
+
             android:text="@string/notPassed"
 
             android:id="@+id/overviewGraduation_textView_notPassed"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textView_overView"
+
             android:text="@string/noteAverage"
 
             android:id="@+id/overviewGraduation_textView_noteAverage"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textView_overView"
             android:text="@string/cpPlural"
 
             android:id="@+id/overviewGraduation_textView_creditPoints"/>
     </LinearLayout>
 
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </Spinner>
-
-
-
-
-
-
-
-
-
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/dimen_2"
+        android:background="@color/light_blue"
+        android:layout_marginLeft="@dimen/dimen_1"
+        android:layout_marginRight="@dimen/dimen_1"
+        android:layout_below="@+id/overViewGraduation_linearLayout"
+        android:id="@+id/overViewGraduation_view_1">
+    </View>
 
 
 
