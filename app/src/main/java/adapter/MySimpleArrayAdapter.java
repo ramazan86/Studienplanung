@@ -59,28 +59,19 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
     ////////////////////////////
 
 
+
+
     public MySimpleArrayAdapter(Context context, String[] values, int layoutId) {
         this(context, values);
         this.layoutId = layoutId;
-
-
-        /*if(obj instanceof CompletedExams) {
-            completedExams = (CompletedExams) obj;
-        }
-        else if(obj instanceof EnrolledExams) {
-            enrolledExams = (EnrolledExams) obj;
-        }
-        else if(obj instanceof UnSubscribedExams) {
-            unSubscribedExams = (UnSubscribedExams) obj;
-        }*/
     }
-
 
     public MySimpleArrayAdapter(Context context, String[] values) {
         super(context, R.layout.my_rowlayout, values);
         this.context = context;
         this.values  = values;
     }
+
 
     ////////////////////////////
     //         Methods        //
@@ -128,12 +119,12 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
             moduleTitle = ((TextView)v).getText().toString();
         }
 
-        showDialog(context.getResources().getStringArray(R.array.longClickModule));
+        showDialog(context.getResources().getStringArray(R.array.longClickModule_1));
 
         myAlertDialog = new MyAlertDialog(fragmentActivity);
         myAlertDialog.setTitle(moduleTitle);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.longClickModule));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.longClickModule_1));
 
         //myAlertDialog.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item,context.getResources().getStringArray(R.array.longClickModule)), new DialogInterface.OnClickListener() {
         final String finalModuleTitle = moduleTitle;

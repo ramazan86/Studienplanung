@@ -221,15 +221,12 @@ public class ModuleOrganizer implements ModuleAdministrator {
         for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
 
             try {
-                moduleManual.getModuleList().get(i).getExamType().equals(context.getResources().getStringArray(R.array.exam_types)[3]);
-                modules.add(moduleManual.getModuleList().get(i));
+                if(moduleManual.getModuleList().get(i).getExamType().equals(context.getResources().getStringArray(R.array.exam_types)[3])) {
+                    modules.add(moduleManual.getModuleList().get(i));
+                }
             }catch (Exception e) {
-                Log.e("getProjects." +getClass().getName()," " +e.getMessage() + " // " +e.getCause());
-                e.printStackTrace();
             }
         }
-
-
         return modules;
     }
 
