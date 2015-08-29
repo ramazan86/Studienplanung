@@ -78,14 +78,14 @@
 
         <!-- MyTabActivity -->
         <activity
-            android:name=".MyTabActivity"
+            android:name="activity.MyTabActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         </activity>
 
 
         <!-- SubscribeExam -->
-        <activity android:name=".SubscribeExamActivity"></activity>
+        <activity android:name="activity.SubscribeExamActivity"></activity>
     </application>
 
 

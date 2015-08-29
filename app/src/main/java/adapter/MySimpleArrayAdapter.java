@@ -22,7 +22,10 @@ import org.w3c.dom.Text;
 import data.Module;
 import dialog.MyAlertDialog;
 import file.MyFile;
+import fragment.CompletedExams;
+import fragment.EnrolledExams;
 import fragment.MyFragment;
+import fragment.UnSubscribedExams;
 import helper.MyHelper;
 
 
@@ -44,9 +47,33 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
     private MyAlertDialog myAlertDialog = null;
     private FragmentActivity fragmentActivity = null;
 
+    private CompletedExams completedExams       = null;
+    private EnrolledExams enrolledExams         = null;
+    private UnSubscribedExams unSubscribedExams = null;
+
+    private int layoutId = 0;
+
+
     ////////////////////////////
     //       Constructor      //
     ////////////////////////////
+
+
+    public MySimpleArrayAdapter(Context context, String[] values, int layoutId) {
+        this(context, values);
+        this.layoutId = layoutId;
+
+
+        /*if(obj instanceof CompletedExams) {
+            completedExams = (CompletedExams) obj;
+        }
+        else if(obj instanceof EnrolledExams) {
+            enrolledExams = (EnrolledExams) obj;
+        }
+        else if(obj instanceof UnSubscribedExams) {
+            unSubscribedExams = (UnSubscribedExams) obj;
+        }*/
+    }
 
 
     public MySimpleArrayAdapter(Context context, String[] values) {
@@ -63,21 +90,33 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Log.e("getView "," valuesSize: " +values.length + " positon: " +position);
+        //Log.e("getView "," valuesSize: " +values.length + " positon: " +position);
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View rootView = inflater.inflate(R.layout.my_rowlayout, parent, false);
+        if(layoutId != 0) {
 
-        //get components of view
-        TextView textView = (TextView) rootView.findViewById(R.id.myRowlayout_imageView_text);
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.myRowlayout_imageView_image);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        textView.setText(values[position]);
-        textView.setOnLongClickListener(this);
-        imageView.setImageResource(R.drawable.examination);
+            View rootView = inflater.inflate(layoutId, parent, false);
 
-        return rootView;
+            return rootView;
+
+        }else {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View rootView = inflater.inflate(R.layout.my_rowlayout, parent, false);
+
+            //get components of view
+            TextView textView = (TextView) rootView.findViewById(R.id.myRowlayout_imageView_text);
+            ImageView imageView = (ImageView) rootView.findViewById(R.id.myRowlayout_imageView_image);
+
+            textView.setText(values[position]);
+            textView.setOnLongClickListener(this);
+            imageView.setImageResource(R.drawable.examination);
+
+            return rootView;
+        }
+
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.cinardere_ramazan_ba_2015.studienplanung;
+package activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -19,6 +19,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cinardere_ramazan_ba_2015.studienplanung.R;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -238,42 +242,67 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
     @Override
     public void onClick(View v) {
 
-
+        //Speichern
         if(v.getId() == R.id.myActionbar_textView_add) {
 
             if(!semester.equals("") && !moduleTitle.equals("")) {
 
-                Module tmp = moduleManual.searchModule(moduleTitle);
-                    tmp.setDateOfExam(arrayAdapter_date.getItem(0).toString());
-                    tmp.setTimeOfExam(arrayAdapter_time.getItem(0).toString());
+                String[] date = arrayAdapter_date.getItem(0).toString().split("/");
 
-                if(!examType.equals(getResources().getStringArray(R.array.exam_types)[0])) {
-                    tmp.setExamType(examType);
+                try {
+                    if(new SimpleDateFormat("dd/MM/yyyy").parse(arrayAdapter_date.getItem(0).toString()).after(new Date())) {
+
+                        Module tmp = moduleManual.searchModule(moduleTitle);
+                        tmp.setDateOfExam(arrayAdapter_date.getItem(0).toString());
+                        tmp.setTimeOfExam(arrayAdapter_time.getItem(0).toString());
+
+                        if(!examType.equals(getResources().getStringArray(R.array.exam_types)[0])) {
+                            tmp.setExamType(examType);
+                        }
+
+
+                        Bundle data = new Bundle();
+                        data.putSerializable(getResources().getString(R.string.module), tmp);
+                        data.putSerializable(getResources().getString(R.string.moduleManual), moduleManual);
+
+                        alertDialogValidate(data);
+
+                        //myAlertDialog listener calls enrollForModule if user clicks "JA", otherwise nothing
+
+
+                    }else {
+                        alertDialogNotAllowed("Warning",getString(R.string.dateWarning), MyHelper.CHECK_VALUE_ENROLL_WARNING_DATE);
+
+                    }
+                } catch (ParseException e) {
+                    Log.e("Exception in onClick." +getClass().getName()," " +e.getCause() + " // " +e.getMessage());
+                    e.printStackTrace();
                 }
 
-
-                Bundle data = new Bundle();
-                data.putSerializable(getResources().getString(R.string.module), tmp);
-                data.putSerializable(getResources().getString(R.string.moduleManual), moduleManual);
-
-                showAlertDialog(data);
-
-                //myAlertDialog listener calls enrollForModule if user clicks "JA", otherwise nothing
-
-
-            }else {
+            }//if((!semester.equals("") && !moduleTitle.equals(""))
+            else {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.warningEnrollExam), Toast.LENGTH_LONG).show();
 
             }
         }
     }
 
-    private void showAlertDialog(Bundle data) {
+    private void alertDialogNotAllowed(String title, String message, String checkValue) {
 
+        if(myAlertDialog != null) {
+            myAlertDialog = null;
+        }
+        myAlertDialog = new MyAlertDialog(this);
+        myAlertDialog.setTitle(title);
+        myAlertDialog.setMessage(message);
+        myAlertDialog.buildDialogWithNeutralButton("OK", checkValue);
+
+    }
+
+    private void alertDialogValidate(Bundle data) {
 
         myAlertDialog = new MyAlertDialog(this);
         myAlertDialog.setBundle(data);
-
 
         myAlertDialog.setTitle(getResources().getString(R.string.enrollExam));
         String alertMessage = getResources().getString(R.string.questionForEnrollExamPraefix) +":" +System.getProperty("line.separator") + ">> " +moduleTitle + " <<" +System.getProperty("line.separator")  + getResources().getString(R.string.questionForEnrollExamSuffix);

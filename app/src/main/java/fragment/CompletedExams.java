@@ -12,32 +12,30 @@ import java.util.ArrayList;
 
 import adapter.MySimpleArrayAdapter;
 import data.Module;
-import data.ModuleManual;
 import data.ModuleOrganizer;
-import file.MyFile;
 
 /**
- * Created by Ramazan Cinardere on 28.08.15.
+ * Created by Ramazan Cinardere on 29.08.15.
  */
-public class EnrolledExams extends ListFragment {
+public class CompletedExams extends ListFragment {
 
     ////////////////////////////
     //       Attributes       //
     ////////////////////////////
 
-    private ArrayList<Module> modules = null;
-
-    private MyFile myFile = null;
-
-    private ModuleManual moduleManual = null;
-
     private ModuleOrganizer moduleOrganizer = null;
 
+    private ArrayList<Module> modules = null;
+
     private String[] values = null;
+
+    private MySimpleArrayAdapter adapter = null;
 
     ////////////////////////////
     //       Constructor      //
     ////////////////////////////
+
+    public CompletedExams() {}
 
 
     ////////////////////////////
@@ -48,25 +46,28 @@ public class EnrolledExams extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
         moduleOrganizer = new ModuleOrganizer(getActivity().getApplicationContext());
 
-        modules = moduleOrganizer.getEnrolledModules();
+        modules = moduleOrganizer.getCompletedExams();
 
-        values = new String[modules.size()];
+        if(modules.size() != 0) {
+            values = new String[modules.size()];
 
-        for(int i = 0; i<modules.size(); i++){
-            values[i] = modules.get(i).getTitle();
+            for(int i = 0; i<modules.size(); i++){
+                values[i] = modules.get(i).getTitle();
+            }
+        }else {
+            values = new String[] {getActivity().getApplicationContext().getString(R.string.notANumber)};
         }
 
 
 
+
         //Angemeldet
-        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values, 0);
+        adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values);
         adapter.setActivity(getActivity());
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();
-
 
         return inflater.inflate(R.layout.my_fragment, container, false);
     }

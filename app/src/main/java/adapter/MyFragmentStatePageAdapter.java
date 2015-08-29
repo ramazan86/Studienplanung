@@ -1,21 +1,20 @@
 package adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.cinardere_ramazan_ba_2015.studienplanung.MyTabActivity;
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
 import data.Module;
 import data.ModuleManual;
 import file.MyFile;
-import fragment.Android;
-import fragment.IOS;
-import fragment.MyFragment;
-import fragment.Windows;
+import fragment.CompletedExams;
+import fragment.EnrolledExams;
+import fragment.OverView;
+import fragment.Projects;
+import fragment.UnSubscribedExams;
 
 /**
  * Created by Ramazan Cinardere on 25.08.15.
@@ -76,9 +75,11 @@ public class MyFragmentStatePageAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
 
-            case 0: return new Android();
-            case 1: return new IOS();
-            case 2: return new Windows();
+            case 0: return new EnrolledExams();
+            case 1: return new UnSubscribedExams();
+            case 2: return new CompletedExams();
+            case 3: return new OverView();
+            case 4: return new Projects();
         }
         return null;
     }
@@ -115,8 +116,7 @@ public class MyFragmentStatePageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        //return count;
-        return 3;
+        return count;
     }
 
     @Override

@@ -1,27 +1,20 @@
-package com.cinardere_ramazan_ba_2015.studienplanung;
+package activity;
 
-import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.Window;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
-import org.w3c.dom.Text;
+import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
 import adapter.MyFragmentStatePageAdapter;
-import data.ModuleOrganizer;
 
 /**
  * Created by Ramazan Cinardere on 25.08.15.
@@ -71,7 +64,7 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
         createTabs();
 
         myFragmentStatePageAdapter = new MyFragmentStatePageAdapter(getSupportFragmentManager(), getApplicationContext());
-        //myFragmentStatePageAdapter.setCount(getResources().getStringArray(R.array.tab_names).length);
+        myFragmentStatePageAdapter.setCount(getResources().getStringArray(R.array.tab_names).length);
         myFragmentStatePageAdapter.setNameOfCurrentTab(nameOfCurrentPage);
 
         viewPager = (ViewPager) findViewById(R.id.myViewPager_pager);
@@ -161,7 +154,7 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
 
          if(position != 0) {
              textView.setVisibility(View.INVISIBLE);
-             myFragmentStatePageAdapter.notifyDataSetChanged();
+             //myFragmentStatePageAdapter.notifyDataSetChanged();
 
          }else {
              textView.setVisibility(View.VISIBLE);

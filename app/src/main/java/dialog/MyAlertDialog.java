@@ -3,13 +3,10 @@ package dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.cinardere_ramazan_ba_2015.studienplanung.MainActivity;
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
-import com.cinardere_ramazan_ba_2015.studienplanung.SubscribeExamActivity;
+import activity.SubscribeExamActivity;
 
 import data.Module;
 import data.ModuleManual;
@@ -147,10 +144,15 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
                 case AlertDialog.BUTTON_NEGATIVE:
                         dialog.dismiss();
                     break;
-
-
             }
 
+        }else if(checkVal.equals(MyHelper.CHECK_VALUE_ENROLL_WARNING_DATE)) {
+
+            switch (which) {
+                case AlertDialog.BUTTON_NEUTRAL:
+                    dialog.dismiss();
+                  break;
+            }
         }
 
 

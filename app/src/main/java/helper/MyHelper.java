@@ -37,10 +37,10 @@ public abstract class MyHelper {
 	public static final String MODULE_EXAM_GERMAN = "Modulprüfung";
 	public static final String MODULE_EXAM_ENGLISH = "Module examination";
 
-    public static final String CHECK_VALUE_ENROLL_EXAM = "checkEnroll_001";
-    public static final String CHECK_VALUE_MODULE_EDIT = "moduleEdit";
-    public static final String CHECK_VALUE_MODULE_UNSUBSCRIBE = "moduleUnsubscribe";
-
+    public static final String CHECK_VALUE_ENROLL_EXAM          = "checkEnroll_001";
+    public static final String CHECK_VALUE_MODULE_EDIT          = "moduleEdit";
+    public static final String CHECK_VALUE_MODULE_UNSUBSCRIBE   = "moduleUnsubscribe";
+    public static final String CHECK_VALUE_ENROLL_WARNING_DATE  = "dateNotAllowed";
 
 	
 	/** # ############# #

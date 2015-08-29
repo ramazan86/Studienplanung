@@ -34,6 +34,7 @@ public class Module implements Serializable{
 				   teachForm,
 				   language,
 				   frequency,
+                   grade,
                    dateOfExam,
                    timeOfExam,
 				   moduleCoordination,
@@ -409,5 +410,13 @@ public class Module implements Serializable{
         }
 
         this.examType = examType;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 }

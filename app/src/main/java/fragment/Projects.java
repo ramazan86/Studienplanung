@@ -1,19 +1,17 @@
 package fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
 /**
- * Created by Ramazan Cinardere on 28.08.15.
+ * Created by Ramazan Cinardere on 29.08.15.
  */
-public class IOS extends Fragment {
+public class Projects extends ListFragment {
 
     ////////////////////////////
     //       Attributes       //
@@ -31,12 +29,12 @@ public class IOS extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        View ios = inflater.inflate(R.layout.android_frag, container, false);
-        ((TextView)ios.findViewById(R.id.textView)).setText("iOS");
-        return ios;
 
+
+
+        return inflater.inflate(R.layout.my_fragment, container, false);
     }
 }

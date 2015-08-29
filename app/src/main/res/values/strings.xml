@@ -6,11 +6,17 @@
     <!-- aA - eE-->
     <string name="app_name">Studienplanung</string>
     <string name="action_settings">Settings</string>
+    <string name="average">Durchschnitt:</string>
 
     <string name="chooseModuleManual">Modulhandbuch auswählen …</string>
     <string name="close">Schliesen</string>
+    <string name="cp">CP</string>
+    <string name="cpPlural">CP's:</string>
+
+    <string name="dateWarning">Prüfung darf nicht in der Vergangenheit oder am heutigen Tag liegen.</string>
 
     <string name="edit">Bearbeiten</string>
+    <string name="exams">Prüfungen</string>
 
     <!-- fF - jJ-->
 
@@ -27,11 +33,14 @@
 
 
     <string name="no">Nein</string>
+    <string name="noteAverage">Notendurchschnitt:</string>
+    <string name="notPassed">Nicht Bestanden:</string>
 
     <!-- pP - rR -->
 
     <string name="page">page</string>
-    <string name="positin">position</string>
+    <string name="passed">Bestanden:</string>
+    <string name="position">position</string>
 
     <string name="questionForEnrollExamPraefix">Wirklich für das Modul</string>
     <string name="questUnSubscribePraefix">Sicher vom Modul</string>

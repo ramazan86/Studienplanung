@@ -4,20 +4,17 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Environment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import data.ModuleManual;
+import activity.MyTabActivity;
 import file.MyFile;
 import reader.ReadDataFromPdf;
 import view.SemesterTotalView;

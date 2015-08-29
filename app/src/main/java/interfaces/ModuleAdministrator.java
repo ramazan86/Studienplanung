@@ -15,9 +15,11 @@ public interface ModuleAdministrator {
      * # ################ #
      */
 
-    boolean subScribeModule(Module module);
-    boolean unSubscribeModule(Module module);
+    public boolean subScribeModule(Module module);
+    public boolean unSubscribeModule(Module module);
 
-    ArrayList<Module> getEnrolledModules();
-    ArrayList<Module> getUnSubscribedModules();
+    public ArrayList<Module> getEnrolledModules();
+    public ArrayList<Module> getUnSubscribedModules();
+
+    public ArrayList<Module> getCompletedExams();
 }

@@ -14,24 +14,21 @@ import adapter.MySimpleArrayAdapter;
 import data.Module;
 import data.ModuleManual;
 import data.ModuleOrganizer;
-import file.MyFile;
 
 /**
- * Created by Ramazan Cinardere on 28.08.15.
+ * Created by Ramazan Cinardere on 29.08.15.
  */
-public class EnrolledExams extends ListFragment {
+public class OverView extends ListFragment {
 
     ////////////////////////////
     //       Attributes       //
     ////////////////////////////
 
-    private ArrayList<Module> modules = null;
-
-    private MyFile myFile = null;
+    private ModuleOrganizer moduleOrganizer = null;
 
     private ModuleManual moduleManual = null;
 
-    private ModuleOrganizer moduleOrganizer = null;
+    private ArrayList<Module> modules = null;
 
     private String[] values = null;
 
@@ -60,14 +57,15 @@ public class EnrolledExams extends ListFragment {
         }
 
 
+        View rootView = inflater.inflate(R.layout.my_fragment, container, false);
 
+        int layoutId = R.layout.overview_graduation;
         //Angemeldet
-        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values, 0);
+        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values, layoutId);
         adapter.setActivity(getActivity());
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-
-        return inflater.inflate(R.layout.my_fragment, container, false);
+        return  inflater.inflate(R.layout.my_fragment, container, false);
     }
 }
