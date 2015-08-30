@@ -61,14 +61,11 @@ public class EnrolledExams extends ListFragment {
         }
 
 
-
-
         //Angemeldet
-        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values, 0);
+        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values, this);
         adapter.setActivity(getActivity());
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();
-
 
         return inflater.inflate(R.layout.my_fragment, container, false);
     }

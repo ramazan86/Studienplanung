@@ -51,6 +51,8 @@
 
     <!-- sS - vV -->
     <string name="semesterOverview">Semesterübersicht</string>
+    <string name="updateModulePraefix">Änderungen für Modul</string>
+    <string name="updateModuleSuffix">übernehmen?</string>
 
     <string name="unsubscribeModule">Abmelden</string>
 
@@ -124,9 +126,14 @@
     <!--- longClick:dialog:Unsubscribe_edit_module-->
     <string-array name="longClickModule_1">
         <item>Abmelden</item>
-        <item>Bearbeiten</item>
         <item>Info</item>
     </string-array>
+
+    <string-array name="longClickModule_2">
+        <item>Anmelden</item>
+        <item>Info</item>
+    </string-array>
+
 
 
 </resources>

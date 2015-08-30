@@ -2,9 +2,11 @@ package data;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,10 +63,20 @@ public class ModuleOrganizer implements ModuleAdministrator {
     @Override
     public boolean subScribeModule(Module module) {
 
+        if(calendar == null) calendar = Calendar.getInstance();
+        Date now = new Date(calendar.getTimeInMillis());
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        String dayName = String.format("%tA", now);
+        String date = dayName + ", den " +dateFormat.format(calendar.getTime()).split(" ")[0] + " um " +System.getProperty("line.separator") +dateFormat.format(calendar.getTime()).split(" ")[1];
+
+
         Log.e("subScribeModule." +getClass().getName()," module: " +module.getTitle());
 
         module.setUnsubscribed(false);
         module.setEnrolled(true);
+        module.setEnrolledDate(date);
+        module.setNumberOfTrials(module.getNumberOfTrials()+1);
 
         moduleManual = moduleManual.replaceModuleInList(module);
 
@@ -86,6 +98,29 @@ public class ModuleOrganizer implements ModuleAdministrator {
             myFile.createFileAndWriteObject(context.getResources().getString(R.string.moduleManualSer), moduleManual);
 
         return false;
+    }
+
+    @Override
+    public boolean updateModuleContent(Module module) {
+
+        try {
+
+            if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
+
+            moduleManual = moduleManual.replaceModuleInList(module);
+
+            if(myFile == null) myFile = new MyFile(context);
+
+            myFile.createFileAndWriteObject(context.getResources().getString(R.string.moduleManualSer), moduleManual);
+
+            Toast.makeText(context, "Update von Modul: " +module.getTitle() + " erfolgreich!!",Toast.LENGTH_SHORT).show();
+
+            return true;
+        }catch (Exception e) {
+            Log.e("updateModuleContent." +getClass().getName()," " +e.getMessage() + " " +e.getCause());
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -220,11 +255,8 @@ public class ModuleOrganizer implements ModuleAdministrator {
 
         for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
 
-            try {
-                if(moduleManual.getModuleList().get(i).getExamType().equals(context.getResources().getStringArray(R.array.exam_types)[3])) {
-                    modules.add(moduleManual.getModuleList().get(i));
-                }
-            }catch (Exception e) {
+            if(moduleManual.getModuleList().get(i).getExamType().equals(context.getResources().getStringArray(R.array.exam_types)[3])) {
+                modules.add(moduleManual.getModuleList().get(i));
             }
         }
         return modules;

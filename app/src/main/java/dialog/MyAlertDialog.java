@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 import activity.SubscribeExamActivity;
@@ -87,10 +88,9 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
     public void buildDialogWithPositiveAndNegativeButton(String btnPosText, String btnNegtvText, String checkVal) {
 
         initAttributes(checkVal);
-        setPositiveButton(btnPosText,this);
-        setNegativeButton(btnNegtvText,this);
+        setPositiveButton(btnPosText, this);
+        setNegativeButton(btnNegtvText, this);
         create().show();
-
 
     }
 
@@ -112,7 +112,6 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-
 
         if(checkVal.equals(MyHelper.CHECK_VALUE_ENROLL_EXAM)) {
 
@@ -153,7 +152,22 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
                     dialog.dismiss();
                   break;
             }
-        }
+        }else if(checkVal.equals(MyHelper.CHECK_VALUE_MODULE_EDIT)) {
+
+            switch (which) {
+
+                case AlertDialog.BUTTON_POSITIVE:
+                    new ModuleOrganizer(context).updateModuleContent((Module) arguments.getSerializable(context.getString(R.string.module)));
+                    break;
+
+                case AlertDialog.BUTTON_NEGATIVE:
+                    dialog.dismiss();
+                    break;
+            }
+
+
+
+        }//CHECK_VALUE_ENROLL_WARNING_DATE
 
 
 
@@ -163,7 +177,6 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
     public void setBundle(Bundle arguments) {
         this.arguments = arguments;
     }
-
 
 
 }

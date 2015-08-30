@@ -86,7 +86,27 @@
 
         <!-- SubscribeExam -->
         <activity android:name="activity.SubscribeExamActivity"></activity>
+
+
+        <activity
+            android:name="activity.InformationAboutEnrolledExam">
+
+        </activity>
+
+
+
+
+
+
+
+
+
     </application>
+
+
+
+
+
 
 
     <!-- P E R M I S S I O N S -->

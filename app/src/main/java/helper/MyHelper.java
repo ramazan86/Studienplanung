@@ -12,7 +12,9 @@ public abstract class MyHelper {
 	public static final String[] ASSUMPTIONS_GERMAN = {"Voraussetzungen für die Teilnahme am Modul", "Inhaltlich erforderliche Voraussetzungen", "Voraussetzungen für die Teilnahme an der Modulprüfung"};
 	public static final String[] ASSUMPTIONS_ENGLISH = {"Prerequisites for module participation","Recommended contents of previous modules","Prerequisites for module examination"};
 	
-	
+	public static final String NOT_A_NUMBER = "NaN";
+
+
 	public static final String PAGE_STRING = "Seite";
 	public static final String MODULE_SHORTCUT_PATTERN = "[M]{1}(\\d){1,2}";	
 	public static final String ONE_DIGIT_PATTERN = "([1-6]{1})";				//from 1 to 6, only one digit

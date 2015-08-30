@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_4">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_10"
+            android:background="@color/green">
+        </View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_10.5"
+
+            android:layout_marginLeft="@dimen/dimen_2"
+
+            android:text="Bestanden"
+            android:textColor="@color/black"
+
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_1"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_10"
+            android:background="@drawable/border_red_green">
+        </View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_10.5"
+
+            android:layout_marginLeft="@dimen/dimen_2"
+
+            android:text="Bestanden (2.Versuch)"
+            android:textColor="@color/black"
+
+            android:gravity="center"/>
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_1"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_10"
+            android:background="@color/orange">
+        </View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_10.5"
+
+            android:layout_marginLeft="@dimen/dimen_2"
+
+            android:text="Nicht Bestanden (1.Versuch)"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_1"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_10"
+            android:background="@drawable/border_red_orange">
+        </View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_10.5"
+
+            android:layout_marginLeft="@dimen/dimen_2"
+
+            android:text="Nicht Bestanden (2.Versuch)"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_1"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_10"
+            android:background="@color/gray">
+        </View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_10.5"
+
+            android:layout_marginLeft="@dimen/dimen_2"
+
+            android:text="Noch keine Anmeldung"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_32x32"
+        android:baselineAlignBottom="true"
+        android:layout_gravity="right"
+        android:clickable="true"
+        android:id="@+id/dialogStateInformation_back"/>
+
+</LinearLayout>

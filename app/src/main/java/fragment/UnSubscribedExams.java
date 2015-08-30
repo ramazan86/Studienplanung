@@ -56,7 +56,7 @@ public class UnSubscribedExams extends ListFragment {
 
 
         //Angemeldet
-        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values);
+        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values, this);
         adapter.setActivity(getActivity());
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();

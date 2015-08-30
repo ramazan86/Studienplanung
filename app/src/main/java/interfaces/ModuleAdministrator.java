@@ -17,6 +17,8 @@ public interface ModuleAdministrator {
 
     public boolean subScribeModule(Module module);
     public boolean unSubscribeModule(Module module);
+    public boolean updateModuleContent(Module module);
+
 
     public ArrayList<Module> getEnrolledModules();
     public ArrayList<Module> getUnSubscribedModules();

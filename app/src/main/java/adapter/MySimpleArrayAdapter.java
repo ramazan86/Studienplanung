@@ -3,6 +3,7 @@ package adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -19,14 +20,17 @@ import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
 import org.w3c.dom.Text;
 
+import activity.InformationAboutEnrolledExam;
 import data.Module;
 import dialog.MyAlertDialog;
 import file.MyFile;
 import fragment.CompletedExams;
 import fragment.EnrolledExams;
 import fragment.MyFragment;
+import fragment.Projects;
 import fragment.UnSubscribedExams;
 import helper.MyHelper;
+
 
 
 /**
@@ -35,7 +39,7 @@ import helper.MyHelper;
 
 
 /*Diese Klasse wird von MyFragment benutzt*/
-public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.OnLongClickListener {
+public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.OnLongClickListener, DialogInterface.OnClickListener {
 
     ////////////////////////////
     //       Attributes       //
@@ -50,15 +54,35 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
     private CompletedExams completedExams       = null;
     private EnrolledExams enrolledExams         = null;
     private UnSubscribedExams unSubscribedExams = null;
+    private Projects projects = null;
 
     private int layoutId = 0;
 
+    private ArrayAdapter<String> adapter = null;
+    private String title = "";
 
     ////////////////////////////
     //       Constructor      //
     ////////////////////////////
 
 
+    public MySimpleArrayAdapter(Context context, String[] values, Object obj) {
+        this(context, values);
+
+        if(obj instanceof UnSubscribedExams) {
+            unSubscribedExams = (UnSubscribedExams) obj;
+        }
+        else if(obj instanceof EnrolledExams) {
+            enrolledExams = (EnrolledExams) obj;
+        }
+        else if(obj instanceof CompletedExams) {
+            completedExams = (CompletedExams) obj;
+        }
+        else if(obj instanceof Projects) {
+            projects = (Projects) obj;
+        }
+
+    }
 
 
     public MySimpleArrayAdapter(Context context, String[] values, int layoutId) {
@@ -71,6 +95,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
         this.context = context;
         this.values  = values;
     }
+
 
 
     ////////////////////////////
@@ -119,62 +144,78 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
             moduleTitle = ((TextView)v).getText().toString();
         }
 
-        showDialog(context.getResources().getStringArray(R.array.longClickModule_1));
-
         myAlertDialog = new MyAlertDialog(fragmentActivity);
         myAlertDialog.setTitle(moduleTitle);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.longClickModule_1));
-
-        //myAlertDialog.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item,context.getResources().getStringArray(R.array.longClickModule)), new DialogInterface.OnClickListener() {
         final String finalModuleTitle = moduleTitle;
-        myAlertDialog.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        title = finalModuleTitle;
 
-                switch (which) {
-                    //unsubscribe
-                    case 0:
-                        openDialog(finalModuleTitle);
-                        notifyDataSetChanged();
-                        break;
 
-                    //edit
-                    case 1:
-                        break;
-                }
+        if(unSubscribedExams != null) {
+            adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.longClickModule_2));
+        }
+        else if(completedExams != null || projects != null) {
+            adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, new String[]{context.getResources().getStringArray(R.array.longClickModule_1)[1]});
+        }
 
-            }
-        });
-        myAlertDialog.buildDialogWithNeutralButton(context.getResources().getString(R.string.close), "1");
+        else if(enrolledExams != null){
+            adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.longClickModule_1));
+        }
 
-        return false;
+        myAlertDialog.setAdapter(adapter, this);
+        myAlertDialog.buildDialogWithNeutralButton("Schliesen", "-1");
+
+
+        return true;
     }
+
 
     private void openDialog(String finalModuleTitle) {
 
-        //Unsubscribe module respective to moduleTitle
-        String title = context.getResources().getString(R.string.unsubscribeModule);
-        String message = context.getResources().getString(R.string.questUnSubscribePraefix) + ":" +System.getProperty("line.separator") + ">> " + finalModuleTitle + " << " + System.getProperty("line.separator") +  context.getResources().getString(R.string.questForUnsubscribeModuleSuffix);
+        String checkValue    = "";
+        String dialogTitle   = "";
+        String dialogMessage = "";
 
-        Bundle data = new Bundle();
-        data.putString(context.getResources().getString(R.string.moduleTitle), finalModuleTitle);
+        if(enrolledExams != null) {
+            checkValue    = MyHelper.CHECK_VALUE_MODULE_UNSUBSCRIBE;
+            dialogTitle   = context.getResources().getString(R.string.unsubscribeModule);
+            dialogMessage = context.getResources().getString(R.string.questUnSubscribePraefix) + ":" +System.getProperty("line.separator") + ">> " + finalModuleTitle + " << " + System.getProperty("line.separator") +  context.getResources().getString(R.string.questForUnsubscribeModuleSuffix);
+            enrolledExams = null;
+        }
+        else if(unSubscribedExams != null) {
+            checkValue = MyHelper.CHECK_VALUE_ENROLL_EXAM;
+            dialogTitle = context.getResources().getString(R.string.enrollExam);
+            dialogMessage = context.getResources().getString(R.string.questionForEnrollExamPraefix) + ": " +System.getProperty("line.separator") + finalModuleTitle + System.getProperty("line.separator") +context.getResources().getString(R.string.questionForEnrollExamSuffix);
+            unSubscribedExams = null;
+        }
 
-        MyAlertDialog dialog = new MyAlertDialog(title, message, fragmentActivity);
-            dialog.setBundle(data);
-            dialog.buildDialogWithPositiveAndNegativeButton(context.getResources().getString(R.string.yes),
-                                                            context.getResources().getString(R.string.no),
-                                                            MyHelper.CHECK_VALUE_MODULE_UNSUBSCRIBE);
+           Bundle data = new Bundle();
+           data.putString(context.getResources().getString(R.string.moduleTitle), finalModuleTitle);
+
+           MyAlertDialog dialog = new MyAlertDialog(dialogTitle, dialogMessage, fragmentActivity);
+           dialog.setBundle(data);
+           dialog.buildDialogWithPositiveAndNegativeButton(context.getResources().getString(R.string.yes),
+                   context.getResources().getString(R.string.no), checkValue);
 
     }
 
-    private void showDialog(String[] values) {}
 
     public void setActivity(FragmentActivity activity) {
         this.fragmentActivity = activity;
     }
 
-    public void clearContent() {
-        this.clear();
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+
+       //if "info" is clicked
+        if(adapter.getItem(which).toString().equals(context.getResources().getStringArray(R.array.longClickModule_1)[1])) {
+            Intent intent = new Intent(context, InformationAboutEnrolledExam.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(context.getString(R.string.moduleTitle), title);
+            context.startActivity(intent);
+        }else {
+            openDialog(title);
+            notifyDataSetChanged();
+        }
+
     }
 }

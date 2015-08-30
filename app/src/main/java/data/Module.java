@@ -1,8 +1,12 @@
 package data;
 
+import android.graphics.drawable.Drawable;
+
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
 import java.io.Serializable;
+
+import helper.MyHelper;
 
 
 public class Module implements Serializable{
@@ -34,6 +38,7 @@ public class Module implements Serializable{
 				   teachForm,
 				   language,
 				   frequency,
+                   enrolledDate,
                    grade,
                    dateOfExam,
                    timeOfExam,
@@ -41,10 +46,11 @@ public class Module implements Serializable{
 				   furtherInformation,
 				   totalWorkload,
 				   duration,
+                   room,
 				   creditPoints,
-	               mark,
 				   semester,
 				   semesterWeekHours;		//SWS example 10-12 Uhr => 2 SWS
+
 
     private boolean enrolled      = false,
                     unsubscribed  = false,
@@ -65,6 +71,8 @@ public class Module implements Serializable{
 	 #    Methods    #
 	 # ############# #
 	 */
+
+
 
 
 	public String toString(int i ) {
@@ -105,8 +113,9 @@ public class Module implements Serializable{
 
 
 	public String info() {
-	
-		
+
+
+
 		return "semester: " +semester +System.getProperty("line.separator") +
 				 "title: " +title + System.getProperty("line.separator") + 
 				 "duration: " +duration + System.getProperty("line.separator") +
@@ -327,13 +336,6 @@ public class Module implements Serializable{
 		this.pageOfModuleDescription = pageOfModuleDescription;
 	}
 
-	public String getMark() {
-		return mark;
-	}
-
-	public void setMark(String mark) {
-		this.mark = mark;
-	}
 
 	public String getContent() {
 		return content;
@@ -401,6 +403,10 @@ public class Module implements Serializable{
     }
 
     public String getExamType() {
+
+        if(examType == null) {
+            examType = MyHelper.NOT_A_NUMBER;
+        }
         return examType;
     }
 
@@ -427,5 +433,27 @@ public class Module implements Serializable{
 
     public void setNotPassed(boolean notPassed) {
         this.notPassed = notPassed;
+    }
+
+    public String getEnrolledDate() {
+        if(enrolledDate == null) {
+            enrolledDate = MyHelper.NOT_A_NUMBER;
+        }
+        return enrolledDate;
+    }
+
+    public void setEnrolledDate(String enrolledDate) {
+        this.enrolledDate = enrolledDate;
+    }
+
+    public String getRoom() {
+        if(room == null) {
+            room = MyHelper.NOT_A_NUMBER;
+        }
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 }

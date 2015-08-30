@@ -65,7 +65,7 @@ public class Projects extends ListFragment {
 
 
         //Angemeldet
-        adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values);
+        adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values, this);
         adapter.setActivity(getActivity());
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();

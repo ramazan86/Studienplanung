@@ -7,9 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
@@ -176,7 +178,21 @@ public class MyTabActivity extends ActionBarActivity implements ActionBar.TabLis
         if(v.getId() == R.id.myActionbar_textView_add) {
             startActivity(new Intent(this, SubscribeExamActivity.class).putExtra(getResources().getString(R.string.layoutId), R.layout.add_exam));
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        switch (keyCode) {
+
+            case KeyEvent.KEYCODE_MENU:
+                Toast.makeText(getApplicationContext(),"onKeyDown " +nameOfCurrentPage, Toast.LENGTH_SHORT).show();
+                break;
+        }
 
 
+
+
+        return super.onKeyDown(keyCode, event);
     }
 }
