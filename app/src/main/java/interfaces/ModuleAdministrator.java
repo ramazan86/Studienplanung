@@ -34,7 +34,7 @@ public interface ModuleAdministrator {
 
     public Bundle desiredNoteAverage(float desire);
 
-    public float getAverageNotes();
+    public Bundle getAverageNotes();
     public int getCreditPoints();
 
 }

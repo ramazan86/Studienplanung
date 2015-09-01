@@ -49,12 +49,6 @@
 
             android:id="@+id/overviewGraduation_textView_notPassed"/>
 
-        <TextView
-            style="@style/textView_overView"
-
-            android:text="@string/noteAverage"
-
-            android:id="@+id/overviewGraduation_textView_noteAverage"/>
 
         <TextView
             style="@style/textView_overView"
@@ -73,6 +67,110 @@
         android:id="@+id/overViewGraduation_view_1">
     </View>
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/overViewGraduation_view_1"
+        android:id="@+id/overViewGraduation_linearLayout_wrapNotes">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_4"
+
+            android:layout_below="@+id/overViewGraduation_view_1"
+            android:orientation="horizontal"
+
+            android:id="@+id/overViewGraduation_linearLayout_notes">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textSize="@dimen/dimen_7"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="@string/notes"
+
+                android:id="@+id/overviewGraduation_textView_notes"/>
+
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/gray"
+                android:src="@drawable/average_32x32"
+
+                android:layout_below="@+id/overViewGraduation_view_1"
+                android:layout_marginLeft="@dimen/dimen_35"/>
+
+
+            <TextView
+                style="@style/textView_overView"
+
+                android:layout_marginLeft="@dimen/dimen_2"
+                android:textSize="@dimen/dimen_6"
+                android:textStyle="italic"
+
+                android:id="@+id/overviewGraduation_textView_noteAverage"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/info_24x24"
+
+
+                android:background="@null"
+                android:id="@+id/overViewGraduation_imageButton_avg"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:background="@null"
+                android:src="@drawable/calc_48x48"
+
+                android:layout_marginLeft="@dimen/dimen_55"
+
+                android:id="@+id/overViewGraduation_imageButton_calc"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_12"
+                android:gravity="center"
+                android:text="(Prognose)"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/dimen_2"
+        android:layout_marginTop="@dimen/dimen_3"
+        android:background="@color/light_blue"
+        android:layout_marginLeft="@dimen/dimen_1"
+        android:layout_marginRight="@dimen/dimen_1"
+        android:layout_below="@+id/overViewGraduation_linearLayout_wrapNotes"
+        android:id="@+id/overViewGraduation_view_2">
+    </View>
 
 
 

@@ -79,6 +79,9 @@
     <!-- >= 30 && < 40-->
     <dimen name="dimen_30">120dp</dimen>
     <dimen name="dimen_32.5">125dp</dimen>
+    <dimen name="dimen_35">140dp</dimen>
+    <dimen name="dimen_37.5">165dp</dimen>
+
 
     <!-- >= 40 && < 50 -->
         <dimen name="dimen_40">160dp</dimen>

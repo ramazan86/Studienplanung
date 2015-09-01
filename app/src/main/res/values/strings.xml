@@ -35,6 +35,7 @@
     <string name="no">Nein</string>
     <string name="noteAverage">Notendurchschnitt:</string>
     <string name="notPassed">Nicht Bestanden:</string>
+    <string name="notes">Noten</string>
 
     <!-- pP - rR -->
 
@@ -90,6 +91,7 @@
     <string name="noValidChoice">Keine gültige Auswahl</string>
     <string name="backSlash">/</string>
     <string name="enrollExam">Prüfung anmelden</string>
+    <string name="notesTilYet"><u>Bisher erbrachte Leistungen</u>.</string>
 
 <!-- aA - zZ #########################       FINISH       ################################ -->
 

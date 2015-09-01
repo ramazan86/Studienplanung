@@ -27,6 +27,7 @@ public class ModuleTotalView extends ActionBarActivity {
 
     private TextView textView_headline = null;
     private LinearLayout.LayoutParams params  = null;
+
     private LinearLayout linearLayout_modules = null,
                          linearLayout_row     = null;
     private TextView textView_value   = null;

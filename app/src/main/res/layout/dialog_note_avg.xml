@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_5">
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="@dimen/dimen_3"
+
+        android:text="@string/notesTilYet"
+        android:textStyle="bold"
+        android:textSize="@dimen/dimen_5"
+
+        android:textColor="@color/black"
+        android:gravity="center"/>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_marginBottom="@dimen/dimen_3"
+        android:orientation="vertical"
+        android:id="@+id/dialogNoteAvg_linearLayout_inner">
+
+    </LinearLayout>
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_32x32"
+
+        android:baselineAlignBottom="true"
+        android:layout_gravity="right"
+        android:clickable="true"
+        android:id="@+id/dialogNoteAvg_imageButton_back"/>
+
+
+
+
+</LinearLayout>

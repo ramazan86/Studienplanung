@@ -3,6 +3,7 @@ package data;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
@@ -387,15 +388,16 @@ public class ModuleOrganizer implements ModuleAdministrator {
                 break;
             }
 
+
+            modules.add(tmp);
+            randNote.add(String.valueOf(notesList.get(random)));
+
             //if the last module is achieved
             if(i == moduleManual.getModuleList().size()-1) {
 
                 notesList.remove(random);
                 moduleManual = moduleManual.replaceModuleInList(tmp);
             }
-
-            modules.add(tmp);
-            randNote.add(String.valueOf(notesList.get(random)));
         }
 
             data.putSerializable("modules",modules);
@@ -407,12 +409,15 @@ public class ModuleOrganizer implements ModuleAdministrator {
     }
 
     @Override
-    public float getAverageNotes() {
+    public Bundle getAverageNotes() {
+
+        Bundle args = new Bundle();
 
         if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
         float grades = 0.0f;
         float bachelorGrade = 0;
         float creditPoints = 0;
+        ArrayList<Module> list = new ArrayList<>();
 
         for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
 
@@ -423,21 +428,25 @@ public class ModuleOrganizer implements ModuleAdministrator {
                     if(!tmp.getTitle().contains(context.getResources().getString(R.string.M28))) {
                         grades += Float.parseFloat(tmp.getCreditPoints()) * Float.parseFloat(tmp.getGrade());
                         creditPoints += Float.parseFloat(tmp.getCreditPoints());
+                        list.add(tmp);
                     }else {
                         bachelorGrade = Float.parseFloat(tmp.getGrade());
                     }
                 }catch (Exception e) {
                     Log.e("getAverageNotes()" +getClass().getName(), e.getCause() + " // " +e.getMessage());
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
         }
 
+        args.putSerializable("modules", list);
 
         if(bachelorGrade != 0) {
-            return (float) (Math.round((grades * 0.8f) + (bachelorGrade * 0.2f)*100.0)/100.0);
+            args.putFloat("avg",(float) (Math.round((grades * 0.8f) + (bachelorGrade * 0.2f)*100.0)/100.0));
         }else {
-            return (float) (Math.round(grades/creditPoints *100.0)/100.0);
+            args.putFloat("avg",(float) (Math.round(grades/creditPoints *100.0)/100.0));
         }
+
+        return args;
     }
 
     @Override
