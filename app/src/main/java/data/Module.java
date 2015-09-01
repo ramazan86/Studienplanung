@@ -5,6 +5,8 @@ import android.graphics.drawable.Drawable;
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import helper.MyHelper;
 
@@ -58,7 +60,6 @@ public class Module implements Serializable{
                     notPassed     = false;
 
     private int numberOfTrials;             //Anzahl versuche
-
 
 	/** # ############# #
 	 #  Constructor  #
@@ -456,4 +457,5 @@ public class Module implements Serializable{
     public void setRoom(String room) {
         this.room = room;
     }
+
 }

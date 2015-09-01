@@ -211,6 +211,20 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
             Intent intent = new Intent(context, InformationAboutEnrolledExam.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(context.getString(R.string.moduleTitle), title);
+
+            if(enrolledExams != null) {
+                intent.putExtra("value", "value_1");
+            }
+            else if(unSubscribedExams != null) {
+                intent.putExtra("value", "value_2");
+            }
+            else if(completedExams != null) {
+                intent.putExtra("value", "value_3");
+            }
+            else if(projects != null) {
+                intent.putExtra("value", "value_4");
+            }
+
             context.startActivity(intent);
         }else {
             openDialog(title);

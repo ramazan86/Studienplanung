@@ -7,6 +7,7 @@ import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import file.MyFile;
@@ -30,10 +31,17 @@ public class ModuleManual implements Serializable{
 	private Module module;
 	private long id;
 	private static long id_counter = 0;
+
 	private ArrayList<Module> moduleList = null;
 
+    private float[] notes = null;
 
-	/** # ############# #
+    private Float[] floats = null;
+
+
+
+
+    /** # ############# #
 	 #  Constructor  #
 	 # ############# #
 	 */
@@ -158,6 +166,8 @@ public class ModuleManual implements Serializable{
     }
 
 
+
+
 	public void info() {
 		//System.out.println("Subject: " +this.subject + " graduation: " +this.graduation + " faculty: " +this.faculty + " university: " + this.university);
 	}
@@ -215,6 +225,7 @@ public class ModuleManual implements Serializable{
 	public void setModuleList(ArrayList<Module> moduleList) {
 		this.moduleList = moduleList;
 	}
-	
-	
+
+
+
 }

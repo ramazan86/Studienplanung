@@ -275,6 +275,7 @@
         android:textStyle="bold"
         android:textSize="@dimen/dimen_4"
 
+        android:visibility="invisible"
         android:layout_alignRight="@+id/informationAboutEnrolledExam_textView_typeContent"
         android:layout_alignEnd="@+id/informationAboutEnrolledExam_textView_typeContent"
         android:layout_below="@+id/informationAboutEnrolledExam_view_stateContent"

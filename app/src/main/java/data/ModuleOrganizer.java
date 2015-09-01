@@ -1,6 +1,7 @@
 package data;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,8 +10,10 @@ import com.cinardere_ramazan_ba_2015.studienplanung.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 import file.MyFile;
 import interfaces.ModuleAdministrator;
@@ -32,6 +35,12 @@ public class ModuleOrganizer implements ModuleAdministrator {
     private MyFile myFile = null;
 
     private Context context = null;
+
+    private ArrayList<Float> notesList = null;
+
+    private ArrayList<Module> modules = null;
+
+    private ArrayList<String> randNote = null;
 
     ////////////////////////////
     //       Constructor      //
@@ -57,7 +66,6 @@ public class ModuleOrganizer implements ModuleAdministrator {
         //ModuleManual
         myFile = new MyFile(context);
         moduleManual = (ModuleManual) myFile.getObjectFromFile(context.getResources().getString(R.string.moduleManualSer));
-
     }
 
     @Override
@@ -198,7 +206,6 @@ public class ModuleOrganizer implements ModuleAdministrator {
 
             try {
 
-
                 if(new SimpleDateFormat("dd/MM/yyyy").parse(tmp.getDateOfExam()).before(new Date()) && !tmp.isUnsubscribed())  {
                     modules.add(tmp);
                 }else {
@@ -263,24 +270,174 @@ public class ModuleOrganizer implements ModuleAdministrator {
     }
 
     @Override
+    public Bundle desiredNoteAverage(float desire) {
+
+        ArrayList<Float> avList   = new ArrayList<>();
+        ArrayList<Float> cpList   = new ArrayList<>();
+        float creditPoints = 0.0f;
+        float cpTimesNote  = 0.0f;
+
+
+        if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
+
+
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
+
+            int random = new Random().nextInt((4-1) +1) +1;
+            if((i%3)==0) {
+                moduleManual.getModuleList().get(i).setGrade(String.valueOf(random));
+            }
+        }
+
+        //modules are removed which already has a grade and cannot regard
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
+            Module tmp = moduleManual.getModuleList().get(i);
+            try {
+                avList.add(Float.parseFloat(tmp.getCreditPoints()) * Float.parseFloat(tmp.getGrade()));
+                cpList.add(Float.valueOf(tmp.getCreditPoints()));
+                creditPoints += Float.parseFloat(tmp.getCreditPoints());
+                cpTimesNote  += Float.parseFloat(tmp.getCreditPoints()) * Float.parseFloat(tmp.getGrade());
+                moduleManual.getModuleList().remove(i);
+            }catch (Exception e) {}
+        }
+
+
+        Log.e("CP's : " +creditPoints," avgNotes: " +cpTimesNote/creditPoints);
+        Log.e("  --  ","  --  ");
+
+        /*Bundle b = calculateAvgNotes(cpTimesNote, creditPoints, desire);
+
+        creditPoints = b.getFloat("cp");
+        cpTimesNote = b.getFloat("cpTimesNote");*/
+
+        Bundle args = null;
+
+        for(int i = 0; i<13;i++) {
+            args = calculateAvgNotes(cpTimesNote, creditPoints, desire);
+                if(args.getBoolean("break")) {
+                    break;
+                }
+        }
+
+
+
+        for(int i = 0; i<((ArrayList<Module>) args.getSerializable("modules")).size(); i++) {
+
+            Module tmp = ((ArrayList<Module>)args.getSerializable("modules")).get(i);
+            String note = ((ArrayList<String>)args.getStringArrayList("randNotes")).get(i);
+
+
+            Log.e("i: " +i ," "  +tmp.getTitle() + " ==> " +note);
+        }
+
+        cpTimesNote = args.getFloat("cpTimesNote");
+        creditPoints = args.getFloat("cp");
+
+
+
+
+        Log.e("  --  ","  --  ");
+        Log.e("desire: " +desire + " CP's " +creditPoints, "  avg: " +cpTimesNote/creditPoints);
+
+
+
+        return args;
+    }
+
+    private Bundle calculateAvgNotes(float cpTimesNote, float creditPoints, float desire) {
+
+        Float[] floats =  new Float[] {1.0f, 1.3f, 1.5f, 1.7f,
+                                        2.0f, 2.3f, 2.5f, 2.7f,
+                                            3.0f, 3.3f, 3.5f, 3.7f,
+                                                4.0f};
+
+        Bundle data = new Bundle();
+
+        if(notesList == null){
+            notesList = new ArrayList<>(Arrays.asList(floats));
+        }
+
+        if(modules == null) {
+            modules = new ArrayList<>();
+        }
+
+        if(randNote == null) {
+            randNote = new ArrayList<>();
+        }
+
+
+        for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
+
+            Module tmp = moduleManual.getModuleList().get(i);
+            int max = notesList.size()-1;
+            int min = 0;
+            int random = new Random().nextInt((max - min) +1) + min;
+
+            if(!tmp.getTitle().contains(context.getResources().getString(R.string.M28))) {
+
+                cpTimesNote += Float.parseFloat(tmp.getCreditPoints()) * notesList.get(random);
+                creditPoints += Float.parseFloat(tmp.getCreditPoints());
+
+            }
+
+            if(cpTimesNote/creditPoints <= desire) {
+                Log.e("desire: "+desire," calculate: " +(cpTimesNote/creditPoints));
+
+                data.putBoolean("break",true);
+                break;
+            }
+
+            //if the last module is achieved
+            if(i == moduleManual.getModuleList().size()-1) {
+
+                notesList.remove(random);
+                moduleManual = moduleManual.replaceModuleInList(tmp);
+            }
+
+            modules.add(tmp);
+            randNote.add(String.valueOf(notesList.get(random)));
+        }
+
+            data.putSerializable("modules",modules);
+            data.putStringArrayList("randNotes",randNote);
+            data.putFloat("cpTimesNote", cpTimesNote);
+            data.putFloat("cp",creditPoints);
+
+        return data;
+    }
+
+    @Override
     public float getAverageNotes() {
 
         if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
         float grades = 0.0f;
+        float bachelorGrade = 0;
+        float creditPoints = 0;
 
         for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
 
             Module tmp = moduleManual.getModuleList().get(i);
 
-            try {
-                grades += Float.parseFloat(tmp.getCreditPoints()) * Float.parseFloat(tmp.getGrade());
-            }catch (Exception e) {
-                Log.e("getAverageNotes()", e.getCause() + " // " +e.getMessage());
-                e.printStackTrace();
-            }
+                try {
+
+                    if(!tmp.getTitle().contains(context.getResources().getString(R.string.M28))) {
+                        grades += Float.parseFloat(tmp.getCreditPoints()) * Float.parseFloat(tmp.getGrade());
+                        creditPoints += Float.parseFloat(tmp.getCreditPoints());
+                    }else {
+                        bachelorGrade = Float.parseFloat(tmp.getGrade());
+                    }
+                }catch (Exception e) {
+                    Log.e("getAverageNotes()" +getClass().getName(), e.getCause() + " // " +e.getMessage());
+                    e.printStackTrace();
+                }
         }
 
-        return (grades/moduleManual.getTotalCreditPoints());
+
+        if(bachelorGrade != 0) {
+            return (float) (Math.round((grades * 0.8f) + (bachelorGrade * 0.2f)*100.0)/100.0);
+        }else {
+            return (float) (Math.round(grades/creditPoints *100.0)/100.0);
+        }
     }
 
     @Override
@@ -300,6 +457,11 @@ public class ModuleOrganizer implements ModuleAdministrator {
 
         return creditPoints;
     }
+
+
+
+
+
 
 
 

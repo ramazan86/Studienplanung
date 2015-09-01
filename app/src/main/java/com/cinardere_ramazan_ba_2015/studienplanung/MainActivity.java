@@ -13,8 +13,11 @@ import android.widget.ImageButton;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 import activity.MyTabActivity;
+import data.ModuleManual;
+import data.ModuleOrganizer;
 import file.MyFile;
 import reader.ReadDataFromPdf;
 import view.SemesterTotalView;
@@ -54,6 +57,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         initComponents();
+
+        new ModuleOrganizer(this).desiredNoteAverage(2.9f);
 
        // myFile = new MyFile(this.getApplicationContext());
        // myFile.createFolders();

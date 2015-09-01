@@ -1,5 +1,7 @@
 package interfaces;
 
+import android.os.Bundle;
+
 import java.util.ArrayList;
 
 import data.Module;
@@ -29,6 +31,8 @@ public interface ModuleAdministrator {
     public ArrayList<Module> getNotPassedExams();
 
     public ArrayList<Module> getProjects();
+
+    public Bundle desiredNoteAverage(float desire);
 
     public float getAverageNotes();
     public int getCreditPoints();

@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
+import java.util.Arrays;
+
 import data.Module;
 import data.ModuleManual;
 import data.ModuleOrganizer;
@@ -58,6 +60,8 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
 
     private MyAlertDialog myAlertDialog = null;
 
+    private String checkValue = MyHelper.NOT_A_NUMBER;
+
 
     ////////////////////////////
     //       Constructor      //
@@ -74,13 +78,14 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.information_about_enrolled_exam_view);
+        getAssignedValues();
 
-       //custom acitonbar
+
+        //custom acitonbar
         createCustomActionBar();
         initReferences();
         initComponents();
 
-        getAssignedValues();
 
         assignValueIntoComponents();
 
@@ -88,7 +93,22 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
 
     private void assignValueIntoComponents() {
 
-        textView_headline.setText(moduleTitle);
+
+        String[] tmp = moduleTitle.split(" ");
+        String tmpTitle = "";
+
+
+        if(tmp.length >= 5) {
+            for(int i = 0; i<5; i++) {
+                tmpTitle += tmp[i] + " ";
+            }
+            tmpTitle += "[...]";
+            textView_headline.setText(tmpTitle);
+
+        }else {
+            textView_headline.setText(moduleTitle);
+        }
+
 
         //get reference to respective title
         module = moduleManual.searchModule(moduleTitle);
@@ -135,6 +155,7 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
         editTextArray[0] = editText_note;
         editTextArray[1] = editText_room;
 
+
         //View
         view_state = findViewById(R.id.informationAboutEnrolledExam_view_stateContent);
 
@@ -142,11 +163,13 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
         imageButton_info = (ImageButton) findViewById(R.id.informationAboutEnrolledExam_imageButton_info);
         imageButton_info.setOnClickListener(this);
 
-        }
+    }
 
     private void getAssignedValues() {
 
         moduleTitle = getIntent().getExtras().getString(getString(R.string.moduleTitle));
+        checkValue  = getIntent().getExtras().getString("value");
+
     }
 
     private void createCustomActionBar() {
@@ -159,11 +182,18 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
         LayoutInflater myInlater = LayoutInflater.from(this);
         View customView = myInlater.inflate(R.layout.my_actionbar, null);
 
-        textView_actionBar_save_edit = (TextView) customView.findViewById(R.id.myActionbar_textView_add);
-        textView_actionBar_save_edit.setText(getResources().getString(R.string.edit));
-        textView_actionBar_save_edit.setAllCaps(false);
-        textView_actionBar_save_edit.setOnClickListener(this);
+        Log.e("checkVALUE: "," " +checkValue);
 
+
+        if(!checkValue.equals("value_2")) {
+            textView_actionBar_save_edit = (TextView) customView.findViewById(R.id.myActionbar_textView_add);
+            textView_actionBar_save_edit.setText(getResources().getString(R.string.edit));
+            textView_actionBar_save_edit.setAllCaps(false);
+            textView_actionBar_save_edit.setOnClickListener(this);
+        }else {
+            textView_actionBar_save_edit = (TextView) customView.findViewById(R.id.myActionbar_textView_add);
+            textView_actionBar_save_edit.setText(null);
+        }
 
         actionBar.setCustomView(customView);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -172,46 +202,42 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == textView_actionBar_save_edit.getId()) {
+        if(!checkValue.equals("value_2")) {
 
-            if(textView_actionBar_save_edit.getText().equals(getString(R.string.save))) {
-                textView_actionBar_save_edit.setText(getString(R.string.edit));
+            if (v.getId() == textView_actionBar_save_edit.getId()) {
 
-                String room = editText_room.getText().toString();
-                String note = editText_note.getText().toString();
+                if (textView_actionBar_save_edit.getText().equals(getString(R.string.save))) {
+                    textView_actionBar_save_edit.setText(getString(R.string.edit));
 
-                if(!room.equals("") || room != null) {
-                    module.setRoom(room);
+                    String room = editText_room.getText().toString();
+                    String note = editText_note.getText().toString();
+
+                    if (!room.equals("") || room != null) {
+                        module.setRoom(room);
+                    }
+
+                    if (!note.equals("") || note != null) {
+                        module.setGrade(note);
+                    }
+
+                    // show dialog, if user click "ja" module content will update
+                    String dialogMessage = getString(R.string.updateModulePraefix) + System.getProperty("line.separator") + moduleTitle + System.getProperty("line.separator") + getString(R.string.updateModuleSuffix);
+                    Bundle data = new Bundle();
+                    data.putSerializable(getString(R.string.module), module);
+
+                    showMyAlertDialog(getString(R.string.edit), dialogMessage, data);
+                    // -------------------
+
+                    changeEditTextUseAbility(false);
+
+                } else if (textView_actionBar_save_edit.getText().equals(getString(R.string.edit))) {
+                    textView_actionBar_save_edit.setText(getString(R.string.save));
+                    changeEditTextUseAbility(true);
                 }
-
-                if(!note.equals("") || note != null) {
-                    module.setGrade(note);
-                }
-
-            // show dialog, if user click "ja" module content will update
-                String dialogMessage = getString(R.string.updateModulePraefix) + System.getProperty("line.separator") + moduleTitle + System.getProperty("line.separator")  +getString(R.string.updateModuleSuffix);
-                Bundle data = new Bundle();
-                data.putSerializable(getString(R.string.module), module);
-
-                showMyAlertDialog(getString(R.string.edit), dialogMessage, data);
-            // -------------------
-
-                changeEditTextUseAbility(false);
-
-            }else if(textView_actionBar_save_edit.getText().equals(getString(R.string.edit))) {
-                textView_actionBar_save_edit.setText(getString(R.string.save));
-
-                changeEditTextUseAbility(true);
-
             }
+        }//if(checvalue != value_2
 
-
-
-
-
-        }
-
-        else if(v.getId() == R.id.informationAboutEnrolledExam_imageButton_info) {
+        if(v.getId() == R.id.informationAboutEnrolledExam_imageButton_info) {
 
             LayoutInflater factory = LayoutInflater.from(this);
             final View stateView = factory.inflate(R.layout.dialog_state_information, null);
@@ -220,11 +246,11 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
             alertDialog.setView(stateView);
 
             stateView.findViewById(R.id.dialogStateInformation_back).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alertDialog.dismiss();
-                }
-            });
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
 
             alertDialog.show();
         }
