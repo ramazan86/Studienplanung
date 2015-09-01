@@ -1,8 +1,10 @@
 package dialog;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
@@ -120,7 +122,12 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
                 case AlertDialog.BUTTON_POSITIVE:
 
                     Module m = (Module) arguments.getSerializable(context.getResources().getString(R.string.module));
-                    new ModuleOrganizer(context).subScribeModule(m);
+                    boolean state = new ModuleOrganizer(context).subScribeModule(m);
+
+                    if(state) {
+                        showValidationPositiveExam(m, subscribeExamActivity);
+                    }
+
                     break;
             }
 
@@ -170,8 +177,22 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
         }//CHECK_VALUE_ENROLL_WARNING_DATE
 
 
+    }
 
+    private void showValidationPositiveExam(Module m, final SubscribeExamActivity subscribeExamActivity) {
 
+        this.setIcon(context.getResources().getDrawable(R.drawable.info_24x24));
+        this.setMessage(m.getTitle() + " erfolgreich angemeldet...");
+        this.setPositiveButton(null,null);
+        this.setNegativeButton(null,null);
+        this.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                subscribeExamActivity.onBackPressed();
+            }
+        });
+        this.create().show();
     }
 
     public void setBundle(Bundle arguments) {

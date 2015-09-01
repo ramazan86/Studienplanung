@@ -8,6 +8,7 @@
     <string name="action_settings">Settings</string>
     <string name="average">Durchschnitt:</string>
 
+    <string name="calculated"><b><u>Berechnet:</u></b></string>
     <string name="chooseModuleManual">Modulhandbuch auswählen …</string>
     <string name="close">Schliesen</string>
     <string name="cp">CP</string>
@@ -20,8 +21,13 @@
 
     <!-- fF - jJ-->
 
+        <string name="hello_world">Hello world!</string>
 
-    <string name="hello_world">Hello world!</string>
+        <string name="inputPrognoseNote">Erwünschte Note eingeben.</string>
+        <string name="invalidInput">Üngültige Eingabe</string>
+        <string name="input"><b><u>Eingabe:</u></b></string>
+        <string name="invalidDate">Üngültige Datum!!!</string>
+
 
 
     <!-- kK - oO -->
@@ -36,12 +42,15 @@
     <string name="noteAverage">Notendurchschnitt:</string>
     <string name="notPassed">Nicht Bestanden:</string>
     <string name="notes">Noten</string>
+    <string name="noteSmallCurrent">Notenwunsch muss unter Ihrem Notendurchschnitt liegen.</string>
+
 
     <!-- pP - rR -->
 
     <string name="page">page</string>
     <string name="passed">Bestanden:</string>
     <string name="position">position</string>
+    <string name="prognosis"><u>Prognose</u></string>
 
     <string name="questionForEnrollExamPraefix">Wirklich für das Modul</string>
     <string name="questUnSubscribePraefix">Sicher vom Modul</string>
@@ -58,6 +67,8 @@
     <string name="unsubscribeModule">Abmelden</string>
 
     <!--wW - zZ -->
+        <string name="warningMultipleEnroll">Mehrfach Anmeldung nicht möglich!!!</string>
+
     <string name="yes">Ja</string>
 
 
@@ -91,7 +102,7 @@
     <string name="noValidChoice">Keine gültige Auswahl</string>
     <string name="backSlash">/</string>
     <string name="enrollExam">Prüfung anmelden</string>
-    <string name="notesTilYet"><u>Bisher erbrachte Leistungen</u>.</string>
+    <string name="notesTilYet"><u>Bisher erbrachte Leistungen</u></string>
 
 <!-- aA - zZ #########################       FINISH       ################################ -->
 

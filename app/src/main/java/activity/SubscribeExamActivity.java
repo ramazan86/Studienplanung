@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -185,7 +186,7 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemSelected(AdapterView<?> parent, final View view, int position, long id) {
 
         if(position != 0) {
 
@@ -208,6 +209,17 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
 
                 case R.id.addExam_spinner_module:
                     moduleTitle = parent.getItemAtPosition(position).toString();
+
+                    if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
+                    Module tmp = moduleManual.searchModule(moduleTitle);
+
+                    LinearLayout linearLayout = (LinearLayout) findViewById(R.id.addExam_linearLayout_wrapSpinnerModule);
+
+                    if(tmp.isEnrolled()) {
+                        linearLayout.setBackgroundColor(getResources().getColor(R.color.red));
+                    }else {
+                        linearLayout.setBackgroundColor(getResources().getColor(R.color.light_green));
+                    }
                     break;
 
                 case R.id.addExam_spinner_type:
@@ -245,45 +257,63 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
         //Speichern
         if(v.getId() == R.id.myActionbar_textView_add) {
 
+
+
             if(!semester.equals("") && !moduleTitle.equals("")) {
 
-                String[] date = arrayAdapter_date.getItem(0).toString().split("/");
+                //
+                if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
+                Module mod = moduleManual.searchModule(moduleTitle);
 
-                try {
-                    if(new SimpleDateFormat("dd/MM/yyyy").parse(arrayAdapter_date.getItem(0).toString()).after(new Date())) {
+                //Check if module is already enrolled
+                if(mod.isEnrolled()) {
 
-                        Module tmp = moduleManual.searchModule(moduleTitle);
-                        tmp.setDateOfExam(arrayAdapter_date.getItem(0).toString());
-                        tmp.setTimeOfExam(arrayAdapter_time.getItem(0).toString());
-
-                        if(!examType.equals(getResources().getStringArray(R.array.exam_types)[0])) {
-                            tmp.setExamType(examType);
-                        }
-
-
-                        Bundle data = new Bundle();
-                        data.putSerializable(getResources().getString(R.string.module), tmp);
-                        data.putSerializable(getResources().getString(R.string.moduleManual), moduleManual);
-
-                        alertDialogValidate(data);
-
-                        //myAlertDialog listener calls enrollForModule if user clicks "JA", otherwise nothing
-
-
-                    }else {
-                        alertDialogNotAllowed("Warning",getString(R.string.dateWarning), MyHelper.CHECK_VALUE_ENROLL_WARNING_DATE);
-
-                    }
-                } catch (ParseException e) {
-                    Log.e("Exception in onClick." +getClass().getName()," " +e.getCause() + " // " +e.getMessage());
-                    e.printStackTrace();
+                    MyAlertDialog dialog = new MyAlertDialog(this);
+                        dialog.setIcon(getResources().getDrawable(R.drawable.warning_24x24_red));
+                        dialog.setTitle(getResources().getString(R.string.enrollExam));
+                        dialog.setMessage(getResources().getString(R.string.warningMultipleEnroll));
+                        dialog.buildDialogWithNeutralButton("OK", "-1");
                 }
+                else {
+                    String[] date = arrayAdapter_date.getItem(0).toString().split("/");
+
+                    try {
+                        if(new SimpleDateFormat("dd/MM/yyyy").parse(arrayAdapter_date.getItem(0).toString()).after(new Date())) {
+
+                            Module tmp = moduleManual.searchModule(moduleTitle);
+                            tmp.setDateOfExam(arrayAdapter_date.getItem(0).toString());
+                            tmp.setTimeOfExam(arrayAdapter_time.getItem(0).toString());
+
+                            if(!examType.equals(getResources().getStringArray(R.array.exam_types)[0])) {
+                                tmp.setExamType(examType);
+                            }
+
+
+                            Bundle data = new Bundle();
+                            data.putSerializable(getResources().getString(R.string.module), tmp);
+                            data.putSerializable(getResources().getString(R.string.moduleManual), moduleManual);
+
+                            alertDialogValidate(data);
+
+                            //myAlertDialog listener calls enrollForModule if user clicks "JA", otherwise nothing
+
+
+                        }else {
+                            alertDialogNotAllowed(getString(R.string.invalidDate),getString(R.string.dateWarning), MyHelper.CHECK_VALUE_ENROLL_WARNING_DATE);
+                        }
+                    } catch (ParseException e) {
+                        Log.e("Exception in onClick." +getClass().getName()," " +e.getCause() + " // " +e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+
+
 
             }//if((!semester.equals("") && !moduleTitle.equals(""))
             else {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.warningEnrollExam), Toast.LENGTH_LONG).show();
 
-            }
+            }//else
         }
     }
 
@@ -293,6 +323,7 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
             myAlertDialog = null;
         }
         myAlertDialog = new MyAlertDialog(this);
+        myAlertDialog.setIcon(getResources().getDrawable(R.drawable.warning_24x24_red));
         myAlertDialog.setTitle(title);
         myAlertDialog.setMessage(message);
         myAlertDialog.buildDialogWithNeutralButton("OK", checkValue);
@@ -309,6 +340,8 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
 
         myAlertDialog.setMessage(alertMessage);
         myAlertDialog.buildDialogWithPositiveAndNegativeButton("Ja","Nein", MyHelper.CHECK_VALUE_ENROLL_EXAM);
+
+
 
     }
 

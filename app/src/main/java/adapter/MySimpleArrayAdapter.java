@@ -175,17 +175,20 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
         String dialogTitle   = "";
         String dialogMessage = "";
 
+        Log.e("openDialog: ===> ", " " +finalModuleTitle);
+
+
         if(enrolledExams != null) {
             checkValue    = MyHelper.CHECK_VALUE_MODULE_UNSUBSCRIBE;
             dialogTitle   = context.getResources().getString(R.string.unsubscribeModule);
             dialogMessage = context.getResources().getString(R.string.questUnSubscribePraefix) + ":" +System.getProperty("line.separator") + ">> " + finalModuleTitle + " << " + System.getProperty("line.separator") +  context.getResources().getString(R.string.questForUnsubscribeModuleSuffix);
-            enrolledExams = null;
+            //enrolledExams = null;
         }
         else if(unSubscribedExams != null) {
             checkValue = MyHelper.CHECK_VALUE_ENROLL_EXAM;
             dialogTitle = context.getResources().getString(R.string.enrollExam);
             dialogMessage = context.getResources().getString(R.string.questionForEnrollExamPraefix) + ": " +System.getProperty("line.separator") + finalModuleTitle + System.getProperty("line.separator") +context.getResources().getString(R.string.questionForEnrollExamSuffix);
-            unSubscribedExams = null;
+            //unSubscribedExams = null;
         }
 
            Bundle data = new Bundle();
@@ -224,9 +227,10 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
             else if(projects != null) {
                 intent.putExtra("value", "value_4");
             }
-
             context.startActivity(intent);
-        }else {
+        }
+
+        else {
             openDialog(title);
             notifyDataSetChanged();
         }

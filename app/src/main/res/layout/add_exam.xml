@@ -24,13 +24,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_5"
         android:orientation="vertical"
-        android:background="@color/light_gray">
+        android:background="@color/light_gray"
+        android:id="@+id/addExam_linearLayout_wrapSpinnerModule">
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dimen_10"
             android:padding="@dimen/dimen_2"
             android:layout_marginTop="@dimen/dimen_3"
+            android:layout_marginBottom="@dimen/dimen_3"
+            android:layout_marginLeft="@dimen/dimen_3"
             android:id="@+id/addExam_spinner_module">
         </Spinner>
     </LinearLayout>
@@ -98,3 +101,5 @@
         android:visibility="invisible"
         android:id="@+id/addExam_editText_notice"/>
 </LinearLayout>
+
+

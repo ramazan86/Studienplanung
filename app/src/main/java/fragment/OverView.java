@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,12 +10,14 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -27,6 +30,7 @@ import java.util.ArrayList;
 import data.Module;
 import data.ModuleManual;
 import data.ModuleOrganizer;
+import dialog.MyAlertDialog;
 
 
 /**
@@ -50,15 +54,17 @@ public class OverView extends Fragment implements View.OnClickListener {
                      textView_notPassed = null,
                      textView_average   = null,
                      textView_cp        = null,
-                     textView_exams     = null;
+                     textView_exams     = null,
+                     textView_inputAvg  = null,
+                     textView_calcAvg   = null;
 
     private ImageButton imageButton_avgInfo       = null,
                         imageButton_calcPrognosis = null;
 
     private LinearLayout.LayoutParams params  = null;
 
-    private Bundle arguments = null;
-
+    private Bundle bundle_averageNotes     = null,
+                   bundle_calculateDesire  = null;
 
     ////////////////////////////
     //       Constructor      //
@@ -75,7 +81,7 @@ public class OverView extends Fragment implements View.OnClickListener {
 
         View rootView = inflater.inflate(R.layout.overview_graduation, container, false);
 
-        initAttributes(rootView);
+        initComponents(rootView);
 
       //Passed
         String passed = "";
@@ -102,9 +108,8 @@ public class OverView extends Fragment implements View.OnClickListener {
 
 
       //average notes
-        arguments = moduleOrganizer.getAverageNotes();
-        textView_average.setText(" "+arguments.getFloat("avg"));
-
+        bundle_averageNotes = moduleOrganizer.getAverageNotes();
+        textView_average.setText(" "+bundle_averageNotes.getFloat("avg"));
 
 
       //creditpoints
@@ -113,7 +118,7 @@ public class OverView extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
-    private void initAttributes(View rootView) {
+    private void initComponents(View rootView) {
 
         //from layout
         textView_passed     = (TextView) rootView.findViewById(R.id.overviewGraduation_textView_passed);
@@ -121,6 +126,7 @@ public class OverView extends Fragment implements View.OnClickListener {
         textView_average    = (TextView) rootView.findViewById(R.id.overviewGraduation_textView_noteAverage);
         textView_cp         = (TextView) rootView.findViewById(R.id.overviewGraduation_textView_creditPoints);
         textView_exams      = (TextView) rootView.findViewById(R.id.overviewGraduation_textView_exams);
+
 
         //Moduleorganizer
         moduleOrganizer = new ModuleOrganizer(getActivity().getApplicationContext());
@@ -141,55 +147,129 @@ public class OverView extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+        ArrayList<Module>list = (ArrayList<Module>) bundle_averageNotes.getSerializable("modules");
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View stateView = factory.inflate(R.layout.dialog_note_avg, null);
+        LinearLayout linearLayout = (LinearLayout) stateView.findViewById(R.id.dialogNoteAvg_linearLayout_inner);
+        TextView headLine = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_headline);
 
         if(v.getId() == R.id.overViewGraduation_imageButton_avg) {
 
+            if(bundle_averageNotes != null) {
 
-            LayoutInflater factory = LayoutInflater.from(getActivity());
-            final View stateView = factory.inflate(R.layout.dialog_note_avg, null);
+                headLine.setText(getActivity().getString(R.string.notesTilYet));
 
-
-            if(arguments != null) {
-
-                ArrayList<Module>list = (ArrayList<Module>) arguments.getSerializable("modules");
-                ArrayList<String> titles = new ArrayList<>();
-
-                LinearLayout linearLayout = (LinearLayout) stateView.findViewById(R.id.dialogNoteAvg_linearLayout_inner);
-
-
+                //
                 for(int i = 0; i<list.size(); i++) {
 
                     TextView tv = showTitlesAndNotes(list.get(i).getTitle(), list.get(i).getGrade());
                     linearLayout.addView(tv);
                 }
+                // ---------------
 
+                final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                alertDialog.setView(stateView);
+
+                stateView.findViewById(R.id.dialogNoteAvg_imageButton_back).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
             }
+        }//
+        else if(v.getId() == R.id.overViewGraduation_imageButton_calc) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            LayoutInflater factory_ = LayoutInflater.from(getActivity());
+            final View stateView_ = factory_.inflate(R.layout.dialog_input, null);
 
 
-            final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-            alertDialog.setView(stateView);
+            final EditText input = (EditText) stateView_.findViewById(R.id.dialogInput_note);
 
-            stateView.findViewById(R.id.dialogNoteAvg_imageButton_back).setOnClickListener(new View.OnClickListener() {
+            builder.setView(stateView_);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    alertDialog.dismiss();
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                    float note = 0, currentAvg = 0;
+
+                    try {
+                        note =  Float.parseFloat(input.getText().toString());
+                        currentAvg = moduleOrganizer.getAverageNotes().getFloat("avg");
+                    }catch (Exception e) {
+                        Log.e(" ##### EXCEPTION: "," " +e.getMessage() + " " +e.getCause());
+
+                    }
+
+                    if(note != 0.0f && currentAvg != 0.0f) {
+
+                        if(note >= currentAvg) {
+
+                            showDialogInvalidInput(note, currentAvg);
+
+
+                        }else {
+
+                            bundle_calculateDesire = moduleOrganizer.desiredNoteAverage(note);
+
+                            ArrayList<Module> list = (ArrayList<Module>) bundle_calculateDesire.getSerializable("modules");
+                            ArrayList<String> markList = ((ArrayList<String>)bundle_calculateDesire.getStringArrayList("randNotes"));
+
+
+                            LayoutInflater factory = LayoutInflater.from(getActivity());
+                            final View stateView = factory.inflate(R.layout.dialog_note_avg, null);
+
+                            LinearLayout linearLayout = (LinearLayout) stateView.findViewById(R.id.dialogNoteAvg_linearLayout_inner);
+
+                            TextView headLine = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_headline);
+                            headLine.setText(getActivity().getString(R.string.prognosis));
+
+                            for(int i = 0; i<list.size(); i++) {
+                                TextView tv = showTitlesAndNotes(list.get(i).getTitle(), markList.get(i));
+                                linearLayout.addView(tv);
+                            }
+
+                            final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                            alertDialog.setView(stateView);
+
+                            stateView.findViewById(R.id.dialogNoteAvg_imageButton_back).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alertDialog.dismiss();
+                                }
+                            });
+                            alertDialog.show();
+
+                        }
+                    }
                 }
             });
 
-            alertDialog.show();
-
-
-
+            builder.create().show();
 
         }
-        else if(v.getId() == R.id.overViewGraduation_imageButton_calc) {
+    }
 
-        }
+    private void showDialogInvalidInput(float note, float currentAvg) {
 
+        MyAlertDialog myAlertDialog = new MyAlertDialog(getActivity());
+        myAlertDialog.setIcon(getActivity().getResources().getDrawable(R.drawable.warning_24x24_red));
+        myAlertDialog.setTitle(getActivity().getResources().getString(R.string.invalidInput));
 
+        String messageFirstLine = getActivity().getResources().getString(R.string.noteSmallCurrent) + System.getProperty("line.separator");
+        String messageSecondLine = "" + note + " > " + currentAvg;
+        String message = messageFirstLine + " " +messageSecondLine;
 
+        Spannable spannable = new SpannableString(message);
 
+        spannable.setSpan(new ForegroundColorSpan(Color.RED), messageFirstLine.length()+1, message.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new StyleSpan(Typeface.BOLD), messageFirstLine.length()+1, message.length(),0);
 
+        myAlertDialog.setMessage(spannable);
+        myAlertDialog.buildDialogWithNeutralButton("OK","-1");
 
     }
 
@@ -212,11 +292,14 @@ public class OverView extends Fragment implements View.OnClickListener {
         Spannable spannable = new SpannableString(s);
         int color;
 
-        if(Integer.parseInt(grade) == 5) {
+
+        /*if(Integer.parseInt(grade) == 5) {
             color = Color.RED;
         }else {
            color = getActivity().getResources().getColor(R.color.green);
-        }
+        }*/
+
+        color = getActivity().getResources().getColor(R.color.green);
 
             spannable.setSpan(new ForegroundColorSpan(color), title.length()+2, s.length()-1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             spannable.setSpan(new StyleSpan(Typeface.BOLD), title.length()+2, s.length()-1,0);
@@ -227,4 +310,7 @@ public class OverView extends Fragment implements View.OnClickListener {
 
         return textView_title;
     }
+
+
+
 }

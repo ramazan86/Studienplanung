@@ -6,41 +6,100 @@
     android:padding="@dimen/dimen_5">
 
 
-    <TextView
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+       <TextView
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+
+           android:layout_marginBottom="@dimen/dimen_3"
+
+           android:textStyle="bold"
+           android:textSize="@dimen/dimen_5"
+
+           android:textColor="@color/black"
+           android:id="@+id/dialogNoteAvg_textView_headline"/>
+
+
+
+
+
+       </LinearLayout>
+
+
+    <View
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_2"
+        android:background="@color/gray"
+    ></View>
 
-        android:layout_marginBottom="@dimen/dimen_3"
 
-        android:text="@string/notesTilYet"
-        android:textStyle="bold"
-        android:textSize="@dimen/dimen_5"
 
-        android:textColor="@color/black"
-        android:gravity="center"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_85">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginBottom="@dimen/dimen_3"
+            android:orientation="vertical"
+            android:id="@+id/dialogNoteAvg_linearLayout_inner">
+
+        </LinearLayout>
+    </ScrollView>
 
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:layout_marginBottom="@dimen/dimen_3"
-        android:orientation="vertical"
-        android:id="@+id/dialogNoteAvg_linearLayout_inner">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_42.5"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/input"
+                android:id="@+id/dialogNoteAvg_textView_inputAvg"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calculated"
+                android:id="@+id/dialogNoteAvg_textView_calculatedAvg"/>
+
+        </LinearLayout>
+
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_32x32"
+
+            android:baselineAlignBottom="true"
+
+            android:clickable="true"
+            android:id="@+id/dialogNoteAvg_imageButton_back"/>
+
 
     </LinearLayout>
 
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/back_32x32"
 
-        android:baselineAlignBottom="true"
-        android:layout_gravity="right"
-        android:clickable="true"
-        android:id="@+id/dialogNoteAvg_imageButton_back"/>
+
+
+
+
 
 
 

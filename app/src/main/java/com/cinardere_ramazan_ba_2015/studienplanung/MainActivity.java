@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         initComponents();
 
-        new ModuleOrganizer(this).desiredNoteAverage(2.9f);
+        //new ModuleOrganizer(this).desiredNoteAverage(2.5f);
 
        // myFile = new MyFile(this.getApplicationContext());
        // myFile.createFolders();

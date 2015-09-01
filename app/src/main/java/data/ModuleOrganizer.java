@@ -137,8 +137,7 @@ public class ModuleOrganizer implements ModuleAdministrator {
 
         ArrayList<Module> modules = new ArrayList<>();
 
-        if(myFile == null) myFile = new MyFile(context);
-        if(moduleManual == null) moduleManual = (ModuleManual) myFile.getObjectFromFile(context.getResources().getString(R.string.moduleManualSer));
+        if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
 
         for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
 
@@ -147,7 +146,7 @@ public class ModuleOrganizer implements ModuleAdministrator {
                 Module tmp = moduleManual.getModuleList().get(i);
 
                 try {
-
+                    //If the exam day is in the future compare to current day
                     if(new SimpleDateFormat("dd/MM/yyyy").parse(tmp.getDateOfExam()).after(new Date())) {
                         modules.add(tmp);
                     }else {
@@ -281,14 +280,13 @@ public class ModuleOrganizer implements ModuleAdministrator {
 
         if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
 
-
-        for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
+        /*for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
 
             int random = new Random().nextInt((4-1) +1) +1;
             if((i%3)==0) {
                 moduleManual.getModuleList().get(i).setGrade(String.valueOf(random));
             }
-        }
+        }*/
 
         //modules are removed which already has a grade and cannot regard
         for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
@@ -321,7 +319,6 @@ public class ModuleOrganizer implements ModuleAdministrator {
         }
 
 
-
         for(int i = 0; i<((ArrayList<Module>) args.getSerializable("modules")).size(); i++) {
 
             Module tmp = ((ArrayList<Module>)args.getSerializable("modules")).get(i);
@@ -335,13 +332,14 @@ public class ModuleOrganizer implements ModuleAdministrator {
         creditPoints = args.getFloat("cp");
 
 
-
-
         Log.e("  --  ","  --  ");
         Log.e("desire: " +desire + " CP's " +creditPoints, "  avg: " +cpTimesNote/creditPoints);
 
 
 
+        if(moduleManual != null) {
+            moduleManual = null;
+        }
         return args;
     }
 
@@ -414,10 +412,16 @@ public class ModuleOrganizer implements ModuleAdministrator {
         Bundle args = new Bundle();
 
         if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
+
         float grades = 0.0f;
         float bachelorGrade = 0;
         float creditPoints = 0;
         ArrayList<Module> list = new ArrayList<>();
+
+        if(list.size() != 0) {
+            list.clear();
+        }
+
 
         for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
 
@@ -429,12 +433,14 @@ public class ModuleOrganizer implements ModuleAdministrator {
                         grades += Float.parseFloat(tmp.getCreditPoints()) * Float.parseFloat(tmp.getGrade());
                         creditPoints += Float.parseFloat(tmp.getCreditPoints());
                         list.add(tmp);
+                        Log.e("getAverageNotes() ===> "," " +tmp.getTitle() + " " +tmp.getGrade());
                     }else {
                         bachelorGrade = Float.parseFloat(tmp.getGrade());
                     }
                 }catch (Exception e) {
-                    Log.e("getAverageNotes()" +getClass().getName(), e.getCause() + " // " +e.getMessage());
+                    //Log.e("getAverageNotes()" +getClass().getName(), e.getCause() + " // " +e.getMessage());
                     //e.printStackTrace();
+                    Log.e("EXCEPTION: "," " +tmp.getTitle() + "  " +tmp.getGrade());
                 }
         }
 
@@ -446,6 +452,7 @@ public class ModuleOrganizer implements ModuleAdministrator {
             args.putFloat("avg",(float) (Math.round(grades/creditPoints *100.0)/100.0));
         }
 
+        moduleManual = null;
         return args;
     }
 
