@@ -5,11 +5,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -22,8 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
-
-import java.util.Arrays;
 
 import data.Module;
 import data.ModuleManual;
@@ -78,7 +74,7 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
 
     private RelativeLayout relativeLayout_note = null;
 
-    private boolean invalidNote = false;
+    private boolean updateState = false;
 
 
     ////////////////////////////
@@ -126,10 +122,7 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
             textView_headline.setText(moduleTitle);
         }
 
-        //show textView prompt input Note only if "Fertiggestellt" view is selected
-        if(currentFragment.equals(MyHelper.CHECK_VALUE_COMPLETED_FRAGMENT)) {
-            textView_promptNote.setVisibility(View.VISIBLE);
-        }
+
 
 
         //get reference to respective title
@@ -165,6 +158,8 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
         textView_state.setText(textView_state.getText() + " (" +module.getNumberOfTrials()+")") ;
 
         String st = module.getStateOf();
+        Log.e("=====> "," st: "+st);
+
         Drawable drawable = null;
 
       //set view color of current state of module
@@ -172,14 +167,24 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
             drawable = getResources().getDrawable(R.color.green);
         }
         else if(st.equals(MyHelper.MODULE_PASSED_SECOND_TRY)) {
-            drawable = getResources().getDrawable(R.drawable.border_red_green);
+            drawable = getResources().getDrawable(R.drawable.border_passed_second);
         }
+        else if(st.equals(MyHelper.MODULE_PASSED_THIRD_TRY)) {
+            drawable = getResources().getDrawable(R.drawable.border_passed_third);
+        }
+
+        //not passed
         else if(st.equals(MyHelper.MODULE_NOT_PASSED_FIRST_TRY)) {
             drawable = getResources().getDrawable(R.color.orange);
         }
         else if(st.equals(MyHelper.MODULE_NOT_PASSED_SECOND_TRY)) {
-            drawable = getResources().getDrawable(R.drawable.border_red_orange);
-        }else {
+            drawable = getResources().getDrawable(R.drawable.border_notpassed_second);
+        }
+        else if(st.equals(MyHelper.MODULE_NOT_PASSED_THIRD_TRY)) {
+            drawable = getResources().getDrawable(R.drawable.border_notpassed_third);
+        }
+        //not entry
+        else {
             drawable = getResources().getDrawable(R.color.gray);
         }
         view_state.setBackground(drawable);
@@ -229,8 +234,6 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
             editTextArray = new EditText[1];
             editTextArray[0] = editText_room;
         }
-
-
 
 
         //View
@@ -286,31 +289,40 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
 
                 if (textView_actionBar_save_edit.getText().equals(getString(R.string.save))) {
 
-                    //change actionbar button_title
+                  //change actionbar button_title
                     textView_actionBar_save_edit.setText(getString(R.string.edit));
+                    showTextViewNoteInput(View.INVISIBLE);
 
-                    String exception = "";
-                    if(module == null) {
-                        exception = "module";
-                    }
-                    if(module.getRoom() == null) {
-                        exception = "module.getRoom()";
-                    }
-                    if(module.getGrade() == null) {
-                        exception = "module.getGrade()";
-                    }
+                  //update room
+                    if(!room.equals("") || room != null) {
 
-                    Log.e("###########"," ====> " +exception);
-
-
-
-                    if(!module.getRoom().equals(room) || (!module.getGrade().equals(note))) {
-
-                        if (!room.equals("") || room != null) {
-                            module.setRoom(room);
+                        if(module.getRoom() != null) {
+                            if(!module.getRoom().equals(room)) {
+                                module.setRoom(room);
+                            }
                         }
+                    }
+                  // update room---------------------------------------------
 
-                        if (note.matches(MyHelper.PATTERN_NOTE)) {
+                  // update grade
+                    if(!note.equals("") || note != null) {
+
+                        try {
+
+                            if(!module.getGrade().equals(note)) {
+                                module.setGrade(note);
+
+                                if(Float.parseFloat(note) < 5) {
+                                    module.setPassed(true);
+                                }else {
+                                    module.setNotPassed(true);
+                                }
+
+                                updateState = true;
+                            }else {
+                                updateState = false;
+                            }
+                        }catch (Exception e) {
                             module.setGrade(note);
 
                             if(Float.parseFloat(note) < 5) {
@@ -319,29 +331,34 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
                                 module.setNotPassed(true);
                             }
 
-                        }else {
-                            showInvalidNoteDialog();
+                            updateState = true;
+                        }
+                        Log.e(" " +module.getGrade()," " +module.isNotPassed() + " " +module.isPassed());
+
+                    }
+                    //else note is "" || null
+                    else {
+                        //show textView prompt input Note only if "Fertiggestellt" view is selected
+                        if(currentFragment.equals(MyHelper.CHECK_VALUE_COMPLETED_FRAGMENT)) {
+                            showTextViewNoteInput(View.VISIBLE);
                         }
 
+                    }
+                  // update grade---------------------------------------------
 
-                    if(invalidNote) {
+                    if(updateState) {
                         // show dialog, if user click "ja" module content will update
                         String dialogMessage = getString(R.string.updateModulePraefix) + System.getProperty("line.separator") + moduleTitle + System.getProperty("line.separator") + getString(R.string.updateModuleSuffix);
                         Bundle data = new Bundle();
                         data.putSerializable(getString(R.string.module), module);
 
                         showMyAlertDialog(getString(R.string.edit), dialogMessage, data);
-                    } else {
-                        showInvalidNoteDialog();
                     }
-
                     // -------------------
-
-                    }//if(module.getRoom [...]
 
                     changeEditTextUseAbility(false);
 
-                }
+                }//textViewActionBar save
                 else if (textView_actionBar_save_edit.getText().equals(getString(R.string.edit))) {
                     textView_actionBar_save_edit.setText(getString(R.string.save));
                     changeEditTextUseAbility(true);
@@ -368,6 +385,10 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
             alertDialog.show();
         }
 
+    }
+
+    private void showTextViewNoteInput(int status) {
+        textView_promptNote.setVisibility(status);
     }
 
     private void showMyAlertDialog(String title, String dialogMessage, Bundle data) {
@@ -409,9 +430,6 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
 
                 if(!v.getText().toString().matches(MyHelper.PATTERN_NOTE)) {
                     showInvalidNoteDialog();
-                    invalidNote = false;
-                }else {
-                    invalidNote = true;
                 }
             }
             break;
@@ -434,8 +452,10 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
 
 
         String title = "Erlaubte Werte sind: ";
-        String intNumbers = "Ganze Zahlen von >= 1 und <= 5";
-        String decimalNumbers = "Dezimahlzahlen von >= 1.0 und <= 5.0";
+        //String intNumbers = "Ganze Zahlen: >= 1 und <= 5";
+        String intNumbers = "Ganze Zahlen: {1, 2, ..., 5}";
+        //String decimalNumbers = "Dezimahlzahlen: >= 1.0 und <= 5.0";
+        String decimalNumbers = "Dezimahlzahlen: {1.0, 1.1, ..., 5.0}";
 
         StringBuilder stringBuilder = new StringBuilder()
                                             .append(title)
@@ -445,13 +465,18 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
                                             .append(System.getProperty("line.separator"))
                                             .append(decimalNumbers);
 
-
+       //integers
         String[] splitIntNumbers = intNumbers.split(" ");
+        int begin = title.length()-2+ splitIntNumbers[0].length() + splitIntNumbers[1].length() + splitIntNumbers[2].length() + 3;
 
-        int begin = title.length() +1 + splitIntNumbers[0].length() + splitIntNumbers[1].length() + splitIntNumbers[2].length() + 2;
+        String[] splitDec = decimalNumbers.split(" ");
+        int beg = (title.length() + intNumbers.length()+2) + splitDec[0].length()+1;
 
         Spannable spannable = new SpannableString(stringBuilder);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)), begin,(title.length()+intNumbers.length()+1),0);
+            spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)), begin,(title.length()+intNumbers.length()+2),0);
+            spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)), beg, stringBuilder.length(),0);
+
+        //-------------
 
         textView.setText(spannable);
 

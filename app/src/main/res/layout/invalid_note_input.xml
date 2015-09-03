@@ -30,7 +30,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_20"
+        android:layout_height="wrap_content"
         android:background="@color/light_gray"
         android:gravity="center"
 
@@ -43,10 +43,10 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_marginTop="@dimen/dimen_10"
         android:text="OK"
         android:textSize="@dimen/dimen_6"
-        android:textColor="@color/light_green"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:id="@+id/btn_ok"/>
 

@@ -199,7 +199,7 @@
             android:layout_marginBottom="@dimen/dimen_1"
             android:layout_alignParentRight="true"
 
-            android:background="@drawable/border_red_green"
+            android:background="@drawable/border_passed_second"
 
             android:id="@+id/informationAboutEnrolledExam_view_state">
 
@@ -223,12 +223,10 @@
     <!-- note -->
     <RelativeLayout
         style="@style/relativeLayout_infoEnrolled"
-
-
         android:layout_marginLeft="@dimen/dimen_3"
         android:layout_marginRight="@dimen/dimen_3"
-
         android:layout_below="@+id/informationAboutEnrolledExam_relative_state"
+
         android:id="@+id/informationAboutEnrolledExam_relative_note">
 
         <TextView

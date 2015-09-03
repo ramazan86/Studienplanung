@@ -19,7 +19,9 @@
 
     <string name="edit">Bearbeiten</string>
     <string name="exams">Prüfungen</string>
+    <string name="enrolleExamNotAllowed">Anmeldung Fehlgeschlagen!</string>
     <string name="enrolledAt">Angemeldet am:</string>
+    <string name="examThirdEnroll">Mehr als drei Anmeldungen für eine Prüfung sind nicht gestattet!!!</string>
 
     <!-- fF - jJ-->
 
@@ -67,7 +69,6 @@
     <string name="semesterOverview">Semesterübersicht</string>
 
     <string name="type">Typ:</string>
-
 
     <string name="updateModulePraefix">Änderungen für Modul</string>
     <string name="updateModuleSuffix">übernehmen?</string>

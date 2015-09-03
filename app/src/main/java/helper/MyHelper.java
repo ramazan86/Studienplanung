@@ -68,9 +68,12 @@ public abstract class MyHelper {
 
     public static final String MODULE_PASSED_FIRST_TRY      = "m_001";
     public static final String MODULE_PASSED_SECOND_TRY     = "m_002";
-    public static final String MODULE_NOT_PASSED_FIRST_TRY  = "m_010";
-    public static final String MODULE_NOT_PASSED_SECOND_TRY = "m_011";
-    public static final String MODULE_NOT_ENROLLED_YET      = "m_100";
+    public static final String MODULE_PASSED_THIRD_TRY      = "m_003";
+    public static final String MODULE_NOT_PASSED_FIRST_TRY  = "m_101";
+    public static final String MODULE_NOT_PASSED_SECOND_TRY = "m_102";
+    public static final String MODULE_NOT_PASSED_THIRD_TRY  = "m_103";
+
+    public static final String MODULE_NOT_ENROLLED_YET      = "m_000";
 
 
 

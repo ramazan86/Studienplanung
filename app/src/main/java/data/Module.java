@@ -75,21 +75,30 @@ public class Module implements Serializable{
 
     public String getStateOf() {
 
-
+        //PASSED
         if(this.isPassed() && this.numberOfTrials == 1) {
             return MyHelper.MODULE_PASSED_FIRST_TRY;
         }
         else if(this.isPassed() && this.numberOfTrials == 2) {
             return MyHelper.MODULE_PASSED_SECOND_TRY;
         }
+        else if(this.isPassed() && this.numberOfTrials == 3) {
+            return MyHelper.MODULE_PASSED_THIRD_TRY;
+        }
+        //NOT PASSED
         else if(this.isNotPassed() && this.numberOfTrials == 1) {
             return MyHelper.MODULE_NOT_PASSED_FIRST_TRY;
         }
         else if(this.isNotPassed() && this.numberOfTrials == 2) {
             return MyHelper.MODULE_NOT_PASSED_SECOND_TRY;
         }
-
-        return MyHelper.MODULE_NOT_ENROLLED_YET;
+        else if(this.isNotPassed() && this.numberOfTrials == 3) {
+            return MyHelper.MODULE_NOT_PASSED_THIRD_TRY;
+        }
+        //NOT ENTRY TILL YET
+        else {
+            return MyHelper.MODULE_NOT_ENROLLED_YET;
+        }
     }
 
 
@@ -400,7 +409,10 @@ public class Module implements Serializable{
         if(numberOfTrials < 0) {
             numberOfTrials = 0;
         }
-        this.numberOfTrials = numberOfTrials;
+
+        if(this.numberOfTrials < 3) {
+            this.numberOfTrials = numberOfTrials;
+        }
     }
 
     public boolean isUnsubscribed() {

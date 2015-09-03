@@ -257,8 +257,6 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
         //Speichern
         if(v.getId() == R.id.myActionbar_textView_add) {
 
-
-
             if(!semester.equals("") && !moduleTitle.equals("")) {
 
                 //
@@ -293,7 +291,14 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
                             data.putSerializable(getResources().getString(R.string.module), tmp);
                             data.putSerializable(getResources().getString(R.string.moduleManual), moduleManual);
 
-                            alertDialogValidate(data);
+
+                            if(tmp.getNumberOfTrials() == 3) {
+                                alertDialogNotAllowed(getString(R.string.enrolleExamNotAllowed), getString(R.string.examThirdEnroll), "-1");
+                            }else {
+                                openDialogEnrolleModule(data);
+                            }
+
+
 
                             //myAlertDialog listener calls enrollForModule if user clicks "JA", otherwise nothing
 
@@ -330,7 +335,7 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
 
     }
 
-    private void alertDialogValidate(Bundle data) {
+    private void openDialogEnrolleModule(Bundle data) {
 
         myAlertDialog = new MyAlertDialog(this);
         myAlertDialog.setBundle(data);
