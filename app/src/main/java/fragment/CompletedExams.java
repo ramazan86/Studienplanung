@@ -67,7 +67,6 @@ public class CompletedExams extends ListFragment {
         adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values, this);
         adapter.setActivity(getActivity());
         setListAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
         return inflater.inflate(R.layout.my_fragment, container, false);
     }

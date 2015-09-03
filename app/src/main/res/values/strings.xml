@@ -15,9 +15,11 @@
     <string name="cpPlural">CPs:</string>
 
     <string name="dateWarning">Prüfung darf nicht in der Vergangenheit oder am heutigen Tag liegen.</string>
+    <string name="dateTime">Datum-/Uhrzeit:</string>
 
     <string name="edit">Bearbeiten</string>
     <string name="exams">Prüfungen</string>
+    <string name="enrolledAt">Angemeldet am:</string>
 
     <!-- fF - jJ-->
 
@@ -27,7 +29,7 @@
         <string name="invalidInput">Üngültige Eingabe</string>
         <string name="input"><b><u>Eingabe:</u></b></string>
         <string name="invalidDate">Üngültige Datum!!!</string>
-
+        <string name="inputRoom">Raum eingeben ...</string>
 
 
     <!-- kK - oO -->
@@ -42,6 +44,7 @@
     <string name="noteAverage">Notendurchschnitt:</string>
     <string name="notPassed">Nicht Bestanden:</string>
     <string name="notes">Noten</string>
+    <string name="note">Note</string>
     <string name="noteSmallCurrent">Notenwunsch muss unter Ihrem Notendurchschnitt liegen.</string>
 
 
@@ -57,13 +60,17 @@
     <string name="questionForEnrollExamSuffix">anmelden???</string>
     <string name="questForUnsubscribeModuleSuffix">abmelden???</string>
 
+    <string name="room">Raum:</string>
 
 
     <!-- sS - vV -->
     <string name="semesterOverview">Semesterübersicht</string>
+
+    <string name="type">Typ:</string>
+
+
     <string name="updateModulePraefix">Änderungen für Modul</string>
     <string name="updateModuleSuffix">übernehmen?</string>
-
     <string name="unsubscribeModule">Abmelden</string>
 
     <!--wW - zZ -->
@@ -138,13 +145,13 @@
 
     <!--- longClick:dialog:Unsubscribe_edit_module-->
     <string-array name="longClickModule_1">
-        <item>Abmelden</item>
-        <item>Info</item>
+        <item><b>Abmelden</b></item>
+        <item><b>Info</b></item>
     </string-array>
 
     <string-array name="longClickModule_2">
-        <item>Anmelden</item>
-        <item>Info</item>
+        <item><b>Anmelden</b></item>
+        <item><b>Info</b></item>
     </string-array>
 
 

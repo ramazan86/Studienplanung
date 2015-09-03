@@ -77,10 +77,7 @@ public class ModuleOrganizer implements ModuleAdministrator {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         String dayName = String.format("%tA", now);
-        String date = dayName + ", den " +dateFormat.format(calendar.getTime()).split(" ")[0] + " um " +System.getProperty("line.separator") +dateFormat.format(calendar.getTime()).split(" ")[1];
-
-
-        Log.e("subScribeModule." +getClass().getName()," module: " +module.getTitle());
+        String date = dayName + ", den " +dateFormat.format(calendar.getTime()).split(" ")[0] + " um " +dateFormat.format(calendar.getTime()).split(" ")[1];
 
         module.setUnsubscribed(false);
         module.setEnrolled(true);
@@ -98,11 +95,24 @@ public class ModuleOrganizer implements ModuleAdministrator {
     @Override
     public boolean unSubscribeModule(Module module) {
 
+      //get current time
+        if(calendar == null) calendar = Calendar.getInstance();
+        Date now = new Date(calendar.getTimeInMillis());
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        String dayName = String.format("%tA", now);
+        String date = dayName + ", den " +dateFormat.format(calendar.getTime()).split(" ")[0] + " um " +dateFormat.format(calendar.getTime()).split(" ")[1];
+      //--------------------
+
+
+      //update module
+        module.setUnSubScribedDate(date);
         module.setUnsubscribed(true);
         module.setEnrolled(false);
+        module.setNumberOfTrials(module.getNumberOfTrials()-1);
 
+      //write into file
         moduleManual = moduleManual.replaceModuleInList(module);
-
         if(myFile == null) myFile = new MyFile(context);
             myFile.createFileAndWriteObject(context.getResources().getString(R.string.moduleManualSer), moduleManual);
 

@@ -119,7 +119,7 @@
 
             android:layout_marginLeft="@dimen/dimen_2"
 
-            android:text="Noch keine Anmeldung"
+            android:text="Noch kein Verhalten vorhanden"
             android:textColor="@color/black"
             android:gravity="center"/>
     </LinearLayout>

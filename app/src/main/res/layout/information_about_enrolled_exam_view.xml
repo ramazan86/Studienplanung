@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_4">
 
 
     <!-- headline -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_4"
         android:layout_marginBottom="@dimen/dimen_4"
         android:layout_marginLeft="@dimen/dimen_4"
         android:layout_marginRight="@dimen/dimen_4"
         android:gravity="center_horizontal|center_vertical"
+
+        android:lines="2"
 
         android:textSize="@dimen/dimen_7"
         android:textColor="@color/black"
@@ -20,270 +22,256 @@
 
         android:id="@+id/informationAboutEnrolledExam_textView_headLine"/>
 
-  <!-- TYPE -->
-    <!-- left -->
-    <TextView
-        style="@style/textView_editModuleLEFT"
+
+    <!-- type -->
+    <RelativeLayout
+        style="@style/relativeLayout_infoEnrolled"
         android:layout_below="@+id/informationAboutEnrolledExam_textView_headLine"
+        android:id="@+id/informationAboutEnrolledExam_relative_type">
 
+        <TextView
+           style="@style/textView_enrolledLeftColumn"
+            android:text="@string/type"/>
 
-        android:text="Type: "
+        <TextView
+            style="@style/textView_enrolledRightColumn"
+            android:layout_marginTop="@dimen/dimen_1"
+            android:text="Projekt"
+            android:id="@+id/informationAboutEnrolledExam_textView_typeContent"/>
+    </RelativeLayout>
 
-        android:id="@+id/informationAboutEnrolledExam_textView_type"/>
+    <!-- date/time -->
+    <RelativeLayout
+        style="@style/relativeLayout_infoEnrolled"
+        android:layout_below="@+id/informationAboutEnrolledExam_relative_type"
+        android:id="@+id/informationAboutEnrolledExam_relative_date_time">
 
-    <!-- right -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <TextView
+            style="@style/textView_enrolledLeftColumn"
 
-        android:text="Type: "
+            android:text="@string/dateTime"/>
 
-        android:layout_marginRight="@dimen/dimen_2"
+        <TextView
+            style="@style/textView_enrolledRightColumn"
+            android:text="NaN"
+            android:layout_marginBottom="@dimen/dimen_1"
+            android:id="@+id/informationAboutEnrolledExam_textView_date"/>
 
-        android:layout_alignTop="@+id/informationAboutEnrolledExam_textView_type"
-        android:layout_alignRight="@+id/informationAboutEnrolledExam_textView_headLine"
-        android:layout_alignEnd="@+id/informationAboutEnrolledExam_textView_headLine"
+        <TextView
+            style="@style/textView_enrolledRightColumn"
+            android:layout_below="@+id/informationAboutEnrolledExam_textView_date"
+            android:text="NaN"
+            android:id="@+id/informationAboutEnrolledExam_textView_time">
 
-        android:id="@+id/informationAboutEnrolledExam_textView_typeContent"/>
+        </TextView>
 
-  <!-- DATE/TIME -->
-    <!-- Left -->
-    <TextView
-        style="@style/textView_editModuleLEFT"
-        android:layout_below="@+id/informationAboutEnrolledExam_textView_type"
+    </RelativeLayout>
 
+    <!-- enrolledTime -->
+    <RelativeLayout
+        style="@style/relativeLayout_infoEnrolled"
+        android:layout_below="@+id/informationAboutEnrolledExam_relative_date_time"
+        android:id="@+id/informationAboutEnrolledExam_relative_enrolled">
 
-        android:text="Datum-/Uhrzeit: "
+        <TextView
+            style="@style/textView_enrolledLeftColumn"
+            android:lines="2"
+            android:text="@string/enrolledAt"
+            android:id="@+id/textView_enrolledAt"/>
 
-        android:id="@+id/informationAboutEnrolledExam_textView_examDate"/>
-    <!-- right -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="Type: "
-
-        android:layout_marginRight="@dimen/dimen_2"
-
-        android:layout_alignTop="@+id/informationAboutEnrolledExam_textView_examDate"
-        android:layout_alignRight="@+id/informationAboutEnrolledExam_textView_headLine"
-        android:layout_alignEnd="@+id/informationAboutEnrolledExam_textView_headLine"
-
-        android:id="@+id/informationAboutEnrolledExam_textView_examDateTimeContent"/>
-
-
-  <!-- Angemeldet am -->
-
-    <!-- Left -->
-    <TextView
-       style="@style/textView_editModuleLEFT"
-
-        android:layout_below="@+id/informationAboutEnrolledExam_textView_examDate"
-        android:text="Angemeldet am: "
-
-        android:id="@+id/informationAboutEnrolledExam_textView_examTime"/>
-
-    <!-- right -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="Time: "
-
-        android:layout_marginRight="@dimen/dimen_1"
-
-        android:layout_alignTop="@+id/informationAboutEnrolledExam_textView_examTime"
-        android:layout_alignRight="@+id/informationAboutEnrolledExam_textView_headLine"
-        android:layout_alignEnd="@+id/informationAboutEnrolledExam_textView_headLine"
-
-        android:id="@+id/informationAboutEnrolledExam_textView_examSubscribedDateTime"/>
+        <TextView
+            style="@style/textView_enrolledRightColumn"
+            android:layout_width="@dimen/dimen_25"
+            android:text="NaN"
+            android:id="@+id/informationAboutEnrolledExam_textView_examSubscribedDateTime"/>
+    </RelativeLayout>
 
 
     <!-- Room -->
+    <RelativeLayout
+        style="@style/relativeLayout_infoEnrolled"
+        android:layout_below="@+id/informationAboutEnrolledExam_relative_enrolled"
+        android:id="@+id/informationAboutEnrolledExam_relative_room">
 
-    <TextView
-        style="@style/textView_editModuleLEFT"
+        <TextView
+            style="@style/textView_enrolledLeftColumn"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:text="@string/room"/>
 
-        android:layout_below="@+id/informationAboutEnrolledExam_textView_examSubscribedDateTime"
-        android:text="Raum: "
 
-        android:id="@+id/informationAboutEnrolledExam_textView_room"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_10"
 
-    <!-- right -->
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dimen_1"
+            android:layout_marginRight="@dimen/dimen_1"
+            android:layout_marginBottom="@dimen/dimen_1"
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dimen_7"
+            android:gravity="center"
 
-        android:layout_marginRight="@dimen/dimen_1"
-        android:background="@color/light_gray"
+            android:background="@color/light_gray"
+            android:editable="false"
 
-        android:hint="Raum eingeben ..."
+            android:imeOptions="actionDone"
 
-        android:editable="false"
-        android:visibility="invisible"
+            android:hint="@string/inputRoom"
+            android:id="@+id/informationAboutEnrolledExam_editText_room"/>
+    </RelativeLayout>
 
-        android:layout_alignTop="@+id/informationAboutEnrolledExam_textView_roomContent"
-        android:layout_toLeftOf="@+id/informationAboutEnrolledExam_textView_examDateTimeContent"
-        android:layout_toStartOf="@+id/informationAboutEnrolledExam_textView_examDateTimeContent"
 
-        android:id="@+id/informationAboutEnrolledExam_editText_room"/>
+    <!-- CP -->
+    <RelativeLayout
+        style="@style/relativeLayout_infoEnrolled"
+        android:layout_below="@+id/informationAboutEnrolledExam_relative_room"
+        android:layout_marginLeft="@dimen/dimen_3"
+        android:layout_marginRight="@dimen/dimen_3"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:id="@+id/informationAboutEnrolledExam_relative_cp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <TextView
+            style="@style/textView_enrolledLeftColumn"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:layout_marginLeft="@dimen/dimen_1"
+            android:text="@string/cp"/>
 
-        android:text="Time: "
+        <TextView
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_10"
 
-        android:layout_marginRight="@dimen/dimen_1"
+            android:layout_marginTop="@dimen/dimen_1"
+            android:layout_marginRight="@dimen/dimen_1"
+            android:layout_marginBottom="@dimen/dimen_1"
+            android:layout_alignParentRight="true"
 
-        android:layout_alignTop="@+id/informationAboutEnrolledExam_textView_room"
-        android:layout_alignRight="@+id/informationAboutEnrolledExam_textView_headLine"
-        android:layout_alignEnd="@+id/informationAboutEnrolledExam_textView_headLine"
 
-        android:id="@+id/informationAboutEnrolledExam_textView_roomContent"/>
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_5"
 
+            android:background="@color/light_blue"
 
+            android:id="@+id/informationAboutEnrolledExam_textView_cp"/>
 
+    </RelativeLayout>
 
-    <!-- HORIZONTAL LINE-->
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/dimen_2"
-        android:background="@color/light_gray"
-        android:layout_marginTop="@dimen/dimen_8"
-        android:layout_below="@+id/informationAboutEnrolledExam_textView_room"
 
-        android:id="@+id/view_horizontalLine">
-    </View>
 
+    <!-- State -->
+    <RelativeLayout
+        style="@style/relativeLayout_infoEnrolled"
+        android:layout_height="@dimen/dimen_12"
 
 
-  <!-- NOTE -->
 
-    <!-- left -->
-    <TextView
-        style="@style/textView_editModuleLEFT"
 
-        android:layout_below="@+id/view_horizontalLine"
-        android:text="Note: "
+        android:layout_marginLeft="@dimen/dimen_3"
+        android:layout_marginRight="@dimen/dimen_3"
 
-        android:id="@+id/informationAboutEnrolledExam_textView_note"/>
+        android:layout_below="@+id/informationAboutEnrolledExam_relative_cp"
+        android:id="@+id/informationAboutEnrolledExam_relative_state">
 
-    <!-- right -->
-    <EditText
-        android:layout_width="@dimen/dimen_10"
-        android:layout_height="@dimen/dimen_10"
+        <TextView
+            style="@style/textView_enrolledLeftColumn"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:layout_marginLeft="@dimen/dimen_1"
 
-        android:layout_marginRight="@dimen/dimen_4"
+            android:text="@string/status"
+            android:id="@+id/textView_state"/>
 
-        android:gravity="center"
 
-        android:textStyle="bold"
-        android:editable="false"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anzahl Versuche"
+            android:textSize="@dimen/dimen_3"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/textView_state"/>
 
-        android:background="@color/light_blue"
 
-        android:layout_alignTop="@+id/informationAboutEnrolledExam_textView_note"
-        android:layout_alignRight="@+id/informationAboutEnrolledExam_textView_headLine"
-        android:layout_alignEnd="@+id/informationAboutEnrolledExam_textView_headLine"
 
-        android:id="@+id/informationAboutEnrolledExam_editText_note"/>
+        <View
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_10"
 
+            android:layout_marginTop="@dimen/dimen_1"
+            android:layout_marginRight="@dimen/dimen_1"
+            android:layout_marginBottom="@dimen/dimen_1"
+            android:layout_alignParentRight="true"
 
+            android:background="@drawable/border_red_green"
 
-  <!-- CreditPoint -->
+            android:id="@+id/informationAboutEnrolledExam_view_state">
 
-    <!-- left -->
-    <TextView
-        style="@style/textView_editModuleLEFT"
+        </View>
 
-        android:layout_marginTop="@dimen/dimen_9"
-        android:layout_below="@+id/informationAboutEnrolledExam_textView_note"
-        android:text="CP: "
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/info_32x32"
 
-        android:id="@+id/informationAboutEnrolledExam_textView_cp"/>
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/informationAboutEnrolledExam_view_state"
+            android:background="@null"
 
-    <!-- right -->
-    <TextView
-        android:layout_width="@dimen/dimen_10"
-        android:layout_height="@dimen/dimen_10"
+            android:id="@+id/informationAboutEnrolledExam_imageButton_info">
+        </ImageButton>
 
-        android:layout_marginRight="@dimen/dimen_4"
+    </RelativeLayout>
 
-        android:textStyle="bold"
-        android:textSize="@dimen/dimen_6"
-        android:background="@color/light_blue"
 
-        android:gravity="center"
-        android:layout_alignTop="@+id/informationAboutEnrolledExam_textView_cp"
-        android:layout_alignRight="@+id/informationAboutEnrolledExam_textView_headLine"
-        android:layout_alignEnd="@+id/informationAboutEnrolledExam_textView_headLine"
+    <!-- note -->
+    <RelativeLayout
+        style="@style/relativeLayout_infoEnrolled"
 
-        android:id="@+id/informationAboutEnrolledExam_editText_cp"/>
 
+        android:layout_marginLeft="@dimen/dimen_3"
+        android:layout_marginRight="@dimen/dimen_3"
 
-  <!-- Status -->
-    <!-- left -->
-    <TextView
-        style="@style/textView_editModuleLEFT"
+        android:layout_below="@+id/informationAboutEnrolledExam_relative_state"
+        android:id="@+id/informationAboutEnrolledExam_relative_note">
 
-        android:layout_below="@+id/informationAboutEnrolledExam_textView_cp"
-        android:layout_marginTop="@dimen/dimen_8.5"
-        android:text="Status: "
+        <TextView
+            style="@style/textView_enrolledLeftColumn"
+            android:layout_marginTop="@dimen/dimen_4"
+            android:layout_marginLeft="@dimen/dimen_1"
+            android:text="@string/note"
+            android:id="@+id/informationAboutEnrolledExam_textView_note"/>
 
-        android:id="@+id/informationAboutEnrolledExam_textView_state"/>
 
-    <!-- right -->
-    <View
-        android:layout_width="@dimen/dimen_10"
-        android:layout_height="@dimen/dimen_10"
+        <EditText
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_10"
 
-        android:layout_marginRight="@dimen/dimen_4"
+            android:layout_marginTop="@dimen/dimen_1"
+            android:layout_marginRight="@dimen/dimen_1"
+            android:layout_marginBottom="@dimen/dimen_1"
+            android:layout_alignParentRight="true"
 
-        android:clickable="true"
+            android:gravity="center"
 
-        android:layout_alignTop="@+id/informationAboutEnrolledExam_textView_state"
-        android:layout_alignRight="@+id/informationAboutEnrolledExam_textView_headLine"
-        android:layout_alignEnd="@+id/informationAboutEnrolledExam_textView_headLine"
+            android:textStyle="bold"
+            android:editable="false"
 
-        android:background="@color/black"
+            android:imeOptions="actionDone"
 
-        android:id="@+id/informationAboutEnrolledExam_view_stateContent"/>
+            android:background="@color/light_blue"
+            android:id="@+id/informationAboutEnrolledExam_editText_note"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/informationAboutEnrolledExam_editText_note"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/dimen_1"
+            android:layout_marginBottom="@dimen/dimen_1"
+            android:text="Note eingeben!!!"
+            android:visibility="invisible"
+            android:textStyle="bold"
+            android:textColor="@color/red"
+            android:id="@+id/textView_propmptInputNote"/>
 
-        android:src="@drawable/info_32x32"
-        android:background="@null"
-        android:layout_marginLeft="@dimen/dimen_2.5"
-
-        android:id="@+id/informationAboutEnrolledExam_imageButton_info"
-        android:layout_above="@+id/informationAboutEnrolledExam_textView_countTries"
-        android:layout_alignLeft="@+id/informationAboutEnrolledExam_textView_countTries"
-        android:layout_alignStart="@+id/informationAboutEnrolledExam_textView_countTries">
-
-      </ImageButton>
-
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textStyle="bold"
-        android:textSize="@dimen/dimen_4"
-
-        android:visibility="invisible"
-        android:layout_alignRight="@+id/informationAboutEnrolledExam_textView_typeContent"
-        android:layout_alignEnd="@+id/informationAboutEnrolledExam_textView_typeContent"
-        android:layout_below="@+id/informationAboutEnrolledExam_view_stateContent"
-
-        android:id="@+id/informationAboutEnrolledExam_textView_countTries"/>
-
-
-
+    </RelativeLayout>
 
 
 

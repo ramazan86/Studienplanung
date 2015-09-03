@@ -59,6 +59,8 @@ public abstract class MyFragment extends ListFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Log.e("onCreateView()"," #########");
+        Log.e("valuesLenght: "," " +values.length);
 
         View rootView = inflater.inflate(R.layout.my_fragment, container, false);
 

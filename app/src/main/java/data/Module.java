@@ -1,15 +1,13 @@
 package data;
 
-import android.graphics.drawable.Drawable;
-
-import com.cinardere_ramazan_ba_2015.studienplanung.R;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import helper.MyHelper;
 
+
+/**
+ * @author Ramazan Cinardere
+ * */
 
 public class Module implements Serializable{
 
@@ -41,6 +39,7 @@ public class Module implements Serializable{
 				   language,
 				   frequency,
                    enrolledDate,
+                   unSubScribedDate,
                    grade,
                    dateOfExam,
                    timeOfExam,
@@ -74,6 +73,25 @@ public class Module implements Serializable{
 	 */
 
 
+    public String getStateOf() {
+
+
+        if(this.isPassed() && this.numberOfTrials == 1) {
+            return MyHelper.MODULE_PASSED_FIRST_TRY;
+        }
+        else if(this.isPassed() && this.numberOfTrials == 2) {
+            return MyHelper.MODULE_PASSED_SECOND_TRY;
+        }
+        else if(this.isNotPassed() && this.numberOfTrials == 1) {
+            return MyHelper.MODULE_NOT_PASSED_FIRST_TRY;
+        }
+        else if(this.isNotPassed() && this.numberOfTrials == 2) {
+            return MyHelper.MODULE_NOT_PASSED_SECOND_TRY;
+        }
+
+        return MyHelper.MODULE_NOT_ENROLLED_YET;
+    }
+
 
 
 	public String toString(int i ) {
@@ -90,6 +108,8 @@ public class Module implements Serializable{
 			default: return "NaN";
 		}
 	}
+
+
 
     public String getPrerequisiteAtPosition(int pos) {
 
@@ -376,6 +396,10 @@ public class Module implements Serializable{
     }
 
     public void setNumberOfTrials(int numberOfTrials) {
+
+        if(numberOfTrials < 0) {
+            numberOfTrials = 0;
+        }
         this.numberOfTrials = numberOfTrials;
     }
 
@@ -458,4 +482,14 @@ public class Module implements Serializable{
         this.room = room;
     }
 
+    public String getUnSubScribedDate() {
+        if(unSubScribedDate == null) {
+            unSubScribedDate = "NaN";
+        }
+        return unSubScribedDate;
+    }
+
+    public void setUnSubScribedDate(String unSubScribedDate) {
+        this.unSubScribedDate = unSubScribedDate;
+    }
 }

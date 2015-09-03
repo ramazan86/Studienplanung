@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
+
+import activity.InformationAboutEnrolledExam;
 import activity.SubscribeExamActivity;
 
 import data.Module;
@@ -39,6 +41,7 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
     private Module module                   = null;
 
     private SubscribeExamActivity subscribeExamActivity = null;
+    private InformationAboutEnrolledExam informationAboutEnrolledExam = null;
 
     private Context context = null;
     private Bundle arguments = null;
@@ -71,6 +74,9 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
 
         if(context instanceof SubscribeExamActivity) {
             this.subscribeExamActivity = (SubscribeExamActivity) context;
+        }
+        else if(context instanceof InformationAboutEnrolledExam){
+            this.informationAboutEnrolledExam = (InformationAboutEnrolledExam) context;
         }
 
         this.context = context;
@@ -121,6 +127,8 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
 
                 case AlertDialog.BUTTON_POSITIVE:
 
+
+
                     Module m = (Module) arguments.getSerializable(context.getResources().getString(R.string.module));
                     boolean state = new ModuleOrganizer(context).subScribeModule(m);
 
@@ -164,7 +172,9 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
             switch (which) {
 
                 case AlertDialog.BUTTON_POSITIVE:
+
                     new ModuleOrganizer(context).updateModuleContent((Module) arguments.getSerializable(context.getString(R.string.module)));
+                    informationAboutEnrolledExam.onBackPressed();
                     break;
 
                 case AlertDialog.BUTTON_NEGATIVE:
@@ -189,7 +199,10 @@ public class MyAlertDialog extends AlertDialog.Builder implements DialogInterfac
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                subscribeExamActivity.onBackPressed();
+                if(subscribeExamActivity != null) {
+                    subscribeExamActivity.onBackPressed();
+                }
+
             }
         });
         this.create().show();

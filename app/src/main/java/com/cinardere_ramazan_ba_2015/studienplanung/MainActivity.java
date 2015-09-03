@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import activity.MyTabActivity;
 import data.ModuleManual;
 import data.ModuleOrganizer;
 import file.MyFile;
+import helper.MyHelper;
 import reader.ReadDataFromPdf;
 import view.SemesterTotalView;
 
@@ -57,6 +59,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         initComponents();
+
 
         //new ModuleOrganizer(this).desiredNoteAverage(2.5f);
 

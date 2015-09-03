@@ -1,32 +1,25 @@
 package adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.cinardere_ramazan_ba_2015.studienplanung.MainActivity;
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
-
-import org.w3c.dom.Text;
 
 import activity.InformationAboutEnrolledExam;
 import data.Module;
+import data.ModuleManual;
 import dialog.MyAlertDialog;
-import file.MyFile;
 import fragment.CompletedExams;
 import fragment.EnrolledExams;
-import fragment.MyFragment;
 import fragment.Projects;
 import fragment.UnSubscribedExams;
 import helper.MyHelper;
@@ -60,6 +53,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
 
     private ArrayAdapter<String> adapter = null;
     private String title = "";
+
 
     ////////////////////////////
     //       Constructor      //
@@ -103,10 +97,10 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
     ////////////////////////////
 
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        //Log.e("getView "," valuesSize: " +values.length + " positon: " +position);
 
 
         if(layoutId != 0) {
@@ -175,29 +169,50 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
         String dialogTitle   = "";
         String dialogMessage = "";
 
-        Log.e("openDialog: ===> ", " " +finalModuleTitle);
-
 
         if(enrolledExams != null) {
             checkValue    = MyHelper.CHECK_VALUE_MODULE_UNSUBSCRIBE;
             dialogTitle   = context.getResources().getString(R.string.unsubscribeModule);
-            dialogMessage = context.getResources().getString(R.string.questUnSubscribePraefix) + ":" +System.getProperty("line.separator") + ">> " + finalModuleTitle + " << " + System.getProperty("line.separator") +  context.getResources().getString(R.string.questForUnsubscribeModuleSuffix);
+            dialogMessage = context.getResources().getString(R.string.questUnSubscribePraefix) + ":"
+                    + System.getProperty("line.separator")
+                    + System.getProperty("line.separator")
+                    + finalModuleTitle
+                    + System.getProperty("line.separator")
+                    + System.getProperty("line.separator")
+                    + context.getResources().getString(R.string.questForUnsubscribeModuleSuffix);
             //enrolledExams = null;
         }
         else if(unSubscribedExams != null) {
             checkValue = MyHelper.CHECK_VALUE_ENROLL_EXAM;
             dialogTitle = context.getResources().getString(R.string.enrollExam);
-            dialogMessage = context.getResources().getString(R.string.questionForEnrollExamPraefix) + ": " +System.getProperty("line.separator") + finalModuleTitle + System.getProperty("line.separator") +context.getResources().getString(R.string.questionForEnrollExamSuffix);
+            dialogMessage = context.getResources().getString(R.string.questionForEnrollExamPraefix) + ": "
+                    + System.getProperty("line.separator")
+                    + System.getProperty("line.separator")
+                    + finalModuleTitle
+                    + System.getProperty("line.separator")
+                    + System.getProperty("line.separator")
+                    + context.getResources().getString(R.string.questionForEnrollExamSuffix);
             //unSubscribedExams = null;
         }
 
            Bundle data = new Bundle();
-           data.putString(context.getResources().getString(R.string.moduleTitle), finalModuleTitle);
+                  data.putString(context.getResources().getString(R.string.moduleTitle), finalModuleTitle);
 
+        ModuleManual moduleManual = ModuleManual.getInstance(context);
+        Module tmp = moduleManual.searchModule(finalModuleTitle);
+
+                  data.putSerializable(context.getResources().getString(R.string.module), tmp);
            MyAlertDialog dialog = new MyAlertDialog(dialogTitle, dialogMessage, fragmentActivity);
            dialog.setBundle(data);
-           dialog.buildDialogWithPositiveAndNegativeButton(context.getResources().getString(R.string.yes),
-                   context.getResources().getString(R.string.no), checkValue);
+           dialog.buildDialogWithPositiveAndNegativeButton(context.getResources().getString(R.string.yes),context.getResources().getString(R.string.no), checkValue);
+
+
+        for(int i = 0; i<values.length; i++) {
+
+            if(values[i].contains(finalModuleTitle)) {
+            //    values[i] = null;
+            }
+        }
 
     }
 
@@ -222,7 +237,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
                 intent.putExtra("value", "value_2");
             }
             else if(completedExams != null) {
-                intent.putExtra("value", "value_3");
+                intent.putExtra("value", MyHelper.CHECK_VALUE_COMPLETED_FRAGMENT);
             }
             else if(projects != null) {
                 intent.putExtra("value", "value_4");

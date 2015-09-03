@@ -27,7 +27,21 @@ public abstract class MyHelper {
 	public static final String CARRIAGE_RETURN = "\r";
 	public static final String PAGE_MIX_PATTERN = "Seite\\s[0-999]{1,3}\\/[0-999]{1,3}";
 	public static final String PAGE_INT_PATTERN = "[0-999]{1,3}\\/[0-999]{1,3}";
-	
+
+
+    /**
+     * ^        Start of String
+     * [1-5]    Number must between 1 und 5 and exactly once
+     * (        Begin optional group
+     * \.       The second char after [1-5] can be a digit
+     * [0-9]{1} Digit between 0-9 and exactly once
+     * )?       End of group, signify it's optional with '?'
+     * $        End of String
+     * */
+    public static final String PATTERN_NOTE = "^[1-5]{1}(\\.[0-9]{1})?$";
+
+
+
 	public static final String WHITESPACE = " ";
 	public static final String DOUBLE_WHITESPACE = "  ";
 	
@@ -44,7 +58,24 @@ public abstract class MyHelper {
     public static final String CHECK_VALUE_MODULE_UNSUBSCRIBE   = "moduleUnsubscribe";
     public static final String CHECK_VALUE_ENROLL_WARNING_DATE  = "dateNotAllowed";
 
-	
+    public static final String CHECK_VALUE_ENROLLED_FRAGMENT        = "fragment_enrolled";
+    public static final String CHECK_VALUE_UNSUBSCRIBED_FRAGMENT    = "fragment_unsubscribed";
+    public static final String CHECK_VALUE_COMPLETED_FRAGMENT       = "fragment_completed";
+    public static final String CHECK_VALUE_OVERVIEW_FRAGMENT        = "fragment_overview";
+    public static final String CHECK_VALUE_PROJECTS_FRAGMENT        = "fragment_overview";
+
+
+
+    public static final String MODULE_PASSED_FIRST_TRY      = "m_001";
+    public static final String MODULE_PASSED_SECOND_TRY     = "m_002";
+    public static final String MODULE_NOT_PASSED_FIRST_TRY  = "m_010";
+    public static final String MODULE_NOT_PASSED_SECOND_TRY = "m_011";
+    public static final String MODULE_NOT_ENROLLED_YET      = "m_100";
+
+
+
+
+
 	/** # ############# #
 	 #  Constructor  #
 	 # ############# #
