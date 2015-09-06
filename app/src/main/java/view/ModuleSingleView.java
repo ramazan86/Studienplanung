@@ -2,12 +2,14 @@ package view;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +84,7 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
 
         //change title of actionbar
 
-        setTitle(moduleTitle.split(" ")[0]);
+        setTitle(getString(R.string.detailView));
 
         //assign values to module_single_view
         assignValuesToComponents();
@@ -90,28 +92,17 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
 
     private void assignValuesToComponents() {
 
-       //View: view_status
-        params = (LinearLayout.LayoutParams) view_status.getLayoutParams();
-        params.setMargins(30, 0, 0, 0);
 
         float textSize = 0;
 
-        view_status.setLayoutParams(params);
-
        //TextView: moduleTitle
         if(textView_moduleTitle != null) {
-
-            if(params != null) params = null;
-            params = (LinearLayout.LayoutParams) textView_moduleTitle.getLayoutParams();
-            params.setMargins(100,45,0,0);
-            textView_moduleTitle.setLayoutParams(params);
 
         //moduletitle
 
             String[] m = moduleTitle.split(" ");
             textView_moduleTitle.setText(" " +module.getTitle());
             textView_moduleTitle.setTextColor(getResources().getColor(R.color.black));
-            textView_moduleTitle.setBackgroundColor(getResources().getColor(R.color.gray));
 
             if(m.length >3) {
                 textSize = getResources().getDimension(R.dimen.dimen_1_5);
@@ -122,10 +113,7 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
         }
 
         //creditpoints
-        textView_creditPoints.setBackgroundColor(getResources().getColor(R.color.gray));
         textView_creditPoints.setText(module.getCreditPoints());
-        textView_creditPoints.setTextSize((textSize+40));
-        textView_creditPoints.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
         //contents
         textView_content.setText(getResources().getString(R.string.content));
@@ -163,20 +151,12 @@ public class ModuleSingleView extends ActionBarActivity implements View.OnClickL
     }
 
     private void initComponents() {
-        //get linearlayout from respective view
-        linearLayout_wrap = (LinearLayout) findViewById(R.id.module_singleView_wrapLinearLayout);
 
-        //View shows the current state of the module
-        view_status = findViewById(R.id.module_singleView_viewStatus);
+        //creditpoints
+        textView_creditPoints = (TextView) findViewById(R.id.moduleSingleView_textView_cp);
 
         //Title of module
         textView_moduleTitle = (TextView) findViewById(R.id.module_singleView_moduleTitle);
-
-        //note
-        textView_note = (TextView) findViewById(R.id.module_singleView_textView_note);
-
-        //creditpoins
-        textView_creditPoints = (TextView) findViewById(R.id.module_singleView_textView_creditPoints);
 
         //content
         textView_content = (TextView) findViewById(R.id.module_single_view_textView_content);

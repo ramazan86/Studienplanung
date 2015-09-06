@@ -20,6 +20,7 @@
 
     <!-- >= 3 && < 4 -->
         <dimen name="dimen_3">12dp</dimen>
+        <dimen name="dimen_3.5">14dp</dimen>
         <dimen name="dimen_3.75">15dp</dimen>
 
     <!-- >=4 && < 5 -->
@@ -101,9 +102,12 @@
         <dimen name="dimen_50">200dp</dimen>
         <dimen name="dimen_54">216dp</dimen>
         <dimen name="dimen_55">220dp</dimen>
+        <dimen name="dimen_58">232dp</dimen>
+        <dimen name="dimen_59">236dp</dimen>
 
     <!-- >= 60 && < 70-->
         <dimen name="dimen_60">240dp</dimen>
+        <dimen name="dimen_65">260dp</dimen>
 
     <!-- >= 70 && < 80 -->
         <dimen name="dimen_70">280dp</dimen>

@@ -1,15 +1,20 @@
 package view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -19,6 +24,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import adapter.CustomModuleListViewAdapter;
 import data.Module;
 import data.ModuleManual;
 import file.MyFile;
@@ -69,7 +75,10 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
 
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, semesters);
+
+        String[] values = semesters.toArray(new String[semesters.size()]);
+        adapter = new CustomModuleListViewAdapter(this, values);
+
 
         // Assign adapter to ListView
         listView.setAdapter(adapter);
@@ -81,8 +90,16 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
     @Override
     public void setActionBar(Toolbar toolbar) {
         ActionBar actionBar = getSupportActionBar();
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
+
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        //actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.radial_background));
+
+        LayoutInflater myInlater = LayoutInflater.from(this);
+        View customView = myInlater.inflate(R.layout.my_actionbar,null);
+
+        actionBar.setCustomView(customView);
+        actionBar.setDisplayShowCustomEnabled(true);
     }
 
     @Override
@@ -146,7 +163,10 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
             moduleList = getModules();
 
 
-            adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, moduleList);
+            //adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, moduleList);
+
+            String[] values = moduleList.toArray(new String[moduleList.size()]);
+            adapter = new CustomModuleListViewAdapter(this, values);
 
             // Assign adapter to ListView
             listView.setAdapter(adapter);
@@ -195,8 +215,16 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
         @Override
         public void setActionBar(Toolbar toolbar) {
             ActionBar actionBar = getSupportActionBar();
-                actionBar.setHomeButtonEnabled(true);
-                actionBar.setDisplayHomeAsUpEnabled(true);
+
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            //actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.radial_background));
+
+            LayoutInflater myInlater = LayoutInflater.from(this);
+            View customView = myInlater.inflate(R.layout.my_actionbar,null);
+
+            actionBar.setCustomView(customView);
+            actionBar.setDisplayShowCustomEnabled(true);
         }
 
         @Override
@@ -204,15 +232,105 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
 
             Module module = objectList.get(position);
 
-            Intent moduleSingleView = new Intent(this, ModuleSingleView.class);
-                moduleSingleView.putExtra("module", module);
-                moduleSingleView.putExtra("semester", semester);
-                moduleSingleView.putExtra("moduleManual", moduleManual);
-
-            startActivityForResult(moduleSingleView, REQUEST_CODE);
-
+                showModuleInDetail(module);
             //Toast.makeText(getApplicationContext(), objectList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
         }//onItemClick
+
+        private void showModuleInDetail(final Module module) {
+
+
+            float textSize = 0;
+
+            //TextView: moduleTitle
+
+                //moduletitle
+
+                String[] m = module.getTitle().split(" ");
+
+                if(m.length >3) {
+                    textSize = getResources().getDimension(R.dimen.dimen_1_5);
+                }else {
+                    textSize = getResources().getDimension(R.dimen.dimen_2);
+                }
+
+
+
+            LayoutInflater factory = LayoutInflater.from(this);
+            final View stateView = factory.inflate(R.layout.module_single_view, null);
+
+
+            //creditpoints
+            TextView textView_creditPoints = (TextView) stateView.findViewById(R.id.moduleSingleView_textView_cp);
+                textView_creditPoints.setText(module.getCreditPoints());
+
+            //Title of module
+            TextView textView_moduleTitle = (TextView) stateView.findViewById(R.id.module_singleView_moduleTitle);
+                textView_moduleTitle.setTextSize(textSize);
+                textView_moduleTitle.setText(module.getTitle());
+
+            //content
+            TextView textView_content = (TextView) stateView.findViewById(R.id.module_single_view_textView_content);
+                textView_content.setText(getResources().getString(R.string.content));
+                textView_content.setTextSize(20);
+                textView_content.setBackgroundColor(getResources().getColor(R.color.gray));
+
+
+
+                textView_content.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent content = new Intent(getApplicationContext(), ModuleContentView.class);
+                        content.putExtra("semester", semester);
+                        content.putExtra("moduleManual", moduleManual);
+                        content.putExtra("module", module);
+                        startActivityForResult(content, REQUEST_CODE);
+
+
+                    }
+                });
+
+            //assumption
+            TextView textView_assumption = (TextView) stateView.findViewById(R.id.module_single_view_textView_assumption);
+                //assumption
+                textView_assumption.setText(getResources().getString(R.string.assumption));
+                textView_assumption.setTextSize(18);
+                textView_assumption.setBackgroundColor(getResources().getColor(R.color.gray));
+
+                textView_assumption.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent assumption = new Intent(getApplicationContext(), ModuleAssumptionView.class);
+                        assumption.putExtra("semester", semester);
+                        assumption.putExtra("moduleManual", moduleManual);
+                        assumption.putExtra("module", module);
+                        startActivityForResult(assumption, REQUEST_CODE);
+
+
+                    }
+                });
+
+
+
+            final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+
+            alertDialog.setView(stateView);
+
+
+            stateView.findViewById(R.id.moduleSingleView_imgButton_back).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            alertDialog.show();
+
+
+
+        }
 
         @Override
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {

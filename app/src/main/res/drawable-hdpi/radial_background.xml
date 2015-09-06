@@ -3,9 +3,9 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
         android:type="sweep"
-        android:startColor="@color/secondary_text_disabled_material_light"
-        android:centerColor="@color/highlighted_text_material_light"
-        android:endColor="@color/blue"
+        android:startColor="@color/white"
+        android:centerColor="@color/light_blue"
+        android:endColor="@color/white"
         android:centerY="1"
         android:centerX="0.01"
         >

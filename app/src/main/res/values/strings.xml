@@ -16,6 +16,7 @@
 
     <string name="dateWarning">Prüfung darf nicht in der Vergangenheit oder am heutigen Tag liegen.</string>
     <string name="dateTime">Datum-/Uhrzeit:</string>
+    <string name="detailView">Detailansicht</string>
 
     <string name="edit">Bearbeiten</string>
     <string name="exams">Prüfungen</string>

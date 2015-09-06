@@ -3,97 +3,101 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/dimen_4"
     android:id="@+id/module_singleView_wrapLinearLayout">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/module_singleView_moduleTitle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+
+        android:shadowColor="@color/black"
+        android:shadowDx="10"
+        android:shadowDy="10"
+        android:shadowRadius="20"
+        android:layout_marginBottom="@dimen/dimen_5"
+        android:id="@+id/module_singleView_moduleTitle"/>
+
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <!-- Status -->
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_10"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_3"
-                android:layout_marginLeft="@dimen/dimen_1"
-                android:text="@string/status"
-                android:textSize="@dimen/dimen_4"/>
-
-            <View
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:background="@color/yellow"
-                android:id="@+id/module_singleView_viewStatus"
-                android:clickable="true">
-            </View>
-        </LinearLayout>
-        <!-- Status -->
-
-        <View
-            android:layout_width="30dp"
-            android:layout_height="match_parent">
-        </View>
-
-        <!-- Note, CP-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Note"
-                android:layout_marginTop="@dimen/dimen_3"/>
-
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:background="@color/green"
-                android:id="@+id/module_singleView_textView_note"
-                android:clickable="true">
-            </TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cp"
-                android:layout_marginTop="@dimen/dimen_3"/>
+                android:textSize="@dimen/dimen_5"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
 
             <TextView
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+
+                android:background="@color/light_blue_2"
+
+                android:textSize="@dimen/dimen_10"
                 android:textColor="@color/black"
                 android:textStyle="bold|italic"
-                android:id="@+id/module_singleView_textView_creditPoints"/>
+                android:gravity="center"
+
+                android:id="@+id/moduleSingleView_textView_cp"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_3.5"
+            android:padding="@dimen/dimen_3"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_1.5"
+                android:gravity="center"
+                android:clickable="true"
+                android:textStyle="bold"
+                android:text="asdf"
+                android:background="@color/gray"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/dimen_1"
+                android:id="@+id/module_single_view_textView_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_10"
+                android:textStyle="bold"
+                android:text="asdf"
+                android:background="@color/gray"
+                android:gravity="center"
+                android:clickable="true"
+                android:textColor="@color/black"
+                android:id="@+id/module_single_view_textView_assumption"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_10"
-        android:clickable="true"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:id="@+id/module_single_view_textView_content"/>
+       <ImageButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:src="@drawable/back_32x32"
+           android:layout_marginLeft="@dimen/dimen_55"
+           android:id="@+id/moduleSingleView_imgButton_back"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_10"
-        android:textStyle="bold"
-        android:clickable="true"
-        android:textColor="@color/black"
-        android:id="@+id/module_single_view_textView_assumption"/>
+
 
 </LinearLayout>
