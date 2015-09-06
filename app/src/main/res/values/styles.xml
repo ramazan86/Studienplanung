@@ -21,7 +21,7 @@
     <!-- view: verticalLine -->
 
     <style name="view_verticalWhiteLine">
-        <item name="android:layout_width">3dp</item>
+        <item name="android:layout_width">5dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_marginRight">@dimen/dimen_1</item>
         <item name="android:background">@color/white</item>

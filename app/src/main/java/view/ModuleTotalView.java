@@ -1,5 +1,7 @@
 package view;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -61,7 +63,7 @@ public class ModuleTotalView extends ActionBarActivity {
 
     private void initComponents() {
         //textView headline
-        textView_headline = (TextView) findViewById(R.id.module_totalView_textViewHeadline);
+        //textView_headline = (TextView) findViewById(R.id.module_totalView_textViewHeadline);
 
         //linearLayout
         linearLayout_modules = (LinearLayout) findViewById(R.id.module_totalView_linearLayout_modules);
@@ -125,12 +127,21 @@ public class ModuleTotalView extends ActionBarActivity {
 
         LinearLayout row = new LinearLayout(this);
             //LayoutParams : 1st Param: width, 2nd Param: height
-            row.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            row.setBackgroundColor(getResources().getColor(R.color.red));
+            row.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            //row.setBackgroundColor(getResources().getColor(R.color.light_blue_2));
+            row.setBackgroundColor(getResources().getColor(R.color.light_blue_2));
                 //linearlayout margin
                 params = (LinearLayout.LayoutParams) row.getLayoutParams();
-                params.setMargins(0, 20, 0, 20);
+                params.setMargins(30, 20, 0, 20);
             row.setLayoutParams(params);
+
+
+        GradientDrawable gd = new GradientDrawable();
+            gd.setColor(getResources().getColor(R.color.light_blue_2));
+            gd.setCornerRadius(5);
+            gd.setStroke(1, 0xFF000000);
+
+            row.setBackgroundDrawable(gd);
         return row;
     }
 
@@ -165,6 +176,7 @@ public class ModuleTotalView extends ActionBarActivity {
         }
 
 
+
         TextView textView= new TextView(this);
             textView.setLayoutParams(new LinearLayout.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT));
 
@@ -178,7 +190,7 @@ public class ModuleTotalView extends ActionBarActivity {
             textView.setText(content);
             textView.setTextSize(20);
             textView.setLayoutParams(params);
-            textView.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
+            textView.setGravity(Gravity.CENTER);
             textView.setTextColor(getResources().getColor(R.color.black));
 
         return textView;

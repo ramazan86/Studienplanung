@@ -30,7 +30,7 @@
 
 
         <ScrollView
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/dimen_75"
             android:layout_height="match_parent"
             android:padding="@dimen/dimen_3">
 
@@ -41,23 +41,18 @@
                 android:editable="false"
                 android:id="@+id/moduleContentView_editText_content"/>
         </ScrollView>
+
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:src="@drawable/pencil_icon_32x32"
+            android:background="@null"
+            android:id="@+id/moduleContentView_imgButton_pencil"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/orange"
-        android:layout_marginTop="@dimen/dimen_4"
-        android:layout_marginLeft="@dimen/dimen_4"
-        android:layout_marginRight="@dimen/dimen_4"
-        android:gravity="center_horizontal|center_vertical"
 
-        android:text="@string/editContent"
-        android:textSize="@dimen/dimen_7"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-
-        android:id="@+id/moduleContentView_textView_edit"/>
 
 
 </LinearLayout>

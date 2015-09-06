@@ -224,31 +224,6 @@ public class ModuleAssumptionView extends ActionBarActivity implements View.OnCl
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
-
-        /***
-         *  //If user hit "OK" or "Enter" button on his device keyboard
-         if(actionId == EditorInfo.IME_ACTION_DONE) {
-
-         //update content of respective module if and only if the content is changed of the current module
-         for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
-         if(moduleManual.getModuleList().get(i).getTitle().equals(module.getTitle())) {
-
-         if(!moduleManual.getModuleList().get(i).getContent().equals(v.getText())) {
-         moduleManual.getModuleList().get(i).setContent(v.getText().toString());
-
-         //create new serialized file
-         MyFile myFile = new MyFile(this);
-         myFile.createFileAndWriteObject(getResources().getString(R.string.moduleManualSer), moduleManual);
-
-         moduleManual = (ModuleManual) myFile.getObjectFromFile(getResources().getString(R.string.moduleManualSer));
-         }
-         }
-         }
-
-         changeEditTextUseAbility(false);
-         * */
-
-
         if(actionId == EditorInfo.IME_ACTION_DONE) {
 
             for(int i = 0; i<moduleManual.getModuleList().size(); i++) {

@@ -253,8 +253,6 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
                     textSize = getResources().getDimension(R.dimen.dimen_2);
                 }
 
-
-
             LayoutInflater factory = LayoutInflater.from(this);
             final View stateView = factory.inflate(R.layout.module_single_view, null);
 
@@ -265,7 +263,7 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
 
             //Title of module
             TextView textView_moduleTitle = (TextView) stateView.findViewById(R.id.module_singleView_moduleTitle);
-                textView_moduleTitle.setTextSize(textSize);
+                textView_moduleTitle.setTextSize((textSize+6));
                 textView_moduleTitle.setText(module.getTitle());
 
             //content

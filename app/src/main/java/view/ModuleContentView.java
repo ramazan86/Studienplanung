@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -27,6 +28,7 @@ import java.io.ObjectOutputStream;
 
 import data.Module;
 import data.ModuleManual;
+import data.ModuleOrganizer;
 import file.MyFile;
 
 /**
@@ -44,10 +46,12 @@ public class ModuleContentView extends ActionBarActivity implements View.OnClick
 
     private TextView textView_headLine = null,
                      textView_editContent = null;
+
     private EditText editText_editContent = null;
 
-    private FileOutputStream fileOutputStream = null;
-    private ObjectOutputStream objectOutputStream = null;
+    private ImageButton imageButton_pencil = null;
+
+
 
     /////////////////////////////
     //       Constructors      //
@@ -73,22 +77,47 @@ public class ModuleContentView extends ActionBarActivity implements View.OnClick
         assignValuesToComponents();
     }
 
+    private void setValuesIntoComponents(String content) {
+        try {
+
+            if(editText_editContent.getText().length() != 0) {
+                editText_editContent.setText(null);
+            }
+
+            if(content.length() == 0) {
+                content = getResources().getString(R.string.notANumber);
+            }
+
+            editText_editContent.setText(content);
+        }catch (Exception e) {
+            editText_editContent.setText(getResources().getString(R.string.notANumber));
+            Log.e("Exception in" +getClass().getName() + ".setValuesIntoComponents()"," -> " +e.getMessage() + " " +e.getCause());
+            e.printStackTrace();
+        }
+
+    }
+
     private void assignValuesToComponents() {
 
         textView_headLine.setText(module.getTitle());
-        editText_editContent.setText(module.getContent());
+
+
+        Module tmp = ModuleManual.getInstance(this).searchModule(module.getTitle());
+
+
+        editText_editContent.setText(tmp.getContent());
     }
 
     private void initComponents() {
 
         textView_headLine = (TextView) findViewById(R.id.moduleContentView_textView_headLine);
 
-        textView_editContent = (TextView) findViewById(R.id.moduleContentView_textView_edit);
-        textView_editContent.setClickable(true);
-        textView_editContent.setOnClickListener(this);
-
         editText_editContent = (EditText) findViewById(R.id.moduleContentView_editText_content);
         editText_editContent.setOnEditorActionListener(this);
+
+        imageButton_pencil = (ImageButton) findViewById(R.id.moduleContentView_imgButton_pencil);
+        imageButton_pencil.setOnClickListener(this);
+
     }
 
     @Override
@@ -130,7 +159,7 @@ public class ModuleContentView extends ActionBarActivity implements View.OnClick
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == R.id.moduleContentView_textView_edit) {
+        if(v.getId() == R.id.moduleContentView_imgButton_pencil) {
           changeEditTextUseAbility(true);
         }
     }
@@ -151,20 +180,9 @@ public class ModuleContentView extends ActionBarActivity implements View.OnClick
         //If user hit "OK" or "Enter" button on his device keyboard
         if(actionId == EditorInfo.IME_ACTION_DONE) {
 
-            //update content of respective module if and only if the content is changed of the current module
-            for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
-                if(moduleManual.getModuleList().get(i).getTitle().equals(module.getTitle())) {
-
-                    if(!moduleManual.getModuleList().get(i).getContent().equals(v.getText())) {
-                        moduleManual.getModuleList().get(i).setContent(v.getText().toString());
-
-                        //create new serialized file
-                        MyFile myFile = new MyFile(this);
-                        myFile.createFileAndWriteObject(getResources().getString(R.string.moduleManualSer), moduleManual);
-
-                        moduleManual = (ModuleManual) myFile.getObjectFromFile(getResources().getString(R.string.moduleManualSer));
-                    }
-                }
+            if(!v.getText().toString().equals(module.getContent())) {
+                module.setContent(v.getText().toString());
+                new ModuleOrganizer(this).updateModuleContent(module);
             }
 
             changeEditTextUseAbility(false);
