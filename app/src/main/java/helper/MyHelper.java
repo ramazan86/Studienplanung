@@ -41,6 +41,7 @@ public abstract class MyHelper {
     public static final String PATTERN_NOTE = "^[1-5]{1}(\\.[0-9]{1})?$";
 
 
+    public static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
 	public static final String WHITESPACE = " ";
 	public static final String DOUBLE_WHITESPACE = "  ";

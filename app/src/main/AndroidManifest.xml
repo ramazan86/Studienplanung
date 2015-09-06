@@ -107,11 +107,30 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <!-- MySettings -->
+        <activity
+            android:name="activity.MySettings"
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity">
+            </meta-data>
 
 
+        </activity>
 
+        <!-- PrefProfile-->
+        <activity
+            android:name="preference.PrefProfile"
+            android:screenOrientation="portrait">
+        </activity>
 
-
+        <!-- PrefEmail-->
+        <activity
+            android:name="preference.PrefEmail"
+            android:screenOrientation="portrait">
+        </activity>
 
 
 
@@ -130,4 +149,6 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE">
     </uses-permission>
 
+    <!-- INTERNET-->
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

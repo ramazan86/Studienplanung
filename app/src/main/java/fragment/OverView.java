@@ -25,6 +25,8 @@ import android.widget.TextView;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import data.Module;
@@ -127,7 +129,6 @@ public class OverView extends Fragment implements View.OnClickListener {
         textView_cp         = (TextView) rootView.findViewById(R.id.overviewGraduation_textView_creditPoints);
         textView_exams      = (TextView) rootView.findViewById(R.id.overviewGraduation_textView_exams);
 
-
         //Moduleorganizer
         moduleOrganizer = new ModuleOrganizer(getActivity().getApplicationContext());
 
@@ -150,10 +151,19 @@ public class OverView extends Fragment implements View.OnClickListener {
         ArrayList<Module>list = (ArrayList<Module>) bundle_averageNotes.getSerializable("modules");
         LayoutInflater factory = LayoutInflater.from(getActivity());
         final View stateView = factory.inflate(R.layout.dialog_note_avg, null);
+
         LinearLayout linearLayout = (LinearLayout) stateView.findViewById(R.id.dialogNoteAvg_linearLayout_inner);
         TextView headLine = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_headline);
 
+        textView_inputAvg = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_inputAvg);
+        textView_calcAvg  = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_calculatedAvg);
+
+
         if(v.getId() == R.id.overViewGraduation_imageButton_avg) {
+
+            textView_inputAvg.setVisibility(View.INVISIBLE);
+            textView_calcAvg.setVisibility(View.INVISIBLE);
+
 
             if(bundle_averageNotes != null) {
 
@@ -181,10 +191,12 @@ public class OverView extends Fragment implements View.OnClickListener {
         }//
         else if(v.getId() == R.id.overViewGraduation_imageButton_calc) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater factory_ = LayoutInflater.from(getActivity());
             final View stateView_ = factory_.inflate(R.layout.dialog_input, null);
 
+            textView_inputAvg.setVisibility(View.INVISIBLE);
+            textView_calcAvg.setVisibility(View.INVISIBLE);
 
             final EditText input = (EditText) stateView_.findViewById(R.id.dialogInput_note);
 
@@ -194,54 +206,36 @@ public class OverView extends Fragment implements View.OnClickListener {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
 
-                    float note = 0, currentAvg = 0;
+                    float desire = 0, currentAvg = 0;
 
                     try {
-                        note =  Float.parseFloat(input.getText().toString());
+                        desire =  Float.parseFloat(input.getText().toString());
                         currentAvg = moduleOrganizer.getAverageNotes().getFloat("avg");
                     }catch (Exception e) {
                         Log.e(" ##### EXCEPTION: "," " +e.getMessage() + " " +e.getCause());
 
                     }
 
-                    if(note != 0.0f && currentAvg != 0.0f) {
+                    //note == input edittext;
+                    if(desire != 0.0f && currentAvg != 0.0f) {
 
-                        if(note >= currentAvg) {
-
-                            showDialogInvalidInput(note, currentAvg);
-
-
+                        //calculation of desire avg is only given, if desireNote < currentAvg
+                        if(desire >= currentAvg) {
+                            showDialogInvalidInput(desire, currentAvg);
                         }else {
 
-                            bundle_calculateDesire = moduleOrganizer.desiredNoteAverage(note);
+                            //calculated students desire avg note
+                            bundle_calculateDesire = moduleOrganizer.desiredNoteAverage(desire, 0);
 
-                            ArrayList<Module> list = (ArrayList<Module>) bundle_calculateDesire.getSerializable("modules");
-                            ArrayList<String> markList = ((ArrayList<String>)bundle_calculateDesire.getStringArrayList("randNotes"));
+                            //if calculated note < desired note
+                            //sortArray[0] == best avgNote which is calculated
+                            if(desire < bundle_calculateDesire.getFloatArray("sortArray")[0]) {
 
 
-                            LayoutInflater factory = LayoutInflater.from(getActivity());
-                            final View stateView = factory.inflate(R.layout.dialog_note_avg, null);
-
-                            LinearLayout linearLayout = (LinearLayout) stateView.findViewById(R.id.dialogNoteAvg_linearLayout_inner);
-
-                            TextView headLine = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_headline);
-                            headLine.setText(getActivity().getString(R.string.prognosis));
-
-                            for(int i = 0; i<list.size(); i++) {
-                                TextView tv = showTitlesAndNotes(list.get(i).getTitle(), markList.get(i));
-                                linearLayout.addView(tv);
+                                showCalculatedAvgIsBiggerInput(desire);
+                            }else {
+                                showCalculatedList(bundle_calculateDesire);
                             }
-
-                            final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-                            alertDialog.setView(stateView);
-
-                            stateView.findViewById(R.id.dialogNoteAvg_imageButton_back).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    alertDialog.dismiss();
-                                }
-                            });
-                            alertDialog.show();
 
                         }
                     }
@@ -251,6 +245,133 @@ public class OverView extends Fragment implements View.OnClickListener {
             builder.create().show();
 
         }
+    }
+
+    private void showCalculatedAvgIsBiggerInput(float desire) {
+
+        if(moduleOrganizer == null) {
+            moduleOrganizer = new ModuleOrganizer(getActivity());
+        }
+        Bundle args = moduleOrganizer.calcAvgWithFixNote(1.0f);
+
+
+        ArrayList<Module> list = (ArrayList<Module>) args.getSerializable("modules");
+
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View stateView = factory.inflate(R.layout.dialog_note_avg, null);
+
+        //initComponents
+        TextView textView_inputAvg = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_inputAvg);
+        TextView textView_calcAvg  = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_calculatedAvg);
+
+        //set values
+
+        // textView inputValue
+        String input = String.valueOf(desire);
+
+        Spannable spanInput = new SpannableString(input);
+        spanInput.setSpan(new ForegroundColorSpan(Color.BLUE), 0, spanInput.length(),0);
+        textView_inputAvg.setText(textView_inputAvg.getText() + " " +"(" +spanInput + ")");
+        // #############################
+
+
+        //textView calculatedValue
+        String calcAvg = String.valueOf(args.getFloat("avg")).substring(0,4);
+
+        Spannable spanCalc = new SpannableString(calcAvg);
+        spanCalc.setSpan(new ForegroundColorSpan(Color.BLUE), 0, spanCalc.length(),0);
+
+        textView_calcAvg.setText(textView_calcAvg.getText() + " (" +spanCalc + ")");
+        // ##########################
+
+
+
+        LinearLayout linearLayout = (LinearLayout) stateView.findViewById(R.id.dialogNoteAvg_linearLayout_inner);
+
+        //set headline
+        TextView headLine = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_headline);
+        headLine.setText(getActivity().getString(R.string.prognosis) + " (1.0)");
+
+        //set modules with respective notes into view
+        for(int i = 0; i<list.size(); i++) {
+            TextView tv = showTitlesAndNotes(list.get(i).getTitle(), String.valueOf(1.0f));
+            linearLayout.addView(tv);
+        }
+
+        //popup alertdialog
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setView(stateView);
+
+        stateView.findViewById(R.id.dialogNoteAvg_imageButton_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+
+
+
+    }
+
+    private void showCalculatedList(Bundle arguments) {
+
+        ArrayList<Module> list = (ArrayList<Module>) arguments.getSerializable("modules");
+        ArrayList<String> markList = ((ArrayList<String>)arguments.getStringArrayList("randNotes"));
+
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View stateView = factory.inflate(R.layout.dialog_note_avg, null);
+
+        //initComponents
+        TextView textView_inputAvg = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_inputAvg);
+        TextView textView_calcAvg  = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_calculatedAvg);
+
+        //set values
+
+      // textView inputValue
+        String input = String.valueOf(arguments.getFloat("desire"));
+
+        Spannable spanInput = new SpannableString(input);
+            spanInput.setSpan(new ForegroundColorSpan(Color.BLUE), 0, spanInput.length(),0);
+        textView_inputAvg.setText(textView_inputAvg.getText() + " " +"(" +spanInput + ")");
+      // #############################
+
+
+      //textView calculatedValue
+        String calcAvg = String.valueOf(arguments.getFloat("calcAvg")).substring(0,4);
+
+        Spannable spanCalc = new SpannableString(calcAvg);
+            spanCalc.setSpan(new ForegroundColorSpan(Color.BLUE), 0, spanCalc.length(),0);
+
+        textView_calcAvg.setText(textView_calcAvg.getText() + " (" +spanCalc + ")");
+      // ##########################
+
+
+
+        LinearLayout linearLayout = (LinearLayout) stateView.findViewById(R.id.dialogNoteAvg_linearLayout_inner);
+
+        //set headline
+        TextView headLine = (TextView) stateView.findViewById(R.id.dialogNoteAvg_textView_headline);
+        headLine.setText(getActivity().getString(R.string.prognosis));
+
+        //set modules with respective notes into view
+        for(int i = 0; i<list.size(); i++) {
+            TextView tv = showTitlesAndNotes(list.get(i).getTitle(), markList.get(i));
+            linearLayout.addView(tv);
+        }
+
+        //popup alertdialog
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setView(stateView);
+
+        stateView.findViewById(R.id.dialogNoteAvg_imageButton_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+
     }
 
     private void showDialogInvalidInput(float note, float currentAvg) {
@@ -293,13 +414,13 @@ public class OverView extends Fragment implements View.OnClickListener {
         int color;
 
 
-        /*if(Integer.parseInt(grade) == 5) {
+        //change color of grade
+        if(grade.equals("5") || grade.equals("5.0")) {
             color = Color.RED;
         }else {
-           color = getActivity().getResources().getColor(R.color.green);
-        }*/
+            color = getActivity().getResources().getColor(R.color.green);
+        }
 
-        color = getActivity().getResources().getColor(R.color.green);
 
             spannable.setSpan(new ForegroundColorSpan(color), title.length()+2, s.length()-1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             spannable.setSpan(new StyleSpan(Typeface.BOLD), title.length()+2, s.length()-1,0);

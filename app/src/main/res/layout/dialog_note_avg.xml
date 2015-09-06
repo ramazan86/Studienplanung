@@ -63,7 +63,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dimen_42.5"
+            android:layout_marginTop="@dimen/dimen_2"
+            android:layout_marginRight="@dimen/dimen_32.5"
             android:orientation="vertical">
 
             <TextView
@@ -85,9 +86,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_32x32"
-
-            android:baselineAlignBottom="true"
-
             android:clickable="true"
             android:id="@+id/dialogNoteAvg_imageButton_back"/>
 

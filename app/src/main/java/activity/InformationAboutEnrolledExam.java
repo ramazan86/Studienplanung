@@ -333,8 +333,6 @@ public class InformationAboutEnrolledExam extends ActionBarActivity implements V
 
                             updateState = true;
                         }
-                        Log.e(" " +module.getGrade()," " +module.isNotPassed() + " " +module.isPassed());
-
                     }
                     //else note is "" || null
                     else {

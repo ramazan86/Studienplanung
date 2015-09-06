@@ -1,5 +1,6 @@
 package file;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
@@ -7,6 +8,8 @@ import android.widget.Toast;
 
 import data.Module;
 import data.ModuleManual;
+import data.Student;
+
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
 import java.io.File;
@@ -47,6 +50,7 @@ public class MyFile {
     //         Methods         //
     /////////////////////////////
 
+    @SuppressLint("LongLogTag")
     public boolean checkIfFileExists(String fileName) {
 
         try {
@@ -60,15 +64,18 @@ public class MyFile {
             for(File f: file.listFiles()) {
                 if(f.getName().equals(fileName)) {
                     return true;
+                }else {
+                    return false;
                 }
             }
-            return true;
         }catch (Exception e) {
             Log.e("Exception in checkIfFileExists: ", e.getCause() + " " +e.getMessage());
             return false;
         }
+        return false;
     }
 
+    @SuppressLint("LongLogTag")
     public boolean deleteFile(String fileName) {
 
         try {
@@ -90,6 +97,7 @@ public class MyFile {
         }
     }
 
+    @SuppressLint("LongLogTag")
     public boolean createFileAndWriteObject(String fileName, Object obj) {
 
         try {
@@ -110,8 +118,13 @@ public class MyFile {
             if(obj instanceof ModuleManual) {
                 ModuleManual tmp = (ModuleManual) obj;
                 objectOutputStream.writeObject(tmp);
-            }else if(obj instanceof Module) {
+            }
+            else if(obj instanceof Module) {
                 Module tmp = (Module) obj;
+                objectOutputStream.writeObject(tmp);
+            }
+            else if(obj instanceof Student) {
+                Student tmp = (Student) obj;
                 objectOutputStream.writeObject(tmp);
             }
 
@@ -144,22 +157,14 @@ public class MyFile {
                                         + File.separator
                                             , context.getResources().getString(R.string.folder_ser));
 
-            Log.e("<<<< here >>>> "," <<<< here >>>>");
-
             for(File f: file.listFiles()) {
                 if(f.getName().equals(fileName)) {
                     file = f;
                 }
             }
 
-            Log.e("#################"," ##################### ");
-
-
             fileInputStream = new FileInputStream(file);
             objectInputStream = new ObjectInputStream(fileInputStream);
-
-            Log.e("XXXXXXXXXXXXXXXX","XXXXXXXXXXXXXXXXXXXX");
-
 
             return objectInputStream.readObject();
 

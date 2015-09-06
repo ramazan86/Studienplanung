@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:title="@string/userName"
+        android:dialogTitle="@string/inputName"
+        android:summary="@string/defaultUserName"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:key="@string/key_userName">
+    </EditTextPreference>
+
+    <EditTextPreference
+        android:title="@string/matrikelNr"
+        android:dialogTitle="@string/inputMatrikelNr"
+        android:summary="@string/matrikelNrDefault"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:key="@string/key_matrikelNr">
+    </EditTextPreference>
+
+    <EditTextPreference
+        android:title="@string/studySubject"
+        android:dialogTitle="@string/inputStudySubject"
+        android:summary="@string/studySubjectDefault"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:key="@string/key_studySubject">
+    </EditTextPreference>
+
+    <EditTextPreference
+        android:title="@string/semester_"
+        android:dialogTitle="@string/inputSemester"
+        android:summary="@string/semesterDefault"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:key="@string/key_semester">
+    </EditTextPreference>
+
+    <CheckBoxPreference
+        android:title="@string/avatar"
+        android:defaultValue="true"
+        android:key="@string/key_checkAvatar"
+        android:summary="@string/show_avatar">
+    </CheckBoxPreference>
+
+
+
+
+</PreferenceScreen>
+

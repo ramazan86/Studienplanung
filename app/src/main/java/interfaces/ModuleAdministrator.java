@@ -32,9 +32,11 @@ public interface ModuleAdministrator {
 
     public ArrayList<Module> getProjects();
 
-    public Bundle desiredNoteAverage(float desire);
+    public Bundle desiredNoteAverage(float desire, int maxLimit);
 
     public Bundle getAverageNotes();
     public int getCreditPoints();
+
+    public int getStateDrawable(String moduleTitle);
 
 }

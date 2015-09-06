@@ -17,6 +17,7 @@ import com.cinardere_ramazan_ba_2015.studienplanung.R;
 import activity.InformationAboutEnrolledExam;
 import data.Module;
 import data.ModuleManual;
+import data.ModuleOrganizer;
 import dialog.MyAlertDialog;
 import fragment.CompletedExams;
 import fragment.EnrolledExams;
@@ -53,8 +54,8 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
 
     private ArrayAdapter<String> adapter = null;
     private String title = "";
-
-
+    private ModuleManual moduleManual = null;
+    private ModuleOrganizer moduleOrganizer = null;
     ////////////////////////////
     //       Constructor      //
     ////////////////////////////
@@ -88,6 +89,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
         super(context, R.layout.my_rowlayout, values);
         this.context = context;
         this.values  = values;
+        this.moduleManual = ModuleManual.getInstance(context);
     }
 
 
@@ -122,12 +124,25 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
 
             textView.setText(values[position]);
             textView.setOnLongClickListener(this);
-            imageView.setImageResource(R.drawable.examination);
+
+
+            if(moduleOrganizer == null) {
+                moduleOrganizer = new ModuleOrganizer(context);
+            }
+
+            int drawId = moduleOrganizer.getStateDrawable(values[position]);
+
+            imageView.setImageResource(drawId);
 
             return rootView;
         }
 
     }
+
+
+
+
+
 
     @Override
     public boolean onLongClick(View v) {

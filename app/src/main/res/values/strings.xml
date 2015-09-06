@@ -82,6 +82,7 @@
 
     <string name="folder_ser">ser</string>
     <string name="moduleManualSer">ModuleManual.ser</string>
+    <string name="file_studentSer">Student.ser</string>
     <string name="dotPlusSemester">. Semester</string>
     <string name="totalView">Gesamtübersicht</string>
     <string name="status">Status</string>
@@ -111,8 +112,35 @@
     <string name="backSlash">/</string>
     <string name="enrollExam">Prüfung anmelden</string>
     <string name="notesTilYet"><u>Bisher erbrachte Leistungen</u></string>
+    <string name="userName">Name</string>
+    <string name="inputName">Name eingeben</string>
+    <string name="defaultUserName">&lt;Name&gt;</string>
+    <string name="key_userName">key_name</string>
+    <string name="matrikelNr">Matrikelnr.</string>
+    <string name="inputMatrikelNr">Matrikelnr. eingeben</string>
+    <string name="matrikelNrDefault">&lt;Matrikelnr.&gt;</string>
+    <string name="key_matrikelNr">key_matrikelnr</string>
+    <string name="studySubject">Studienfach</string>
+    <string name="inputStudySubject">Studienfach eingeben</string>
+    <string name="studySubjectDefault">&lt;Studienfach&gt;</string>
+    <string name="key_studySubject">key_studienfach</string>
+    <string name="semester_">Semester</string>
+    <string name="inputSemester">Semester eingeben</string>
+    <string name="semesterDefault">&lt;Semester&gt;</string>
+    <string name="key_semester">key_semester</string>
+    <string name="avatar">Avatar</string>
+    <string name="key_checkAvatar">key_avatar</string>
+    <string name="show_avatar">Avatar anzeigen?</string>
+    <string name="email">Email</string>
+    <string name="inputEmail">Email eingeben</string>
+    <string name="emailDefault">&lt;Email&gt;</string>
+    <string name="key_editEmail">key_editEmail</string>
+    <string name="key_checkEmail">key_checkEmail</string>
+    <string name="sendEmail">Anmeldungsbestätigung senden?</string>
+    <string name="invalid_email">Ungültige Email</string>
 
-<!-- aA - zZ #########################       FINISH       ################################ -->
+
+    <!-- aA - zZ #########################       FINISH       ################################ -->
 
 
 

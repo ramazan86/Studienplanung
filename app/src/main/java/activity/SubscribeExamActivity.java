@@ -298,10 +298,7 @@ public class SubscribeExamActivity extends ActionBarActivity implements AdapterV
                                 openDialogEnrolleModule(data);
                             }
 
-
-
                             //myAlertDialog listener calls enrollForModule if user clicks "JA", otherwise nothing
-
 
                         }else {
                             alertDialogNotAllowed(getString(R.string.invalidDate),getString(R.string.dateWarning), MyHelper.CHECK_VALUE_ENROLL_WARNING_DATE);

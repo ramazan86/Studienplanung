@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -16,9 +17,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
+import activity.MySettings;
 import activity.MyTabActivity;
 import data.ModuleManual;
 import data.ModuleOrganizer;
+import email.MyEmail;
 import file.MyFile;
 import helper.MyHelper;
 import reader.ReadDataFromPdf;
@@ -61,6 +64,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         initComponents();
 
 
+
         //new ModuleOrganizer(this).desiredNoteAverage(2.5f);
 
        // myFile = new MyFile(this.getApplicationContext());
@@ -73,6 +77,22 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId()) {
+
+            case R.id.action_properties: openSettings(); break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void openSettings() {
+        startActivity(new Intent(this, MySettings.class));
     }
 
     public void initComponents() {
@@ -150,6 +170,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         alertBuilder.create().show();
     }
+
+
 
 
 }

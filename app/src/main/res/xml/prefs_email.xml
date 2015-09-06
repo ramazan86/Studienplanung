@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <EditTextPreference
+        android:title="@string/email"
+        android:dialogTitle="@string/inputEmail"
+        android:summary="@string/emailDefault"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:key="@string/key_editEmail"
+        android:id="@+id/editPref_email">
+    </EditTextPreference>
+
+
+    <CheckBoxPreference
+        android:title="@string/email"
+        android:defaultValue="true"
+        android:key="@string/key_checkEmail"
+        android:summary="@string/sendEmail">
+    </CheckBoxPreference>
+
+
+
+
+
+
+
+
+
+
+</PreferenceScreen>
