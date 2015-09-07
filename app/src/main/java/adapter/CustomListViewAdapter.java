@@ -45,6 +45,9 @@ public class CustomListViewAdapter extends ArrayAdapter<RowItem> {
         ViewHolder holder = null;
         RowItem rowItem = getItem(position);
 
+
+
+
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.adapter_view_settings, null);

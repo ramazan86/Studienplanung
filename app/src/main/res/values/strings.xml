@@ -5,7 +5,7 @@
 
     <!-- aA - eE-->
     <string name="app_name">Studienplanung</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Einstellungen</string>
     <string name="average">Durchschnitt:</string>
 
     <string name="calculated"><b><u>Berechnet:</u></b></string>
@@ -13,6 +13,7 @@
     <string name="close">Schliesen</string>
     <string name="cp">CP</string>
     <string name="cpPlural">CPs:</string>
+    <string name="cofirmationSend">Bestätigung gesendet ...</string>
 
     <string name="dateWarning">Prüfung darf nicht in der Vergangenheit oder am heutigen Tag liegen.</string>
     <string name="dateTime">Datum-/Uhrzeit:</string>

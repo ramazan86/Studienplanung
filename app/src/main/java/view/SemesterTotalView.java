@@ -3,6 +3,8 @@ package view;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -28,6 +30,7 @@ import adapter.CustomModuleListViewAdapter;
 import data.Module;
 import data.ModuleManual;
 import file.MyFile;
+import helper.MyHelper;
 
 /**
  * Created by Ramazan Cinardere} on 19.08.2015.
@@ -272,6 +275,12 @@ public class SemesterTotalView extends ActionBarActivity implements AdapterView.
                 textView_content.setTextSize(20);
                 textView_content.setBackgroundColor(getResources().getColor(R.color.gray));
 
+            //Page in moduleManual
+            TextView textView_page = (TextView) stateView.findViewById(R.id.moduleSingeView_page);
+                textView_page.setTypeface(Typeface.createFromAsset(getAssets(), MyHelper.FONTS[5]));
+                textView_page.setTextColor(Color.BLUE);
+                textView_page.setText("Seite " + System.getProperty("line.separator") +module.getPageOfModuleDescription() + System.getProperty("line.separator"));
+                textView_page.setTextSize(15);
 
 
                 textView_content.setOnClickListener(new View.OnClickListener() {

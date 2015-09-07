@@ -75,8 +75,19 @@ public abstract class MyHelper {
     public static final String MODULE_NOT_PASSED_THIRD_TRY  = "m_103";
 
     public static final String MODULE_NOT_ENROLLED_YET      = "m_000";
+    public static final String CHECK_VALUE_CP               = "check_cp";
+    public static final String CHECK_VALUE_AVG              = "check_avg";
 
 
+    public static String[] FONTS = {"Aller_Bd.ttf",
+            "Aller_BdIt.ttf",
+            "Aller_It.ttf",
+            "Aller_Lt.ttf",
+            "Aller_LtIt.ttf",
+            "Aller_Rg.ttf",
+            "AllerDisplay.ttf",
+            "black_jack.ttf"
+    };
 
 
 

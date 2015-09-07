@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
@@ -33,6 +34,7 @@ import data.Module;
 import data.ModuleManual;
 import data.ModuleOrganizer;
 import dialog.MyAlertDialog;
+import helper.MyHelper;
 
 
 /**
@@ -61,12 +63,14 @@ public class OverView extends Fragment implements View.OnClickListener {
                      textView_calcAvg   = null;
 
     private ImageButton imageButton_avgInfo       = null,
-                        imageButton_calcPrognosis = null;
+                        imageButton_calcPrognosis = null,
+                        imageButton_cp            = null;
 
     private LinearLayout.LayoutParams params  = null;
 
     private Bundle bundle_averageNotes     = null,
-                   bundle_calculateDesire  = null;
+                   bundle_calculateDesire  = null,
+                   bundle_creditPoints     = null;
 
     ////////////////////////////
     //       Constructor      //
@@ -115,7 +119,8 @@ public class OverView extends Fragment implements View.OnClickListener {
 
 
       //creditpoints
-        textView_cp.setText(textView_cp.getText() + " " +moduleOrganizer.getCreditPoints() + "/" +moduleManual.getTotalCreditPoints());
+        bundle_creditPoints = moduleOrganizer.getCreditPoints();
+        textView_cp.setText(bundle_creditPoints.getInt("cps") + "/" +moduleManual.getTotalCreditPoints());
 
         return rootView;
     }
@@ -138,10 +143,12 @@ public class OverView extends Fragment implements View.OnClickListener {
         //ImageButton
         imageButton_avgInfo = (ImageButton) rootView.findViewById(R.id.overViewGraduation_imageButton_avg);
         imageButton_calcPrognosis = (ImageButton) rootView.findViewById(R.id.overViewGraduation_imageButton_calc);
+        imageButton_cp = (ImageButton) rootView.findViewById(R.id.overViewGraduation_imageButton_cp);
 
         //add to listener
         imageButton_avgInfo.setOnClickListener(this);
         imageButton_calcPrognosis.setOnClickListener(this);
+        imageButton_cp.setOnClickListener(this);
     }
 
 
@@ -172,7 +179,7 @@ public class OverView extends Fragment implements View.OnClickListener {
                 //
                 for(int i = 0; i<list.size(); i++) {
 
-                    TextView tv = showTitlesAndNotes(list.get(i).getTitle(), list.get(i).getGrade());
+                    TextView tv = showTitlesAndNotes(list.get(i).getTitle(), list.get(i).getGrade(), MyHelper.CHECK_VALUE_AVG);
                     linearLayout.addView(tv);
                 }
                 // ---------------
@@ -191,60 +198,103 @@ public class OverView extends Fragment implements View.OnClickListener {
         }//
         else if(v.getId() == R.id.overViewGraduation_imageButton_calc) {
 
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            LayoutInflater factory_ = LayoutInflater.from(getActivity());
-            final View stateView_ = factory_.inflate(R.layout.dialog_input, null);
+
+            if(moduleOrganizer.getAverageNotes().getFloat("avg") != 0) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                LayoutInflater factory_ = LayoutInflater.from(getActivity());
+                final View stateView_ = factory_.inflate(R.layout.dialog_input, null);
+
+                textView_inputAvg.setVisibility(View.INVISIBLE);
+                textView_calcAvg.setVisibility(View.INVISIBLE);
+
+                final EditText input = (EditText) stateView_.findViewById(R.id.dialogInput_note);
+
+                builder.setView(stateView_);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                        float desire = 0, currentAvg = 0;
+
+                        try {
+                            desire =  Float.parseFloat(input.getText().toString());
+                            currentAvg = moduleOrganizer.getAverageNotes().getFloat("avg");
+                        }catch (Exception e) {
+                            Log.e(" ##### EXCEPTION: "," " +e.getMessage() + " " +e.getCause());
+
+                        }
+
+                        //note == input edittext;
+                        if(desire != 0.0f && currentAvg != 0.0f) {
+
+                            //calculation of desire avg is only given, if desireNote < currentAvg
+                            if(desire >= currentAvg) {
+                                showDialogInvalidInput(desire, currentAvg);
+                            }else {
+
+                                //calculated students desire avg note
+                                bundle_calculateDesire = moduleOrganizer.desiredNoteAverage(desire, 0);
+
+                                //if calculated note < desired note
+                                //sortArray[0] == best avgNote which is calculated
+                                if(desire < bundle_calculateDesire.getFloatArray("sortArray")[0]) {
+
+
+                                    showCalculatedAvgIsBiggerInput(desire);
+                                }else {
+                                    showCalculatedList(bundle_calculateDesire);
+                                }
+
+                            }
+                        }
+                    }
+                });
+
+                builder.create().show();
+
+            }else {
+                Toast.makeText(getActivity(), "Keine Noten vorhanden ...", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+        }
+
+        else if(v.getId() == R.id.overViewGraduation_imageButton_cp) {
+
+            headLine.setText(getActivity().getString(R.string.cpPlural));
+            ArrayList<Module> modules = (ArrayList<Module>) bundle_creditPoints.getSerializable("modules");
 
             textView_inputAvg.setVisibility(View.INVISIBLE);
             textView_calcAvg.setVisibility(View.INVISIBLE);
 
-            final EditText input = (EditText) stateView_.findViewById(R.id.dialogInput_note);
+            //
+            for(int i = 0; i<modules.size(); i++) {
 
-            builder.setView(stateView_);
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                TextView tv = showTitlesAndNotes(modules.get(i).getTitle(), modules.get(i).getCreditPoints(), MyHelper.CHECK_VALUE_CP);
+                linearLayout.addView(tv);
+            }
+            // ---------------
+
+            final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+            alertDialog.setView(stateView);
+
+            stateView.findViewById(R.id.dialogNoteAvg_imageButton_back).setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-
-                    float desire = 0, currentAvg = 0;
-
-                    try {
-                        desire =  Float.parseFloat(input.getText().toString());
-                        currentAvg = moduleOrganizer.getAverageNotes().getFloat("avg");
-                    }catch (Exception e) {
-                        Log.e(" ##### EXCEPTION: "," " +e.getMessage() + " " +e.getCause());
-
-                    }
-
-                    //note == input edittext;
-                    if(desire != 0.0f && currentAvg != 0.0f) {
-
-                        //calculation of desire avg is only given, if desireNote < currentAvg
-                        if(desire >= currentAvg) {
-                            showDialogInvalidInput(desire, currentAvg);
-                        }else {
-
-                            //calculated students desire avg note
-                            bundle_calculateDesire = moduleOrganizer.desiredNoteAverage(desire, 0);
-
-                            //if calculated note < desired note
-                            //sortArray[0] == best avgNote which is calculated
-                            if(desire < bundle_calculateDesire.getFloatArray("sortArray")[0]) {
-
-
-                                showCalculatedAvgIsBiggerInput(desire);
-                            }else {
-                                showCalculatedList(bundle_calculateDesire);
-                            }
-
-                        }
-                    }
+                public void onClick(View v) {
+                    alertDialog.dismiss();
                 }
             });
+            alertDialog.show();
 
-            builder.create().show();
+
+
+
 
         }
+
+
     }
 
     private void showCalculatedAvgIsBiggerInput(float desire) {
@@ -294,7 +344,7 @@ public class OverView extends Fragment implements View.OnClickListener {
 
         //set modules with respective notes into view
         for(int i = 0; i<list.size(); i++) {
-            TextView tv = showTitlesAndNotes(list.get(i).getTitle(), String.valueOf(1.0f));
+            TextView tv = showTitlesAndNotes(list.get(i).getTitle(), String.valueOf(1.0f), "");
             linearLayout.addView(tv);
         }
 
@@ -356,7 +406,7 @@ public class OverView extends Fragment implements View.OnClickListener {
 
         //set modules with respective notes into view
         for(int i = 0; i<list.size(); i++) {
-            TextView tv = showTitlesAndNotes(list.get(i).getTitle(), markList.get(i));
+            TextView tv = showTitlesAndNotes(list.get(i).getTitle(), markList.get(i), "");
             linearLayout.addView(tv);
         }
 
@@ -394,7 +444,7 @@ public class OverView extends Fragment implements View.OnClickListener {
 
     }
 
-    private TextView showTitlesAndNotes(String title, String grade) {
+    private TextView showTitlesAndNotes(String title, String grade, String checkVal) {
 
 
         TextView textView_title = new TextView(getActivity());
@@ -411,14 +461,14 @@ public class OverView extends Fragment implements View.OnClickListener {
         String s = title + " (" +grade + ")";
 
         Spannable spannable = new SpannableString(s);
-        int color;
+        int color = getActivity().getResources().getColor(R.color.green);;
 
 
-        //change color of grade
-        if(grade.equals("5") || grade.equals("5.0")) {
-            color = Color.RED;
-        }else {
-            color = getActivity().getResources().getColor(R.color.green);
+        if(!checkVal.equals(MyHelper.CHECK_VALUE_CP)) {
+            //change color of grade
+            if(grade.equals("5") || grade.equals("5.0")) {
+                color = Color.RED;
+            }
         }
 
 

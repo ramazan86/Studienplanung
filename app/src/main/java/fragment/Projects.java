@@ -57,21 +57,16 @@ public class Projects extends ListFragment {
             for(int i = 0; i<modules.size(); i++){
                 values[i] = modules.get(i).getTitle();
             }
-        }else {
-            values = new String[] {getActivity().getApplicationContext().getString(R.string.notANumber)};
+
+
+
+
+            //Angemeldet
+            adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values, this);
+            adapter.setActivity(getActivity());
+            setListAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }
-
-
-
-
-        //Angemeldet
-        adapter = new MySimpleArrayAdapter(getActivity().getApplicationContext(), values, this);
-        adapter.setActivity(getActivity());
-        setListAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
-
-
 
         return inflater.inflate(R.layout.my_fragment, container, false);
     }

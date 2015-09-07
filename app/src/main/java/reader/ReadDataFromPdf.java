@@ -73,7 +73,6 @@ public class ReadDataFromPdf extends AsyncTask<String,Void,Void>{
 
 	private Context context = null;
 
-	private TextView textView = null;
 
 	/** # ############# #
 	 #  Constructor  #
@@ -86,7 +85,6 @@ public class ReadDataFromPdf extends AsyncTask<String,Void,Void>{
 		this.pageList = new ArrayList<>();
 		this.context = mainActivity.getApplicationContext();
 
-		textView = (TextView) mainActivity.findViewById(R.id.txtView_counter);
 
 		try{
 			//this.numberOfPages = getNumberOfPages();
@@ -122,6 +120,10 @@ public class ReadDataFromPdf extends AsyncTask<String,Void,Void>{
 			if(contentList.size() != 0) {
 				contentList.clear();
 			}
+
+
+
+            Log.e(" ======>>> "," <<<======== ");
 			
 			try {
 
@@ -148,8 +150,11 @@ public class ReadDataFromPdf extends AsyncTask<String,Void,Void>{
 					String content = st.nextToken();
 					contentList.add(content);
 
-					textView.setText("" + i);
 					Log.e("" +i,content);
+
+                    if(i >= 14 && i<= 40) {
+                        extractTitlePage(i, content);
+                    }
 
 
 					
@@ -467,7 +472,10 @@ public class ReadDataFromPdf extends AsyncTask<String,Void,Void>{
 			String university = contentList.get(i-4) + " " + contentList.get(i-3) + " " +contentList.get(i-2) + " " +contentList.get(i-1);
 			moduleManual.setUniversity(university);
 		}
-		
+
+
+
+        Log.e("extractTitelpage: "," " +moduleManual.getFaculty());
 		
 		
 		

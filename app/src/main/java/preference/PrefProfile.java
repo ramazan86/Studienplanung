@@ -68,9 +68,6 @@ public class PrefProfile extends MyPrefPattern {
     public void onCreate(Bundle savedInstanceState) {
         myFrag = new mySubClass();
         super.onCreate(savedInstanceState);
-
-        student = new Student();
-
     }
 
 
@@ -97,28 +94,6 @@ public class PrefProfile extends MyPrefPattern {
 
         Log.e("onPause()."+getClass().getName()," XXXX ");
 
-
-        if(!student.getName().equals("") || !student.getMatrikelNumber().equals("")
-                || !student.getSemester().equals("") || !student.getStudySubject().equals("")) {
-
-            MyFile myFile = new MyFile(this);
-
-            if(myFile.checkIfFileExists(getString(R.string.file_studentSer))) {
-
-               Student tmp = (Student) myFile.getObjectFromFile(getString(R.string.file_studentSer));
-
-                if(!tmp.getName().equals(student.getName())
-                        || !tmp.getMatrikelNumber().equals(student.getMatrikelNumber())
-                        || !tmp.getStudySubject().equals(student.getStudySubject())
-                        || !tmp.getSemester().equals(student.getSemester())
-                        || !tmp.isShowAvatar() != student.isShowAvatar()) {
-
-                    myFile.createFileAndWriteObject(getString(R.string.file_studentSer), student);
-                }
-            }else {
-                myFile.createFileAndWriteObject(getString(R.string.file_studentSer), student);
-            }
-        }
     }//onPause
 
 
@@ -139,25 +114,28 @@ public class PrefProfile extends MyPrefPattern {
                 myFile = new MyFile(getActivity());
             }
 
-            Student tmpStud = (Student) myFile.getObjectFromFile(getActivity().getString(R.string.file_studentSer));
+            try {
+                student = (Student) myFile.getObjectFromFile(getActivity().getString(R.string.file_studentSer));
+            }catch (Exception e) {
+            }
+
+            if(student == null) {
+                student = new Student();
+            }
 
 
-            if(!tmpStud.getName().equals("")) {
-                setTextSummary(R.string.key_userName, tmpStud.getName());
+
+            if(student != null) {
+                setTextSummary(R.string.key_userName, student.getName());
+                setTextSummary(R.string.key_matrikelNr, student.getMatrikelNumber());
+                setTextSummary(R.string.key_studySubject, student.getStudySubject());
+                setTextSummary(R.string.key_semester, student.getSemester());
             }
-            if(!tmpStud.getMatrikelNumber().equals("")) {
-                setTextSummary(R.string.key_matrikelNr, tmpStud.getMatrikelNumber());
-            }
-            if(!tmpStud.getStudySubject().equals("")) {
-                setTextSummary(R.string.key_studySubject, tmpStud.getStudySubject());
-            }
-            if(!tmpStud.getSemester().equals("")){
-                setTextSummary(R.string.key_semester, tmpStud.getSemester());
-            }
+
 
             //set check mark to the state of the user
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference) findPreference(getString(R.string.key_checkAvatar));
-                checkBoxPreference.setChecked(student.isShowAvatar());
+                //checkBoxPreference.setChecked(student.isShowAvatar());
 
 
         }
@@ -218,6 +196,7 @@ public class PrefProfile extends MyPrefPattern {
 
 
                 case "key_avatar":
+                    Log.e(" key_avatar: " ," " +sharedPreferences.getBoolean(key,false));
                     student.setShowAvatar(sharedPreferences.getBoolean(key, false));
                     break;
 
@@ -256,6 +235,7 @@ public class PrefProfile extends MyPrefPattern {
 
 
             if(student.getName().equals(getString(R.string.notANumber))) {
+                Log.e("====> "," " +name.getText().toString());
                 student.setName(name.getText().toString());
             }
 
@@ -270,6 +250,17 @@ public class PrefProfile extends MyPrefPattern {
             if(student.getSemester().equals(getString(R.string.notANumber))) {
                 student.setSemester(semest.getText().toString());
             }
+
+
+            try {
+                new MyFile(getApplicationContext()).createFileAndWriteObject(getString(R.string.file_studentSer), student);
+            }catch (Exception e) {
+
+            }
+
+
+
+
 
             super.onPause();
         }

@@ -28,22 +28,54 @@
 
         android:layout_marginTop="62dp"
 
-        android:id="@+id/txtView_counter"/>
+        android:id="@+id/activityMain_textView_overview"/>
 
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_8"
         android:src="@drawable/examination"
-        android:layout_alignParentBottom="true"
+
         android:clickable="true"
-        android:layout_alignLeft="@+id/activityMain_imgBtn_moduleOverView"
-        android:layout_alignStart="@+id/activityMain_imgBtn_moduleOverView"
-        android:layout_marginBottom="62dp"
         android:background="@null"
 
-        android:id="@+id/activityMain_imgBtn_examination"/>
+        android:id="@+id/activityMain_imgBtn_examination"
+        android:layout_marginTop="66dp"
+        android:layout_below="@+id/activityMain_imgBtn_avatar" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Noten &amp; Prüfungen"
+
+        android:id="@+id/activityMain_textView_notesAndExames"
+        android:layout_below="@+id/activityMain_imgBtn_examination"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/avatar_48x48"
+        android:id="@+id/activityMain_imgBtn_avatar"
+        android:background="@null"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/activityMain_textView_overview"
+        android:layout_toEndOf="@+id/activityMain_textView_overview" />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:background="@null"
+        android:src="@drawable/pdf_download_72"
+        android:id="@+id/activityMain_imgBtn_pdf"
+        android:layout_above="@+id/activityMain_imgBtn_avatar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

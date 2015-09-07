@@ -186,7 +186,7 @@ public class MyFile {
 
     }
 
-    public void createFolders() {
+    public boolean createFolders() {
 
 
         wrapFolder = new File(Environment.getExternalStorageDirectory(), context.getResources().getString(R.string.app_name));
@@ -199,20 +199,15 @@ public class MyFile {
             if(!serFolder.exists()) {
                 serFolder.mkdirs();
             }
-        }
 
-
-    }
-
-    public boolean writeObjectIntoFile(String fileName) {
-
-        try {
             return true;
-        }catch (Exception e) {
-            return false;
         }
 
+        return false;
+
     }
+
+
 
 
 }

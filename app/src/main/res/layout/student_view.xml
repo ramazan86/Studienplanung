@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_2"
+    android:background="@color/light_blue_2"
+    android:id="@+id/user_view_LinearLayoutRoot">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:id="@+id/user_view_LinearLayoutPreName">
+
+        <TextView
+            style="@style/userViewPrefs"
+            android:id="@+id/user_view_preNamePref"
+            android:text="@string/userName"/>
+
+        <TextView
+            style="@style/userViewInit"
+            android:layout_height="@dimen/dimen_12"
+            android:id="@+id/studentView_textView_name">
+        </TextView>
+     </LinearLayout>
+
+
+
+    <LinearLayout
+        style="@style/linearLayout2dp"
+        >
+
+        <TextView
+            style="@style/userViewPrefs"
+            android:text="@string/matrikelNr"/>
+
+        <TextView
+            style="@style/userViewInit"
+            android:id="@+id/studentView_textView_matrikleNr"
+            android:text="asdf"/>
+     </LinearLayout>
+
+
+    <LinearLayout
+        style="@style/linearLayout2dp">
+
+        <TextView
+            style="@style/userViewPrefs"
+            android:text="@string/studySubject"/>
+
+        <TextView
+            style="@style/userViewInit"
+            android:id="@+id/studentView_textView_subject"
+            android:text="asdf"/>
+     </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearLayout2dp">
+
+        <TextView
+            style="@style/userViewPrefs"
+            android:text="@string/semester_"/>
+
+        <TextView
+            style="@style/userViewInit"
+            android:id="@+id/studentView_textView_semester"
+            android:text="asdf"/>
+     </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearLayout2dp"
+
+        android:layout_marginBottom="@dimen/dimen_1">
+
+        <TextView
+            style="@style/userViewPrefs"
+            android:text="@string/email"/>
+
+        <TextView
+            style="@style/userViewInit"
+            android:id="@+id/studentView_textView_email"
+            android:text="asdf"/>
+     </LinearLayout>
+
+    <LinearLayout
+        style="@style/linearLayout2dp"
+
+        android:layout_marginBottom="@dimen/dimen_1">
+
+        <TextView
+            style="@style/userViewPrefs"
+            />
+
+        <TextView
+            style="@style/userViewInit"/>
+     </LinearLayout>
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_32x32"
+        android:id="@+id/studentView_imageButton_back"
+        android:layout_gravity="right" />
+
+
+</LinearLayout>

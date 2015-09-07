@@ -160,14 +160,16 @@ public class MySimpleArrayAdapter extends ArrayAdapter <String> implements View.
 
 
         if(unSubscribedExams != null) {
-            adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.longClickModule_2));
+            adapter = new CustomModuleListViewAdapter(fragmentActivity, context.getResources().getStringArray(R.array.longClickModule_2));
         }
         else if(completedExams != null || projects != null) {
-            adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, new String[]{context.getResources().getStringArray(R.array.longClickModule_1)[1]});
+            adapter = new CustomModuleListViewAdapter(fragmentActivity, context.getResources().getStringArray(R.array.longClickModule_1));
+            //adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, new String[]{context.getResources().getStringArray(R.array.longClickModule_1)[1]});
         }
 
         else if(enrolledExams != null){
-            adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.longClickModule_1));
+            adapter = new CustomModuleListViewAdapter(fragmentActivity, context.getResources().getStringArray(R.array.longClickModule_1));
+            //adapter = new ArrayAdapter<String>(fragmentActivity, android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.longClickModule_1));
         }
 
         myAlertDialog.setAdapter(adapter, this);

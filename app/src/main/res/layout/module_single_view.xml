@@ -91,12 +91,27 @@
     </LinearLayout>
 
 
-       <ImageButton
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:src="@drawable/back_32x32"
-           android:layout_marginLeft="@dimen/dimen_55"
-           android:id="@+id/moduleSingleView_imgButton_back"/>
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal">
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="asdfasd"
+             android:id="@+id/moduleSingeView_page"/>
+
+
+         <ImageButton
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="@dimen/dimen_48"
+             android:src="@drawable/back_32x32"
+             android:id="@+id/moduleSingleView_imgButton_back"/>
+
+         </LinearLayout>
 
 
 

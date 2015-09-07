@@ -35,7 +35,7 @@ public interface ModuleAdministrator {
     public Bundle desiredNoteAverage(float desire, int maxLimit);
 
     public Bundle getAverageNotes();
-    public int getCreditPoints();
+    public Bundle getCreditPoints();
 
     public int getStateDrawable(String moduleTitle);
 

@@ -67,11 +67,6 @@ public class PrefEmail extends MyPrefPattern {
     public void onCreate(Bundle savedInstanceState) {
         myFrag = new mySubClass();
         super.onCreate(savedInstanceState);
-
-        if(student == null) {
-            student = new Student();
-        }
-
     }
 
 
@@ -95,34 +90,6 @@ public class PrefEmail extends MyPrefPattern {
     @Override
     protected void onPause() {
         super.onPause();
-
-        Log.e("onPause()." + getClass().getName(), " --- ");
-
-        MyFile myFile = new MyFile(this);
-        Student tmpStudent = null;
-
-        if(myFile.checkIfFileExists(getString(R.string.file_studentSer))) {
-
-            tmpStudent = (Student) myFile.getObjectFromFile(getString(R.string.file_studentSer));
-
-            if(student.isSendEmail() != tmpStudent.isSendEmail()
-                || !student.getEmail().equals(tmpStudent.getEmail())) {
-                myFile.createFileAndWriteObject(getString(R.string.file_studentSer), student);
-            }
-            Log.e("SAVE_OBJECT_IF: "," " +student.getEmail());
-            myFile.createFileAndWriteObject(getString(R.string.file_studentSer), student);
-
-        }else {
-
-
-
-            Log.e("SAVE_OBJECT_ELSE: "," " +student.getEmail());
-            myFile.createFileAndWriteObject(getString(R.string.file_studentSer), student);
-        }
-
-
-
-
     }//onPause
 
 
@@ -141,19 +108,21 @@ public class PrefEmail extends MyPrefPattern {
 
             if(myFile == myFile) myFile = new MyFile(getActivity());
 
+            try {
+                student = (Student) myFile.getObjectFromFile(getActivity().getString(R.string.file_studentSer));
+            }catch (Exception e) {
 
-            Student stud = (Student) myFile.getObjectFromFile(getActivity().getString(R.string.file_studentSer));
-
-            Log.e("email: " +stud.getEmail()," checked: " +stud.isSendEmail()) ;
-
-
-
-            if(!stud.getEmail().equals(getActivity().getString(R.string.notANumber))) {
-                setTextSummary(R.string.key_editEmail, stud.getEmail());
             }
 
+
+            if(student == null) {
+                student = new Student();
+            }
+
+            setTextSummary(R.string.key_editEmail, student.getEmail());
+
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference) findPreference(getString(R.string.key_checkEmail));
-            checkBoxPreference.setChecked(stud.isSendEmail());
+            checkBoxPreference.setChecked(student.isSendEmail());
 
 
         }
@@ -209,8 +178,19 @@ public class PrefEmail extends MyPrefPattern {
 
             EditTextPreference editText = (EditTextPreference) findPreference(getString(R.string.key_editEmail));
 
-            if(student.getEmail().equals(getString(R.string.notANumber))) {
-                student.setEmail(editText.getText().toString());
+            student.setEmail(editText.getText().toString());
+
+            CheckBoxPreference checkBoxPreference = (CheckBoxPreference) findPreference(getString(R.string.key_checkEmail));
+                student.setSendEmail(checkBoxPreference.isChecked());
+
+            try {
+
+                if(!student.getEmail().equals(editText.getText().toString())) {
+                    new MyFile(getApplicationContext()).createFileAndWriteObject(getString(R.string.file_studentSer), student);
+                }
+
+            }catch (Exception e) {
+
             }
 
             super.onPause();

@@ -50,11 +50,7 @@
             android:id="@+id/overviewGraduation_textView_notPassed"/>
 
 
-        <TextView
-            style="@style/textView_overView"
-            android:text="@string/cpPlural"
 
-            android:id="@+id/overviewGraduation_textView_creditPoints"/>
     </LinearLayout>
 
     <View
@@ -158,9 +154,6 @@
 
     </LinearLayout>
 
-
-
-
     <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/dimen_2"
@@ -171,6 +164,57 @@
         android:layout_below="@+id/overViewGraduation_linearLayout_wrapNotes"
         android:id="@+id/overViewGraduation_view_2">
     </View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_3"
+        android:orientation="horizontal"
+        android:layout_below="@+id/overViewGraduation_view_2">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textSize="@dimen/dimen_7"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="@string/cp"
+
+            android:id="@+id/overviewGraduation_textView_cp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_2"
+        android:padding="@dimen/dimen_3"
+        android:orientation="horizontal"
+        android:layout_below="@id/overViewGraduation_view_2">
+
+        <TextView
+            style="@style/textView_overView"
+            android:layout_marginLeft="@dimen/dimen_55"
+            android:layout_gravity="end|right"
+
+
+            android:textSize="@dimen/dimen_6"
+            android:id="@+id/overviewGraduation_textView_creditPoints"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_2"
+            android:src="@drawable/info_24x24"
+
+
+            android:background="@null"
+            android:id="@+id/overViewGraduation_imageButton_cp"/>
+
+   </LinearLayout>
 
 
 

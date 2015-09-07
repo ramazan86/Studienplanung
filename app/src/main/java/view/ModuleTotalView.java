@@ -1,6 +1,7 @@
 package view;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -14,9 +15,11 @@ import android.widget.TextView;
 import com.cinardere_ramazan_ba_2015.studienplanung.R;
 
 import java.io.LineNumberReader;
+import java.lang.reflect.Type;
 
 import data.Module;
 import data.ModuleManual;
+import helper.MyHelper;
 
 /**
  * Created by Ramazan Cinardere} on 20.08.2015.

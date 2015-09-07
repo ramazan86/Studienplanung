@@ -72,16 +72,13 @@ public class MyEmail{
 
         String content = "<h><img src='http://fs1.directupload.net/images/150906/ripjxqck.jpg'><br>"
                 +"<p><b>Pr&uuml;fung erfolgreich angemeldet</b> <br><br>"
-                +"<p>Hallo " +student.getName() + ","
-                +"du hast dich erfolgreich f&uml;r deine Pr&uml;fung angemeldet. <br>"
+                +"<p>Hallo " +student.getName() + ",<br>"
+                +"du hast dich erfolgreich f&uuml;r die Pr&uuml;fung angemeldet. <br>"
                 +"<p>Modul: " +module.getTitle() + "<br>"
                 +"<p>Datum: " +module.getDateOfExam() + "<br>"
                 +"<p>Uhrzeit: " +module.getTimeOfExam() + "<br>"
                 +"<br><br>"
-                +"Viel Erfolg bei deiner Klausur";
-
-
-
+                +"Viel Erfolg bei der Klausur!!";
 
 
         mailTo = mailTo.replace("\\s","");
@@ -137,17 +134,11 @@ public class MyEmail{
         }
 
         @Override
-        protected void onPreExecute() {
-
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            Toast.makeText(context, "Email erfolgreich gesendet ...", Toast.LENGTH_SHORT).show();
-            super.onPreExecute();
+        protected void onPostExecute(String s) {
+            Toast.makeText(context, context.getString(R.string.cofirmationSend), Toast.LENGTH_SHORT).show();
+            super.onPostExecute(s);
         }
+
 
         public boolean send(String mailTo, String subject, String content) {
 

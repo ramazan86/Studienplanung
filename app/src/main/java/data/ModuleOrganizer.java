@@ -102,19 +102,10 @@ public class ModuleOrganizer implements ModuleAdministrator {
 
 
         if(stud.isSendEmail()) {
-
-
-        new MyEmail(context).sendEmail(stud.getEmail(), context.getString(R.string.enrolledAt), module);
-
-
-
-
+            if(!stud.getEmail().equals(context.getString(R.string.notANumber))) {
+                new MyEmail(context).sendEmail(stud.getEmail(), context.getString(R.string.enrolledAt), module);
+            }
         }
-
-
-
-
-
 
         return true;
     }
@@ -346,7 +337,6 @@ public class ModuleOrganizer implements ModuleAdministrator {
         return bundle;
     }
 
-
     @Override
     public Bundle desiredNoteAverage(float desire, int maxLimit) {
 
@@ -557,10 +547,12 @@ public class ModuleOrganizer implements ModuleAdministrator {
     }
 
     @Override
-    public int getCreditPoints() {
+    public Bundle getCreditPoints() {
 
         if(moduleManual == null) moduleManual = ModuleManual.getInstance(context);
         int creditPoints = 0;
+        ArrayList<Module> modules = new ArrayList<>();
+        Bundle bundle = new Bundle();
 
         for(int i = 0; i<moduleManual.getModuleList().size(); i++) {
 
@@ -568,10 +560,15 @@ public class ModuleOrganizer implements ModuleAdministrator {
 
             if(tmp.isPassed()) {
                 creditPoints += Integer.parseInt(tmp.getCreditPoints());
+                modules.add(tmp);
             }
         }
 
-        return creditPoints;
+        bundle.putSerializable("modules",modules);
+        bundle.putInt("cps",creditPoints);
+
+
+        return bundle;
     }
 
     @Override
@@ -604,9 +601,13 @@ public class ModuleOrganizer implements ModuleAdministrator {
 
         for(int i = 0; i<states.length; i++) {
 
-            if(tmp.getStateOf().equals(states[i])) {
-                return drawables[i];
+            if(tmp != null) {
+                if(tmp.getStateOf().equals(states[i])) {
+                    return drawables[i];
+                }
             }
+
+
         }
 
         return 0;
